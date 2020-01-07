@@ -17,6 +17,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('backend.dashboard.index');
 });
+//Department all route here
+Route::resource('department','Backend\DepartmentController');
 
 Auth::routes();
 

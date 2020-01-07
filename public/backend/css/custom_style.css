@@ -1,1 +1,13 @@
-
+.ibox-tools {
+    margin-top: 35px;
+}
+.form-horizontal .form-group {
+    margin-right: 0;
+    margin-left: 0;
+}
+.control-label {
+    padding-top: 0px!important;
+}
+.required-star {
+    color: red;
+}
