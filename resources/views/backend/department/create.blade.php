@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
+        <div class="col-lg-8">
             <h2>Department Add</h2>
             <ol class="breadcrumb">
                 <li>
@@ -15,8 +15,12 @@
                 </li>
             </ol>
         </div>
-        <div class="col-lg-2">
-
+        <div class="col-lg-3">
+            @if(session('success'))
+                <span class="text-success float-right" role="alert">
+                    <strong>{{session('success')}}</strong>
+                </span>
+            @endif
         </div>
     </div>
     <br>

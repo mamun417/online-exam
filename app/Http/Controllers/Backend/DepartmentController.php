@@ -37,7 +37,17 @@ class DepartmentController extends Controller
      */
     public function store(Request $request, Department $department)
     {
+        $request->validate([
+            'name' => 'required|unique:departments',
+        ]);
 
+        $request['code'] = strtolower(str_replace(' ', '-', $request->name));
+        $department = new Department($request->all());
+        if($department->save()){
+            return back()->with('success','Department Save Success');
+        }else{
+            return back()->with('success','Department Could not be Save');
+        }
     }
 
     /**
