@@ -23,19 +23,21 @@
             @endif
         </div>
     </div>
-    <br>
-    <br>
-    <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-content">
-                <form class="form-horizontal" method="POST" action="{{ route('subject.store') }}">
-                    @csrf
-                   @include('backend.subject.element')
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal" method="POST" action="{{ route('subject.store') }}">
+                            @csrf
+                           @include('backend.subject.element')
 
-                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Submit</strong></button>
-                    <br>
-                    <br>
-                </form>
+                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Submit</strong></button>
+                            <br>
+                            <br>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -19,19 +19,21 @@
 
         </div>
     </div>
-    <br>
-    <br>
-    <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-content">
-                <form class="form-horizontal" method="POST" action="{{ route('department.update',$department->id) }}">
-                    @csrf
-                    @method('PUT')
-                    @include('backend.department.element')
-                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
-                    <br>
-                    <br>
-                </form>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal" method="POST" action="{{ route('department.update',$department->id) }}">
+                            @csrf
+                            @method('PUT')
+                            @include('backend.department.element')
+                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
+                            <br>
+                            <br>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

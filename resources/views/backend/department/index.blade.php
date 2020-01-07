@@ -73,36 +73,40 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-example dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" role="grid">
                                     <thead>
                                     <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 175px;">Sl No</th>
-                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 218px;">Department Name</th>
-                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 105px;">Department Code</th>
-                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 105px;">Action</th>
+                                        <th class="sorting_asc center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 175px;">Sl No</th>
+                                        <th class="sorting center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 218px;">Department Name</th>
+                                        <th class="sorting center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 105px;">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php $count = 1?>
                                     @foreach($departments as $department)
                                         <tr class="gradeA odd" role="row">
-                                            <td class="sorting_1">{{ $count++ }}</td>
-                                            <td>{{ $department->name }}</td>
-                                            <td class="center">{{ $department->code }}</td>
+                                            <td class="sorting_1 center">{{ $count++ }}</td>
+                                            <td class="center">{{ $department->name }}</td>
                                             <td class="center">
-                                                <a title="Edit" href="{{ route('department.edit',$department->id) }}" class="btn btn-success"> <i class="fa fa-pencil-square-o"></i></a>
+                                                <div class="row">
+                                                    <div class="col-sm-3"></div>
+                                                    <div class="col-sm-6">
+                                                        <a title="Edit" href="{{ route('department.edit',$department->id) }}" class="btn btn-success"> <i class="fa fa-pencil-square-o"></i></a>
 
-                                                <form action="{{ route('department.destroy',$department->id) }}" class="delete-button-style" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" onclick="alert('Sure this item delete')" title="Delete"  data-toggle="modal" data-target="#myModal13" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </form>
+                                                        <form action="{{ route('department.destroy',$department->id) }}" class="delete-button-style" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" onclick="alert('Sure this item delete')" title="Delete"  data-toggle="modal" data-target="#myModal13" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-sm-3"></div>
+                                                </div>
                                             </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
-                                    <tr><th rowspan="1" colspan="1">SL NO</th>
-                                        <th rowspan="1" colspan="1">Department Name</th>
-                                        <th rowspan="1" colspan="1">Department Code</th>
-                                        <th rowspan="1" colspan="1">Action</th>
+                                    <tr>
+                                        <th class="center" rowspan="1" colspan="1">SL NO</th>
+                                        <th class="center" rowspan="1" colspan="1">Department Name</th>
+                                        <th class="center" rowspan="1" colspan="1">Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>
