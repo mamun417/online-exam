@@ -1,5 +1,6 @@
 <br>
 <br>
+
 <div class="form-group"><label class="col-lg-2 control-label">Subject Name<span class="required-star"> *</span></label>
     <div class="col-lg-10">
         <input type="text" value="{{isset($subject->name) ? $subject->name:old('name')}}" name="name" placeholder="Subject Name" class="form-control">
@@ -34,4 +35,3 @@
         </div>
     </div>
 </div>--}}
-

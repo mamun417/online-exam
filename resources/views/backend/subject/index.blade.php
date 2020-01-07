@@ -111,6 +111,7 @@
                                     </tr>
                                     </tfoot>
                                 </table>
+
                                 <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                                     <ul class="pagination">
                                         <li class="paginate_button previous disabled" id="DataTables_Table_0_previous">

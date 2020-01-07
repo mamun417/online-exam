@@ -8,3 +8,4 @@ class Subject extends Model
 {
     protected $fillable = ['name','subject_code','code','is_active','is_deleted'];
 }
+

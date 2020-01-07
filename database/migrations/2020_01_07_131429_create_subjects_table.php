@@ -24,6 +24,7 @@ class CreateSubjectsTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

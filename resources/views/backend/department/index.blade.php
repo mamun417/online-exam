@@ -4,9 +4,7 @@
         <div class="col-lg-9">
             <h2>Data Tables</h2>
             <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
+                <li><a href="index.html">Home</a></li>
                 <li>
                     <a>Tables</a>
                 </li>
