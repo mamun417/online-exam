@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
+        <div class="col-lg-9">
             <h2>Data Tables</h2>
             <ol class="breadcrumb">
                 <li>
@@ -15,7 +15,7 @@
                 </li>
             </ol>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-3">
             <div class="ibox-tools">
                 <a href="{{ route('department.create') }}" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><i class="fa fa-plus"></i> <strong>Create</strong></a>
             </div>
@@ -28,6 +28,11 @@
                     <div class="ibox-title">
                         <h5>Basic Data Tables example with responsive plugin</h5>
                         <div class="ibox-tools">
+                            @if(session('success'))
+                                <span class="text-success float-right" role="alert">
+                                    <strong>{{session('success')}}</strong>
+                                </span>
+                            @endif
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
@@ -99,7 +104,7 @@
                                         <th rowspan="1" colspan="1">Department Name</th>
                                         <th rowspan="1" colspan="1">Deleted</th>
                                         <th rowspan="1" colspan="1">Active</th>
-                                        <th rowspan="1" colspan="1">Department Code</th>tr>
+                                        <th rowspan="1" colspan="1">Department Code</th>
                                         <th rowspan="1" colspan="1">Action</th>
                                     </tr>
                                     </tfoot>

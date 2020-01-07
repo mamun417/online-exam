@@ -69,7 +69,8 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $department = Department::find($id);
+        return view('backend.department.edit',compact('department'));
     }
 
     /**
@@ -79,9 +80,20 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Department $department)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $request['code'] = strtolower(str_replace(' ', '-', $request->name));
+        $update = $department->update($request->all());
+        if($update){
+            return redirect(route('department.index'))->with('success','Department Updated Success');
+        }else{
+            return redirect(route('department.index'))->with('success','Department Could not be Updated');
+        }
+
     }
 
     /**
