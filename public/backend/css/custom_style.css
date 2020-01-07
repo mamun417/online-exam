@@ -11,4 +11,7 @@
 .required-star {
     color: red;
 }
+.delete-button-style {
+    float: right;
+}
 

@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class="form-group">
+{{--<div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
         <div class="i-checks">
             <label class="">
@@ -24,17 +24,6 @@
                 <i></i> Active
             </label>
         </div>
-        <br>
-
-        <div class="i-checks">
-            <label class="">
-                <div class="icheckbox_square-green" style="position: relative;">
-                    <input type="checkbox" {{ (isset($department->is_deleted) AND $department->is_deleted == 1) ? 'checked':'' }} value="1" name="is_deleted" style="position: absolute; opacity: 0;">
-                    <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                </div><i></i> Deleted
-            </label>
-        </div>
     </div>
-</div>
-<br>
-<br>
+</div>--}}
+

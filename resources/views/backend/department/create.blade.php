@@ -33,6 +33,9 @@
                    @include('backend.department.element')
 
                     <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Submit</strong></button>
+                    <br>
+                    <br>
+
                 </form>
             </div>
         </div>

@@ -94,7 +94,12 @@
                                             <td class="center">{{ $department->code }}</td>
                                             <td class="center">
                                                 <a title="Edit" href="{{ route('department.edit',$department->id) }}" class="btn btn-success"> <i class="fa fa-pencil-square-o"></i></a>
-                                                <a title="Delete" href="{{ route('department.destroy',$department->id) }}" data-toggle="modal" data-target="#myModal13" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+
+                                                <form action="{{ route('department.destroy',$department->id) }}" class="delete-button-style" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" title="Delete"  data-toggle="modal" data-target="#myModal13" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
