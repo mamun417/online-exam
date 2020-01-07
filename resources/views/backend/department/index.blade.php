@@ -77,8 +77,6 @@
                                     <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 175px;">Sl No</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 218px;">Department Name</th>
-                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 196px;">Deleted</th>
-                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 149px;">Active</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 105px;">Department Code</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 105px;">Action</th>
                                     </tr>
@@ -89,8 +87,6 @@
                                         <tr class="gradeA odd" role="row">
                                             <td class="sorting_1">{{ $count++ }}</td>
                                             <td>{{ $department->name }}</td>
-                                            <td>{{ $department->is_deleted }}</td>
-                                            <td class="center">{{ $department->is_active }}</td>
                                             <td class="center">{{ $department->code }}</td>
                                             <td class="center">
                                                 <a title="Edit" href="{{ route('department.edit',$department->id) }}" class="btn btn-success"> <i class="fa fa-pencil-square-o"></i></a>
@@ -98,7 +94,7 @@
                                                 <form action="{{ route('department.destroy',$department->id) }}" class="delete-button-style" method="post">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" title="Delete"  data-toggle="modal" data-target="#myModal13" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                    <button type="submit" onclick="alert('Sure this item delete')" title="Delete"  data-toggle="modal" data-target="#myModal13" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -107,8 +103,6 @@
                                     <tfoot>
                                     <tr><th rowspan="1" colspan="1">SL NO</th>
                                         <th rowspan="1" colspan="1">Department Name</th>
-                                        <th rowspan="1" colspan="1">Deleted</th>
-                                        <th rowspan="1" colspan="1">Active</th>
                                         <th rowspan="1" colspan="1">Department Code</th>
                                         <th rowspan="1" colspan="1">Action</th>
                                     </tr>

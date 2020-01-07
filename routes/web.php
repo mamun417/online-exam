@@ -20,6 +20,8 @@ Route::get('/dashboard', function () {
 //Department all route here
 Route::resource('department','Backend\DepartmentController');
 
+//Subject all route here
+Route::resource('subject','Backend\SubjectController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
