@@ -27,7 +27,7 @@
                 <form class="form-horizontal" method="POST" action="{{ route('department.update') }}">
 
                     @include('backend.department.element')
-
+                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
                 </form>
             </div>
         </div>
