@@ -26,37 +26,33 @@
                         <h5>Departments</h5>
                     </div>
                     <div class="ibox-content">
-
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th  style=" text-align: center; width: 80px">Sl No</th>
-                                <th  style=" text-align: center;">Department Name</th>
-                                <th  style=" text-align: center; width: 80px">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php $count = 1?>
-                            @foreach($departments as $department)
-                                <tr>
-                                    <td  style="text-align: center; width: 80px">{{ $count++ }}</td>
-                                    <td  style="text-align: center">{{ $department->name }}</td>
-                                    <td  style="text-align: center; width: 80px">
-                                        <div style="width: 80px">
-                                            <a title="Edit" href="{{ route('department.edit',$department->id) }}" class="btn btn-success fs-btn-success btn-outline"> <i class="fa fa-pencil-square-o"></i></a>
-                                            <form action="{{ route('department.destroy',$department->id) }}" class="delete-button-style" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" onclick="alert('Sure this item delete')"  class="btn btn-danger fs-btn-danger  btn-outline"><i class="fa fa-trash"></i></button>
-                                            </form>
-                                        </div>
-
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Department Name</th>
+                                        <th>Created At</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($departments as $department)
+                                        <tr>
+                                            <td>{{ ucfirst($department->name) }}</td>
+                                            <td>{{ date_format($department->created_at, 'd-m-Y') }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('department.edit', $department->id) }}" title="Edit" class="btn btn-info cus_btn">
+                                                    <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
+                                                </a>
+                                                <a onclick="deleteRow({{ $department->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
+                                                    <i class="fa fa-trash"></i> <strong>Delete</strong>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
