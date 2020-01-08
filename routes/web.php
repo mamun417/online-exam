@@ -24,4 +24,6 @@ Route::resource('department','Backend\DepartmentController');
 Route::resource('subject','Backend\SubjectController');
 Auth::routes();
 
+
+
 Route::get('/home', 'HomeController@index')->name('home');

@@ -5,9 +5,7 @@
     margin-right: 0;
     margin-left: 0;
 }
-.control-label {
-    padding-top: 0px!important;
-}
+
 .required-star {
     color: red;
 }
@@ -15,6 +13,26 @@
     float: right;
 }
 .center{
+    text-align: center;
+}
+.fs-btn-danger{
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px !important;
+    width: 40px;
+    height: 40px;
+    border: navajowhite;
+    font-size: 21px;
+}
+.fs-btn-success{
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px !important;
+    width: 40px;
+    height: 40px;
+    border: navajowhite;
+    font-size: 21px;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    vertical-align: middle;
     text-align: center;
 }
 

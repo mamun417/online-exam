@@ -2,16 +2,13 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Department Add</h2>
+            <h2>Create Department</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li>
-                    <a>Tables</a>
+                    <a href="{{ route('department.index') }}">Departments</a>
                 </li>
                 <li class="active">
-                    <strong>Data Tables</strong>
+                    <strong>Create</strong>
                 </li>
             </ol>
         </div>
@@ -32,9 +29,12 @@
                             @csrf
                            @include('backend.department.element')
 
-                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Submit</strong></button>
-                            <br>
-                            <br>
+                            <div class="form-group">
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-10">
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Submit</strong></button>
+                                </div>
+                            </div>
 
                         </form>
                     </div>

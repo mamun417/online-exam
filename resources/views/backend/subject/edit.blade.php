@@ -2,16 +2,13 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Subject Edit</h2>
+            <h2>Edit Subject</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li>
-                    <a>Tables</a>
+                    <a href="{{ route('subject.index') }}">Subjects</a>
                 </li>
                 <li class="active">
-                    <strong>Data Tables</strong>
+                    <strong>Edit</strong>
                 </li>
             </ol>
         </div>
@@ -27,9 +24,14 @@
                     @csrf
                     @method('PUT')
                     @include('backend.subject.element')
-                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
-                    <br>
-                    <br>
+
+                    <div class="form-group">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-10">
+                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
+                        </div>
+                    </div>
+
                 </form>
             </div>
         </div>
