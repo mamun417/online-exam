@@ -11,6 +11,8 @@
     <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{asset('backend/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="{{asset('backend/css/plugins/toastr/toastr.min.css')}}" rel="stylesheet">
     <link href="{{asset('backend/css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/css/custom_style.css') }}" rel="stylesheet">
@@ -41,6 +43,9 @@
 <script src="{{asset('backend/js/plugins/iCheck/icheck.min.js')}}"></script>
 <!-- Peity -->
 <script src="{{asset('backend/js/demo/peity-demo.js')}}"></script>
+<!-- Toastr script -->
+<script src="{{ asset('backend/js/plugins/toastr/toastr.min.js') }}"></script>
+
 <script>
     $(document).ready(function () {
         $('.i-checks').iCheck({
@@ -48,6 +53,9 @@
             radioClass: 'iradio_square-green',
         });
     });
+
 </script>
+
+
 </body>
 </html>

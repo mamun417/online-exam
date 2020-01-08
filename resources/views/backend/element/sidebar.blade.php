@@ -23,14 +23,14 @@
             <li>
                 <a href="{{ url('/dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
             </li>
-            <li class="active">
+            <li>
                 <a href="{{ route('department.index') }}"><i class="fa fa-diamond"></i> <span class="nav-label">Departments</span></a>
             </li>
             <li>
                 <a href="{{ route('subject.index') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Subjects</span></a>
             </li>
             <li>
-                <a href=""><i class="fa fa-envelope"></i> <span class="nav-label">Test</span><span class="label label-warning pull-right">16/24</span></a>
+                <a href="{{ route('test') }}"><i class="fa fa-envelope"></i> <span class="nav-label">Test</span><span class="label label-warning pull-right">16/24</span></a>
             </li>
         </ul>
     </div>
