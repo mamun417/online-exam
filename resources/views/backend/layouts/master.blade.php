@@ -11,20 +11,34 @@
     <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{asset('backend/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
-    <!-- Toastr style -->
-    <link href="{{asset('backend/css/plugins/toastr/toastr.min.css')}}" rel="stylesheet">
+
     <link href="{{asset('backend/css/animate.css')}}" rel="stylesheet">
+
     <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="{{ asset('backend/css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+
+    {{--sweet alert--}}
+    <link href="{{ asset('backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+
+    {{--custom style--}}
     <link href="{{ asset('backend/css/custom_style.css') }}" rel="stylesheet">
 </head>
 <body>
+
 <div id="wrapper">
     @include('backend.element.sidebar')
 </div>
+
 <div id="page-wrapper" class="gray-bg">
+
     @include('backend.element.header')
+
     @yield('content')
+
     @include('backend.element.footer')
+
 </div>
 
 <script src="{{ asset('backend/js/jquery-3.1.1.min.js') }}"></script>
@@ -41,12 +55,18 @@
 
 <!-- iCheck -->
 <script src="{{asset('backend/js/plugins/iCheck/icheck.min.js')}}"></script>
+
 <!-- Peity -->
 <script src="{{asset('backend/js/demo/peity-demo.js')}}"></script>
-<!-- Toastr script -->
+
+<!-- Toastr -->
 <script src="{{ asset('backend/js/plugins/toastr/toastr.min.js') }}"></script>
 
+{{--Sweetalert--}}
+<script src="{{ asset('backend/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
+
 <script>
+
     $(document).ready(function () {
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
@@ -54,8 +74,43 @@
         });
     });
 
-</script>
+    {{--toastr message--}}
+    $(function () {
 
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            showMethod: 'slideDown',
+            timeOut: 2500
+        };
+
+        @if(session('successTMsg'))
+            toastr.success('{{ session('successTMsg') }}');
+        @endif
+
+        @if(session('errorTMsg'))
+            toastr.error('{{ session('errorTMsg') }}');
+        @endif
+    });
+
+    //show confirm message when delete table row
+    function deleteRow(rowId) {
+
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this item!",
+            type: "warning",
+            showCancelButton: true,
+            allowOutsideClick: true,
+            confirmButtonColor: "#1ab394",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: true
+        }, function () {
+            document.getElementById('row-delete-form'+rowId).submit();
+        });
+    }
+
+</script>
 
 </body>
 </html>

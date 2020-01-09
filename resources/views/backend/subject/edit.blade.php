@@ -5,7 +5,7 @@
             <h2>Edit Subject</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('subject.index') }}">Subjects</a>
+                    <a href="{{ route('subjects.index') }}">Subjects</a>
                 </li>
                 <li class="active">
                     <strong>Edit</strong>
@@ -15,15 +15,14 @@
         <div class="col-lg-2">
         </div>
     </div>
-    <br>
-    <br>
+
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-content">
-                <br>
-                <form class="form-horizontal" method="POST" action="{{ route('subject.update',$subject->id) }}">
+                <form class="form-horizontal" method="POST" action="{{ route('subjects.update',$subject->id) }}">
                     @csrf
                     @method('PUT')
+
                     @include('backend.subject.element')
 
                     <div class="form-group">

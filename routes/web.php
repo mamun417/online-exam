@@ -14,17 +14,18 @@
 Route::get('/', function () {
     return view('backend.dashboard.index');
 });
-Route::get('/dashboard', function () {
+
+Route::get('dashboard', function () {
     return view('backend.dashboard.index');
 });
+
 //Department all route here
-Route::resource('department','Backend\DepartmentController');
+Route::resource('departments','Backend\DepartmentController');
 
 //Subject all route here
-Route::resource('subject','Backend\SubjectController');
+Route::resource('subjects','Backend\SubjectController');
+
 Auth::routes();
 
-
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
 
