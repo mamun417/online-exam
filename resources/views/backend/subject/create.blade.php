@@ -20,17 +20,22 @@
             @endif
         </div>
     </div>
+
+    {{--Any message show here--}}
+    @include('partials.notification_messages.message')
+
     <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
+                        <br>
                         <form class="form-horizontal" method="POST" action="{{ route('subject.store') }}">
                             @csrf
                            @include('backend.subject.element')
                             <div class="form-group">
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-10">
-                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Submit</strong></button>
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs" type="submit"><strong>Submit</strong></button>
                                 </div>
                             </div>
                         </form>

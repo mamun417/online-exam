@@ -19,6 +19,9 @@
         </div>
     </div>
 
+    {{--Any message show here--}}
+    @include('partials.notification_messages.message')
+
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
@@ -27,39 +30,43 @@
                         <h5>Subjects List</h5>
                     </div>
                     <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-5 m-b-xs"> </div>
+                            <div class="col-sm-4 m-b-xs"></div>
+                            <div class="col-sm-3">
+                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                            </div>
+                        </div>
+                        <br>
 
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th  style=" text-align: center; width: 80px">Sl No</th>
-                                <th  style=" text-align: center;">Subject Name</th>
-                                <th  style=" text-align: center;">Subject Code</th>
-                                <th  style=" text-align: center; width: 80px">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php $count = 1?>
-                            @foreach($subjects as $subject)
-                                <tr>
-                                    <td  style="text-align: center; width: 80px">{{ $count++ }}</td>
-                                    <td  style="text-align: center">{{ $subject->name }}</td>
-                                    <td  style="text-align: center">{{ $subject->subject_code }}</td>
-                                    <td  style="text-align: center; width: 80px">
-                                        <div style="width: 80px">
-                                            <a title="Edit" href="{{ route('subject.edit',$subject->id) }}" class="btn btn-success fs-btn-success btn-outline"> <i class="fa fa-pencil-square-o"></i></a>
-                                            <form action="{{ route('subject.destroy',$subject->id) }}" class="delete-button-style" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" onclick="alert('Sure this item delete')"  class="btn btn-danger fs-btn-danger  btn-outline"><i class="fa fa-trash"></i></button>
-                                            </form>
-                                        </div>
-
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Subject Name</th>
+                                        <th>Subject At</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($subjects as $subject)
+                                        <tr>
+                                            <td>{{ ucfirst($subject->name) }}</td>
+                                            <td>{{ date_format($subject->created_at, 'd-m-Y') }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('subject.edit', $subject->id) }}" title="Edit" class="btn btn-info cus_btn">
+                                                    <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
+                                                </a>
+                                                <a onclick="deleteRow({{ $subject->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
+                                                    <i class="fa fa-trash"></i> <strong>Delete</strong>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,6 @@
-<br>
-<br>
+
 <div class="form-group"><label class="col-lg-2 control-label">Department Name<span class="required-star"> *</span></label>
-    <div class="col-lg-10">
+    <div class="col-lg-6">
         <input type="text" value="{{isset($department->name) ? $department->name:old('name')}}" name="name" class="form-control">
         @if ($errors->any())
             <div class="alert alert-danger">

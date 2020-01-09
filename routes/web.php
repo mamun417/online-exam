@@ -27,5 +27,4 @@ Auth::routes();
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('test', 'Backend\TestController@test')->name('test');
-Route::POST('test.create', 'Backend\TestController@testfunction')->name('test.create');
+

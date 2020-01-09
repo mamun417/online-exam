@@ -29,9 +29,6 @@
             <li>
                 <a href="{{ route('subject.index') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Subjects</span></a>
             </li>
-            <li>
-                <a href="{{ route('test') }}"><i class="fa fa-envelope"></i> <span class="nav-label">Test</span><span class="label label-warning pull-right">16/24</span></a>
-            </li>
         </ul>
     </div>
 </nav>

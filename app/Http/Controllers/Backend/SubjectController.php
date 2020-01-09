@@ -47,7 +47,7 @@ class SubjectController extends Controller
         if($subject->save()){
             return back()->with('success','Subject Save Success');
         }else{
-            return back()->with('success','Subject Could not be Save');
+            return back()->with('error','Subject Could not be Save');
         }
     }
 
@@ -93,7 +93,7 @@ class SubjectController extends Controller
         if($update){
             return redirect(route('subject.index'))->with('success','Subject Updated Success');
         }else{
-            return redirect(route('subject.index'))->with('success','Subject Could not be Updated');
+            return redirect(route('subject.index'))->with('error','Subject Could not be Updated');
         }
 
     }
@@ -105,7 +105,7 @@ class SubjectController extends Controller
         if($subject->delete()){
             return redirect(route('subject.index'))->with('success','Subject Delete Successfully');
         }else{
-            return redirect(route('subject.index'))->with('success','Subject Could not be Deleted');
+            return redirect(route('subject.index'))->with('error','Subject Could not be Deleted');
         }
     }
 }

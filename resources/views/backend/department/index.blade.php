@@ -2,6 +2,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
+
             <h2>All Departments</h2>
             <ol class="breadcrumb">
                 <li>
@@ -18,6 +19,10 @@
             </div>
         </div>
     </div>
+
+    {{--Any message show here--}}
+   @include('partials.notification_messages.message')
+
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
@@ -26,6 +31,16 @@
                         <h5>Departments</h5>
                     </div>
                     <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-5 m-b-xs"> </div>
+                            <div class="col-sm-4 m-b-xs"></div>
+                            <div class="col-sm-3">
+                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                            </div>
+                        </div>
+                        <br>
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>

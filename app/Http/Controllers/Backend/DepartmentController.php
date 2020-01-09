@@ -46,7 +46,7 @@ class DepartmentController extends Controller
         if($department->save()){
             return back()->with('success','Department Save Success');
         }else{
-            return back()->with('success','Department Could not be Save');
+            return back()->with('error','Department Could not be Save');
         }
     }
 
@@ -91,7 +91,7 @@ class DepartmentController extends Controller
         if($update){
             return redirect(route('department.index'))->with('success','Department Updated Success');
         }else{
-            return redirect(route('department.index'))->with('success','Department Could not be Updated');
+            return redirect(route('department.index'))->with('error','Department Could not be Updated');
         }
 
     }
@@ -107,7 +107,7 @@ class DepartmentController extends Controller
         if($department->delete()){
             return redirect(route('department.index'))->with('success','Department Delete Successfully');
         }else{
-            return redirect(route('department.index'))->with('success','Department Could not be Deleted');
+            return redirect(route('department.index'))->with('error','Department Could not be Deleted');
         }
     }
 }

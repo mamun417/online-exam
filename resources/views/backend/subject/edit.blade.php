@@ -20,6 +20,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-content">
+                <br>
                 <form class="form-horizontal" method="POST" action="{{ route('subject.update',$subject->id) }}">
                     @csrf
                     @method('PUT')
@@ -28,7 +29,7 @@
                     <div class="form-group">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-10">
-                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
+                            <button class="btn btn-sm btn-primary pull-left m-t-n-xs" type="submit"><strong>Update</strong></button>
                         </div>
                     </div>
 
