@@ -1,5 +1,5 @@
-@if($message = Session::get('success'))
 
+@if($message = Session::get('success'))
     <div class="alert alert-success fade in">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         <strong>Success!</strong> {{ $message }}.
@@ -12,7 +12,6 @@
         <strong>Warning!</strong> {{ $message }}.
     </div>
 @endif()
-
 
 @if($message = Session::get('error'))
     <div class="alert alert-warning fade in">
