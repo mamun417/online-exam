@@ -11,7 +11,17 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $departments = Department::latest()->get();
+        $perPage = request()->perPage ?: 10;
+        $keyword = request()->keyword;
+
+        $departments = new Department();
+
+        if ($keyword){
+            $departments = $departments->where('name', 'like', '%'.request()->keyword.'%');
+        }
+
+        $departments = $departments->latest()->paginate($perPage);
+
         return view('backend.department.index', compact('departments'));
     }
 

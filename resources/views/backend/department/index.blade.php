@@ -24,20 +24,37 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
-                <div class="ibox float-e-margins">
+                <div class="ibox">
                     <div class="ibox-title">
                         <h5>Departments</h5>
                     </div>
                     <div class="ibox-content">
 
-                        <div class="row" style="margin-bottom: 7px">
-                            <div class="col-sm-3">
-                                <div class="input-group">
-                                    <input type="text" placeholder="Search" class="input-sm form-control">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button>
-                                    </span>
-                                </div>
+                        <div class="row" style="margin-bottom: 12px">
+
+                            <div class="col-sm-12">
+                                <form action="{{ route('departments.index') }}" method="get" class="form-inline" role="form">
+
+                                    <div class="form-group">
+                                        <div>Records Per Page</div>
+                                        <select name="perPage" id="perPage" onchange="submit()" class="form-control" style="width: 115px;">
+                                            <option value="10"{{ request('perPage') == 10 ? ' selected' : '' }}>10</option>
+                                            <option value="25"{{ request('perPage') == 25 ? ' selected' : '' }}>25</option>
+                                            <option value="50"{{ request('perPage') == 50 ? ' selected' : '' }}>50</option>
+                                            <option value="100"{{ request('perPage') == 100 ? ' selected' : '' }}>100</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <br>
+                                        <div class="input-group">
+                                            <input name="keyword" type="text" value="{{ request('keyword') }}" class="form-control" placeholder="Search Here">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-primary"> Go!</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
@@ -78,6 +95,14 @@
 
                             </table>
                         </div>
+
+                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                            <div>
+                                Showing 26 to 50 of 57 entries
+                            </div>
+                            {{ $departments->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
+                        </div>
+
                     </div>
                 </div>
             </div>

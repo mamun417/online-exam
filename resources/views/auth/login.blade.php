@@ -11,19 +11,15 @@
                 @csrf
 
                 <div class="form-group">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="mamun@test.com{{--{{ old('email') }}--}}" required autocomplete="email" autofocus placeholder="Email">
                     @error('email')
-                    <span class="invalid-feedback" role="alert">
-                         <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                    <input id="password" type="password" value="12345678" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
                     @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
