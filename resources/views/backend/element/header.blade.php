@@ -5,9 +5,6 @@
             <a onclick="hideSideBar()" class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
         </div>
         <ul class="nav navbar-top-links navbar-right">
-            <li>
-                <span class="m-r-sm text-muted welcome-message">Welcome to ...</span>
-            </li>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
@@ -53,8 +50,7 @@
 
             <li>
                 <a class="dropdown-item" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
 

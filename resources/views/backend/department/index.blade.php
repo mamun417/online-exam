@@ -3,20 +3,11 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-
-            <h2>All Departments</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="{{ route('departments.index') }}">Departments</a>
-                </li>
-                <li class="active">
-                    <strong>Index</strong>
-                </li>
-            </ol>
+            <h2>Departments</h2>
         </div>
         <div class="col-lg-2">
             <div class="ibox-tools">
-                <a href="{{ route('departments.create') }}" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><i class="fa fa-plus"></i> <strong>Create</strong></a>
+                <a href="{{ route('subjects.create') }}" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><i class="fa fa-plus"></i> <strong>Create</strong></a>
             </div>
         </div>
     </div>
@@ -25,19 +16,16 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Departments</h5>
-                    </div>
                     <div class="ibox-content">
 
-                        <div class="row" style="margin-bottom: 12px">
+                        <div class="row" style="margin-bottom: 10px">
 
                             <div class="col-sm-12">
                                 <form action="{{ route('departments.index') }}" method="get" class="form-inline" role="form">
 
                                     <div class="form-group">
                                         <div>Records Per Page</div>
-                                        <select name="perPage" id="perPage" onchange="submit()" class="form-control" style="width: 115px;">
+                                        <select name="perPage" id="perPage" onchange="submit()" class="input-sm form-control" style="width: 115px;">
                                             <option value="10"{{ request('perPage') == 10 ? ' selected' : '' }}>10</option>
                                             <option value="25"{{ request('perPage') == 25 ? ' selected' : '' }}>25</option>
                                             <option value="50"{{ request('perPage') == 50 ? ' selected' : '' }}>50</option>
@@ -48,9 +36,9 @@
                                     <div class="form-group">
                                         <br>
                                         <div class="input-group">
-                                            <input name="keyword" type="text" value="{{ request('keyword') }}" class="form-control" placeholder="Search Here">
+                                            <input name="keyword" type="text" value="{{ request('keyword') }}" class="input-sm form-control" placeholder="Search Here">
                                             <span class="input-group-btn">
-                                                <button type="submit" class="btn btn-primary"> Go!</button>
+                                                <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
                                             </span>
                                         </div>
                                     </div>

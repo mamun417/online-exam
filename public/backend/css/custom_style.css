@@ -1,6 +1,8 @@
 html, body{
     background-color: #233646!important;
+    color: #000!important;
 }
+
 .action_btn {
     margin-bottom: 0px!important;
     padding: 2px 10px!important;
@@ -75,7 +77,7 @@ html, body{
     font-weight: bold;
 }
 .ibox-tools{
-    margin-top: 35px;
+    margin-top: 22px;
 }
 .alert{
     margin-bottom: 0px;
@@ -236,4 +238,7 @@ th.trash-table.sorting_desc::after {
 .pagination {
     display: block!important;
     margin: 0 0!important;
+}
+.page-heading {
+    padding: 0 10px 10px 10px!important;
 }
