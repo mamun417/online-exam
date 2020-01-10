@@ -229,3 +229,11 @@ th.trash-table.sorting_desc::after {
 .tokenize>.tokens-container>.token>.dismiss{
     color: #fff;
 }
+.table-pagination{
+    display: flex;
+    align-items: center;
+}
+.pagination {
+    display: block!important;
+    margin: 0 0!important;
+}

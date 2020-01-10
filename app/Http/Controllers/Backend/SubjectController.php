@@ -9,9 +9,20 @@ use Str;
 
 class SubjectController extends Controller
 {
-    public function index(Subject $Subject)
+    public function index()
     {
-        $subjects = Subject::latest()->get();
+        $perPage = request()->perPage ?: 10;
+        $keyword = request()->keyword;
+
+        $subjects = new Subject();
+
+        if ($keyword){
+            $subjects = $subjects->where('name', 'like', '%'.request()->keyword.'%')
+                        ->orWhere('subject_code', 'like', '%'.request()->keyword.'%');
+        }
+
+        $subjects = $subjects->latest()->paginate($perPage);
+
         return view('backend.subject.index', compact('subjects'));
     }
 

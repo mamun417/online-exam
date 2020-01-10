@@ -96,9 +96,9 @@
                             </table>
                         </div>
 
-                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                            <div>
-                                Showing 26 to 50 of 57 entries
+                        <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                            <div class="m-r-lg">
+                                Showing {{ $departments->firstItem() }} to {{ $departments->lastItem() }} of {{ $departments->total() }} entries
                             </div>
                             {{ $departments->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
                         </div>
