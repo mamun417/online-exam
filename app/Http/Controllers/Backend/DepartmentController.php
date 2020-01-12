@@ -25,10 +25,14 @@ class DepartmentController extends Controller
         return view('backend.department.index', compact('departments'));
     }
 
+
+
     public function create()
     {
        return view('backend.department.create');
     }
+
+
 
     public function store(Request $request)
     {
@@ -43,10 +47,14 @@ class DepartmentController extends Controller
         return redirect()->route('departments.index')->with('successTMsg','Department save successfully');
     }
 
+
+
     public function edit(Department $department)
     {
         return view('backend.department.edit',compact('department'));
     }
+
+
 
     public function update(Request $request, Department $department)
     {
@@ -60,6 +68,8 @@ class DepartmentController extends Controller
 
         return redirect(route('departments.index'))->with('successTMsg', 'Department has been updated successfully');
     }
+
+    
 
     public function destroy(Department $department)
     {
