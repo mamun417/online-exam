@@ -20,7 +20,7 @@ class CreateExaminationsTable extends Migration
             $table->bigInteger('subject_id');
             $table->tinyInteger('is_active')->nullable()->default(1);
             $table->tinyInteger('is_deleted')->nullable()->default(0);
-            $table->Integer('total_murks')->numeric();
+            $table->Integer('total_marks')->numeric();
             $table->timestamps();
         });
     }

@@ -25,6 +25,9 @@ Route::resource('departments','Backend\DepartmentController');
 //Subject all route here
 Route::resource('subjects','Backend\SubjectController');
 
+//Examination all route here
+Route::resource('examinations','Backend\ExaminationController');
+
 Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');

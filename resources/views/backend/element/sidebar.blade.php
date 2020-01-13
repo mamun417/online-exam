@@ -29,6 +29,9 @@
             <li>
                 <a href="{{ route('subjects.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Subjects</span></a>
             </li>
+            <li>
+                <a href="{{ route('examinations.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Examinations</span></a>
+            </li>
         </ul>
     </div>
 </nav>

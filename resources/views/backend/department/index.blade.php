@@ -7,7 +7,7 @@
         </div>
         <div class="col-lg-2">
             <div class="ibox-tools">
-                <a href="{{ route('subjects.create') }}" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><i class="fa fa-plus"></i> <strong>Create</strong></a>
+                <a href="{{ route('departments.create') }}" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><i class="fa fa-plus"></i> <strong>Create</strong></a>
             </div>
         </div>
     </div>
