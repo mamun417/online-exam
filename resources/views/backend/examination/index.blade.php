@@ -25,7 +25,9 @@
                                     <tr>
                                         <th>Department</th>
                                         <th>Subject</th>
+                                        <th>Create At</th>
                                         <th>Total Marks</th>
+                                        <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
 
@@ -34,8 +36,24 @@
                                         <tr>
                                             <td>{{ ucfirst($examination->department->name) }}</td>
                                             <td>{{ ucfirst($examination->subject->name) }}</td>
+                                             <td>{{ date_format($examination->created_at, 'd-m-Y') }}</td>
                                             <td>{{ ucfirst($examination->total_marks) }}</td>
-        
+                                            <td class="text-center">
+
+                                                <a href="{{ route('examinations.edit', $examination->id) }}" title="Edit" class="btn btn-info cus_btn">
+                                                    <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
+                                                </a>
+
+                                                <a onclick="deleteRow({{ $examination->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
+                                                    <i class="fa fa-trash"></i> <strong>Delete</strong>
+                                                </a>
+
+                                                <form id="row-delete-form{{ $examination->id }}" method="POST" action="{{ route('examinations.destroy', $examination->id) }}" style="display: none" >
+                                                    @method('DELETE')
+                                                    @csrf()
+                                                </form>
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

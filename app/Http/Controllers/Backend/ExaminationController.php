@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class ExaminationController extends Controller
 {
    
-
     public function index()
     {
         $examinations = Examination::with('department', 'subject')->get();
@@ -51,22 +50,36 @@ class ExaminationController extends Controller
 
  
 
-    public function edit($id)
+    public function edit(Examination $examination)
     {
-        //
+        $departments  = Department::get();
+        $subjects     = Subject::get();
+
+        return view('backend.examination.edit', compact('examination','departments', 'subjects'));
     }
 
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Examination $examination)
     {
-        //
+        $request->validate([
+            'department_id' => 'required',
+            'subject_id'    => 'required',
+            'total_marks'   => 'required'
+        ]);
+
+        $request['user_id'] = 1;
+
+        $examination->update($request->all());
+        return redirect(route('examinations.index'))->with('successTMsg', 'Examination has been updated successfully');  
     }
 
   
 
-    public function destroy($id)
+    public function destroy(Examination $examination)
     {
-        //
+        $examination->delete();
+        return back()->with('successTMsg', 'Examination has been deleted successfully');
+        
     }
 }
