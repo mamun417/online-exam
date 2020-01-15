@@ -34,6 +34,8 @@ class UserController extends Controller
    
     public function edit(User $user)
     {
+        $user = User::where('id', 1)->where('role_id', 1)->first();
+        
         return view('backend.admin.edit', compact('user'));
     }
 
