@@ -6,7 +6,9 @@
 
         	<option value="" >Select Deparment</option>
             @foreach($departments as $department )
-        	   <option @if( isset($examination) and $examination->department_id == $department->id) selected @endif value="{{ $department->id }}">{{ $department->name }}</option>
+        	   <option @if( isset($examination) and $examination->department_id ==    $department->id) selected @endif value="{{ $department->id }}">
+                    {{ $department->name }}
+                </option>
             @endforeach
 
         </select>

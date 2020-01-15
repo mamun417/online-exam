@@ -39,6 +39,7 @@
                                                 <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
                                             </span>
                                         </div>
+                                        <a href="{{ route('subjects.index') }}" class="btn btn-default btn-sm">Reset</a>
                                     </div>
                                 </form>
                             </div>

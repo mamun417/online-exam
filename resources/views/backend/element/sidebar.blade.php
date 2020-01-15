@@ -9,11 +9,19 @@
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
                              </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="{{ route('users.edit', 1) }}">Profile</a></li>
                         <li><a href="contacts.html">Contacts</a></li>
                         <li><a href="mailbox.html">Mailbox</a></li>
                         <li class="divider"></li>
-                        <li><a href="login.html">Logout</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Log out
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                            </form>
+                        </li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -29,9 +37,9 @@
             <li>
                 <a href="{{ route('subjects.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Subjects</span></a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('examinations.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Examinations</span></a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </nav>

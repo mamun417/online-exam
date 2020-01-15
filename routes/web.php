@@ -11,24 +11,28 @@
 |
 */
 
-Route::get('/', function () {
-    return view('backend.dashboard.index');
-});
-
-Route::get('dashboard', function () {
-    return view('backend.dashboard.index');
-});
-
-//Department all route here
-Route::resource('departments','Backend\DepartmentController');
-
-//Subject all route here
-Route::resource('subjects','Backend\SubjectController');
-
-//Examination all route here
-Route::resource('examinations','Backend\ExaminationController');
 
 Auth::routes();
 
-Route::get('home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function(){
 
+	Route::get('admin', function () {
+	    return redirect('dashboard');
+	});
+
+	Route::get('dashboard', function () {
+	    return view('backend.dashboard.index');
+	});
+
+	//Departments
+	Route::resource('departments','Backend\DepartmentController');
+
+	//Subjects
+	Route::resource('subjects','Backend\SubjectController');
+
+	//Examinations
+	Route::resource('examinations','Backend\ExaminationController');
+
+	//Users
+	Route::resource('users', 'UserController');
+});

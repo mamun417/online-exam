@@ -14,6 +14,7 @@ class ExaminationController extends Controller
     public function index()
     {
         $examinations = Examination::with('department', 'subject')->get();
+
         return view('backend.examination.index',compact('examinations'));
     }
 
@@ -38,6 +39,7 @@ class ExaminationController extends Controller
         $request['user_id'] = 1;
 
         Examination::create($request->all());
+        
         return redirect()->route('examinations.index')->with('successTMsg','Examination save successfully');
     }
 
