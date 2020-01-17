@@ -14,6 +14,7 @@
 
 Auth::routes();
 
+
 Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('admin', function () {
@@ -35,4 +36,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 	//Users
 	Route::resource('users', 'UserController');
+
+	Route::get('change/password','UserController@changePassword')->name('change.password');
+	Route::POST('password/update','UserController@updatePassword')->name('password.update');
 });

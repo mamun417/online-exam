@@ -4,10 +4,10 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Edit Department</h2>
+            <h2>Profile</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="">Departments</a>
+                    <a href="">Profile</a>
                 </li>
                 <li class="active">
                     <strong>Edit</strong>
