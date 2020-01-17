@@ -21,11 +21,11 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form class="form-horizontal" method="POST" action="{{ route('users.update', $user->id) }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('update.profile', $user->id) }}">
                             @csrf
                             @method('PUT')
 
-                            @include('backend.admin.element')
+                            @include('backend.partial.element')
 
                             <div class="form-group">
                                 <div class="col-lg-2"></div>

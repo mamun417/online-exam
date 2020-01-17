@@ -11,66 +11,37 @@ use Validator;
 class UserController extends Controller
 {
   
-    public function index()
-    {
+    public function getProfile(){
+        $user = User::find(Auth::user()->id);
+        return view('backend.partial.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request, User $user){
+        $request->validate([
+            'name'      => 'required|max:200|string',
+            'last_name' => 'required|max:200|string',
+            'email'     => 'required'
+        ]);
+
         
+        $update = $user->update($request->all());   
+        return redirect(route('show.profile'))->with('successTMsg', 'Examination has been updated successfully'); 
     }
-
-   
-    public function create()
-    {
-        //
-    }
-
-   
-    public function store(Request $request)
-    {
-        //
-    }
-
-  
-    public function show($id)
-    {
-        //
-    }
-
-   
-    public function edit(User $user)
-    {
-        $user = User::where('id', 1)->where('role_id', 1)->first();
-        
-        return view('backend.admin.edit', compact('user'));
-    }
-
- 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
- 
-    public function destroy($id)
-    {
-        //
-    }
-
 
     public function changePassword(){
+
         return view('backend.partial.change_password');
+
     }
 
-
     public function updatePassword(Request $request){
-
 
         $validator = Validator::make($request->all(), [
             'password'     => 'required|min:8|confirmed',
             'old_password' => 'required|min:8'
         ])->validate();
 
-
         $find_user = User::find(Auth::user()->id);
-
        if(!Hash::check($request->old_password, $find_user->password)){
 
             return back()->with('olderror', 'Wrong old password');
@@ -78,10 +49,9 @@ class UserController extends Controller
 
        $data = [];
        $data['password'] = Hash::make($request->password);
-
        User::where('id', Auth::user()->id)->update($data);
 
-      return back()->with('successTMsg', 'Password Change Successfuly');
+       return back()->with('successTMsg', 'Password Change Successfuly');
 
     }
 }

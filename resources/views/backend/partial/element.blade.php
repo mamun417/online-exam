@@ -21,7 +21,3 @@
         @error('email') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
     </div>
 </div>
-
-
-
-
