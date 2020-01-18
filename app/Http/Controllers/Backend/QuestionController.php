@@ -8,23 +8,31 @@ use App\Model\Department;
 use App\Model\Subject;
 use App\Model\Question;
 use App\Model\Question_type;
+use App\Http\Controllers\Components\fileHandlerComponent;
 
 class QuestionController extends Controller
 {
-    
-    public function index()
+    //create file handler component class object
+    function __construct()
     {
+        $this->fileHandler = new fileHandlerComponent();
+    }
+    
+    public function index(Request $request)
+    {
+        $perPage = $request->perPage ?: 10;
+        $keyword = $request->keyword;
 
-        $questions = Question::with('department', 'subject', 'question_type')->get();
+        $questions = new Question();
+        if($keyword){
+           $questions =  $questions->where('question', 'like', '%'.$keyword.'%');
+        }
+
+        $questions = Question::with('department', 'subject', 'question_type')->latest()->paginate($perPage);
 
         return view('backend.question.index',compact('questions'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $departments    = Department::get();
@@ -37,7 +45,7 @@ class QuestionController extends Controller
  
     public function store(Request $request)
     {
-    
+
          $request->validate([
             'question'      => 'required',
             'department_id' => 'required',
@@ -45,15 +53,15 @@ class QuestionController extends Controller
             'question_type_id' => 'required'
         ]);
 
-
-
-         $request['image'] = 'image';
-        
+        if($request->img){
+            $image = $this->fileHandler->imageUpload($request->file('img'), 'img');
+            $request['image'] = $image;
+        }
+         
         Question::create($request->all());
         
         return redirect()->route('questions.index')->with('successTMsg','Question save successfully');
     }
-
 
     public function edit(Question $question)
     {
@@ -64,7 +72,6 @@ class QuestionController extends Controller
         return view('backend.question.edit', compact('question','departments', 'subjects', 'question_types'));
     }
 
-    
     public function update(Request $request, Question $question)
     {
         $request->validate([
@@ -74,16 +81,32 @@ class QuestionController extends Controller
             'question_type_id' => 'required'
         ]);
 
-        $request['image'] = 'image';
+        if($request->img){
+
+            $image = $this->fileHandler->imageUpload($request->file('img'), 'img');
+            $request['image'] = $image;
+
+            if($request->oldImage){
+
+                $this->fileHandler->imageDelete($request->oldImage);
+            }
+        }
 
         $question->update($request->all());
         return redirect(route('questions.index'))->with('successTMsg', 'Question has been updated successfully'); 
     }
 
-   
     public function destroy(Question $question)
     {
-        $question->delete();
-        return back()->with('successTMsg', 'Question has been deleted successfully');
+
+        if ($question->delete()) {
+            if ($question->image) {
+                $this->fileHandler->imageDelete($question->image);
+            }
+            return back()->with('successTMsg', 'Question has been deleted successfully');
+        }else{
+            return back()->with('errorTMsg', 'Question has been deleted successfully');
+        }
+
     }
 }

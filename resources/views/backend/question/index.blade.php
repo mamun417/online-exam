@@ -41,6 +41,7 @@
                                                 <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
                                             </span>
                                         </div>
+                                        <a href="{{ route('questions.index') }}" class="btn btn-default btn-sm">Reset</a>
                                     </div>
                                 </form>
                             </div>
@@ -56,7 +57,7 @@
                                         <th>Question Type</th>
                                         <th>Create At</th>
                                         <th>Description</th>
-                                        <!-- <th>Image</th> -->
+                                        <th>Image</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -69,7 +70,13 @@
                                             <td>{{ ucfirst($question->subject->name) }}</td>
                                             <td>{{ ucfirst($question->question_type->name) }}</td>
                                             <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
-                                            <td>{{ ucfirst($question->description) }}</td>
+                                            <td>
+                                                {{ Str::limit(ucfirst($question->description), 5) }}
+
+                                            </td>
+                                            <td>
+                                                <img src="{{asset('backend/uploadedImage/'.$question->image) }}" width="80" height="100">
+                                            </td>
                                             <td class="text-center">
 
                                                 <a href="{{ route('questions.edit', $question->id) }}" title="Edit" class="btn btn-info cus_btn">
