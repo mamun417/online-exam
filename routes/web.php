@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function(){
 	//Examinations
 	Route::resource('examinations','Backend\ExaminationController');
 
+	//Questions
+	Route::resource('questions','Backend\QuestionController');
+
 	//users
 	Route::get('show-profile', 'UserController@getProfile')->name('show.profile');
 	Route::PUT('user/profile/{user}', 'UserController@updateProfile')->name('update.profile');

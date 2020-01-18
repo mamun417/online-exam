@@ -109,7 +109,6 @@
             document.getElementById('row-delete-form'+rowId).submit();
         });
     }
-
 </script>
 
 </body>
