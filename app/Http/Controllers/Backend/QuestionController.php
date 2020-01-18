@@ -17,32 +17,45 @@ class QuestionController extends Controller
     {
         $this->fileHandler = new fileHandlerComponent();
     }
-    
+
     public function index(Request $request)
     {
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
 
-        $questions = new Question();
+        $questions =  Question::with('department', 'subject', 'question_type');
+
         if($keyword){
-           $questions =  $questions->where('question', 'like', '%'.$keyword.'%');
+
+            $keyword = '%'.$keyword.'%';
+
+            $questions = $questions->where('question', 'like', $keyword)
+                ->orWhere('description', 'like', $keyword)
+                ->orWhereHas('department', function ($query) use ($keyword) {
+                    $query->where('name', 'like', $keyword);
+                })
+                ->orWhereHas('subject', function ($query) use ($keyword) {
+                    $query->where('name', 'like', $keyword);
+                })
+                ->orWhereHas('question_type', function ($query) use ($keyword) {
+                    $query->where('name', 'like', $keyword);
+                });
         }
 
-        $questions = Question::with('department', 'subject', 'question_type')->latest()->paginate($perPage);
+        $questions = $questions->latest()->paginate($perPage);
 
-        return view('backend.question.index',compact('questions'));
+        return view('backend.question.index', compact('questions'));
     }
 
     public function create()
     {
-        $departments    = Department::get();
-        $subjects       = Subject::get();
-        $question_types = Question_type::get();
+        $departments    = Department::all();
+        $subjects       = Subject::all();
+        $question_types = Question_type::all();
 
         return view('backend.question.create', compact('departments', 'subjects', 'question_types'));
     }
 
- 
     public function store(Request $request)
     {
 
@@ -57,17 +70,17 @@ class QuestionController extends Controller
             $image = $this->fileHandler->imageUpload($request->file('img'), 'img');
             $request['image'] = $image;
         }
-         
+
         Question::create($request->all());
-        
+
         return redirect()->route('questions.index')->with('successTMsg','Question save successfully');
     }
 
     public function edit(Question $question)
     {
-        $departments    = Department::get();
-        $subjects       = Subject::get();
-        $question_types = Question_type::get();
+        $departments    = Department::all();
+        $subjects       = Subject::all();
+        $question_types = Question_type::all();
 
         return view('backend.question.edit', compact('question','departments', 'subjects', 'question_types'));
     }
@@ -93,7 +106,7 @@ class QuestionController extends Controller
         }
 
         $question->update($request->all());
-        return redirect(route('questions.index'))->with('successTMsg', 'Question has been updated successfully'); 
+        return redirect(route('questions.index'))->with('successTMsg', 'Question has been updated successfully');
     }
 
     public function destroy(Question $question)

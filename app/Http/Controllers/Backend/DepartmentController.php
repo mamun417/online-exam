@@ -54,6 +54,9 @@ class DepartmentController extends Controller
 
     public function edit(Department $department)
     {
+
+        dd($department->with('questions')->get()->toArray());
+
         return view('backend.department.edit',compact('department'));
     }
 
@@ -72,7 +75,7 @@ class DepartmentController extends Controller
         return redirect(route('departments.index'))->with('successTMsg', 'Department has been updated successfully');
     }
 
-    
+
 
     public function destroy(Department $department)
     {

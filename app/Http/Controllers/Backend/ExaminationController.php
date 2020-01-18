@@ -10,14 +10,12 @@ use Illuminate\Http\Request;
 
 class ExaminationController extends Controller
 {
-   
     public function index()
     {
         $examinations = Examination::with('department', 'subject')->get();
 
         return view('backend.examination.index',compact('examinations'));
     }
-
 
     public function create()
     {
@@ -26,7 +24,6 @@ class ExaminationController extends Controller
 
         return view('backend.examination.create', compact('departments', 'subjects'));
     }
-
 
     public function store(Request $request)
     {
@@ -39,18 +36,9 @@ class ExaminationController extends Controller
         $request['user_id'] = 1;
 
         Examination::create($request->all());
-        
+
         return redirect()->route('examinations.index')->with('successTMsg','Examination save successfully');
     }
-
- 
-
-    public function show($id)
-    {
-        //
-    }
-
- 
 
     public function edit(Examination $examination)
     {
@@ -59,8 +47,6 @@ class ExaminationController extends Controller
 
         return view('backend.examination.edit', compact('examination','departments', 'subjects'));
     }
-
-
 
     public function update(Request $request, Examination $examination)
     {
@@ -73,15 +59,13 @@ class ExaminationController extends Controller
         $request['user_id'] = 1;
 
         $examination->update($request->all());
-        return redirect(route('examinations.index'))->with('successTMsg', 'Examination has been updated successfully');  
+        return redirect(route('examinations.index'))->with('successTMsg', 'Examination has been updated successfully');
     }
-
-  
 
     public function destroy(Examination $examination)
     {
         $examination->delete();
         return back()->with('successTMsg', 'Examination has been deleted successfully');
-        
+
     }
 }
