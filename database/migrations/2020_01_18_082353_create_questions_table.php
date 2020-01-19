@@ -16,8 +16,10 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('question');
-            $table->bigInteger('department_id');
-            $table->bigInteger('subject_id');
+            $table->bigInteger('department_id')->unsigned();
+            $table->bigInteger('subject_id')->unsigned();
+            $table->foreign('department_id')->on('departments')->references('id')->onDelete('cascade');
+            $table->foreign('subject_id')->on('subjects')->references('id')->onDelete('cascade');
             $table->bigInteger('question_type_id');
             $table->tinyInteger('is_active')->nullable()->default(1);
             $table->tinyInteger('is_deleted')->nullable()->default(0);
