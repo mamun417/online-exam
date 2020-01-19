@@ -67,6 +67,7 @@ class QuestionController extends Controller
         ]);
 
         if($request->img){
+
             $image = $this->fileHandler->imageUpload($request->file('img'), 'img');
             $request['image'] = $image;
         }

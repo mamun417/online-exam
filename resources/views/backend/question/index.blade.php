@@ -75,7 +75,7 @@
 
                                             </td>
                                             <td>
-                                                <img src="{{asset('backend/uploadedImage/'.$question->image) }}" width="80" height="100">
+                                                <img src="{{asset('backend/uploads/images/question/'.$question->image) }}" width="80" height="100">
                                             </td>
                                             <td class="text-center">
 

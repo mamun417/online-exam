@@ -1,7 +1,7 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu nav-list" id="side-menu">
-            <li class="nav-header">
+            <li class="nav-header ">
                 <div class="dropdown profile-element"> <span>
                             <img alt="image" class="img-circle" src="{{url('backend/img/profile_small.jpg')}}" />
                              </span>
@@ -42,6 +42,7 @@
             <li class="{{ Request::is('questions') ? 'active' : '' }}">
                 <a href="{{ route('questions.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Questions</span></a>
             </li>
+          
             <!-- <li>
                 <a href="{{ route('examinations.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Examinations</span></a>
             </li> -->

@@ -69,7 +69,7 @@
         <input type="file" name="img" class="form-control">
         @error('img') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
          @if(!empty($question->image))
-            <img src="{{asset('backend/uploadedImage/'.$question->image) }}" style="margin-top:10px" width="80" height="100">
+            <img src="{{asset('backend/uploads/images/question/'.$question->image) }}" style="margin-top:10px" width="80" height="100">
         @endif
     </div>
 </div>

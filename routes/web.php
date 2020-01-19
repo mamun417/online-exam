@@ -44,3 +44,4 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('password-change', 'UserController@changePassword')->name('password.change');
 	Route::POST('password-update', 'UserController@updatePassword')->name('password.update');
 });
+
