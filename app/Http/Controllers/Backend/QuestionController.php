@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Model\QuestionType;
 use Illuminate\Http\Request;
 use App\Model\Department;
 use App\Model\Subject;
 use App\Model\Question;
-use App\Model\Question_type;
 use App\Http\Controllers\Components\fileHandlerComponent;
 
 class QuestionController extends Controller
 {
+    public $fileHandler;
+
     //create file handler component class object
     function __construct()
     {
@@ -44,21 +46,24 @@ class QuestionController extends Controller
 
         $questions = $questions->latest()->paginate($perPage);
 
-        return view('backend.question.index', compact('questions'));
+        $departments = Department::all();
+        $subjects = Subject::all();
+        $question_types = QuestionType::all();
+
+        return view('backend.question.index', compact('questions', 'departments', 'subjects', 'question_types'));
     }
 
     public function create()
     {
         $departments    = Department::all();
         $subjects       = Subject::all();
-        $question_types = Question_type::all();
+        $question_types = QuestionType::all();
 
         return view('backend.question.create', compact('departments', 'subjects', 'question_types'));
     }
 
     public function store(Request $request)
     {
-
          $request->validate([
             'question'      => 'required',
             'department_id' => 'required',
@@ -74,14 +79,14 @@ class QuestionController extends Controller
 
         Question::create($request->all());
 
-        return redirect()->route('questions.index')->with('successTMsg','Question save successfully');
+        return redirect()->route('questions.index')->with('successTMsg', 'Question save successfully');
     }
 
     public function edit(Question $question)
     {
         $departments    = Department::all();
         $subjects       = Subject::all();
-        $question_types = Question_type::all();
+        $question_types = QuestionType::all();
 
         return view('backend.question.edit', compact('question','departments', 'subjects', 'question_types'));
     }
@@ -107,20 +112,18 @@ class QuestionController extends Controller
         }
 
         $question->update($request->all());
+
         return redirect(route('questions.index'))->with('successTMsg', 'Question has been updated successfully');
     }
 
     public function destroy(Question $question)
     {
+        $question->delete();
 
-        if ($question->delete()) {
-            if ($question->image) {
-                $this->fileHandler->imageDelete($question->image);
-            }
-            return back()->with('successTMsg', 'Question has been deleted successfully');
-        }else{
-            return back()->with('errorTMsg', 'Question has been deleted successfully');
+        if ($question->image) {
+            $this->fileHandler->imageDelete($question->image);
         }
 
+        return back()->with('successTMsg', 'Question has been deleted successfully');
     }
 }

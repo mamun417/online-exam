@@ -34,6 +34,33 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <div>Department</div>
+                                        <select name="perPage" id="perPage" onchange="submit()" class="input-sm form-control">
+                                            @foreach($departments as $department)
+                                                <option value="{{ $department->id }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $department->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div>Subject</div>
+                                        <select name="perPage" id="perPage" onchange="submit()" class="input-sm form-control">
+                                            @foreach($subjects as $subject)
+                                                <option value="{{ $subject->id }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $subject->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div>Question Type</div>
+                                        <select name="perPage" id="perPage" onchange="submit()" class="input-sm form-control">
+                                            @foreach($question_types as $type)
+                                                <option value="{{ $type->code }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $type->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
                                         <br>
                                         <div class="input-group">
                                             <input name="keyword" type="text" value="{{ request('keyword') }}" class="input-sm form-control" placeholder="Search Here">
@@ -56,8 +83,6 @@
                                         <th>Subject</th>
                                         <th>Question Type</th>
                                         <th>Create At</th>
-                                        <th>Description</th>
-                                        <th>Image</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -70,13 +95,6 @@
                                             <td>{{ ucfirst($question->subject->name) }}</td>
                                             <td>{{ ucfirst($question->question_type->name) }}</td>
                                             <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
-                                            <td>
-                                                {{ Str::limit(ucfirst($question->description), 5) }}
-
-                                            </td>
-                                            <td>
-                                                <img src="{{asset('backend/uploads/images/question/'.$question->image) }}" width="80" height="100">
-                                            </td>
                                             <td class="text-center">
 
                                                 <a href="{{ route('questions.edit', $question->id) }}" title="Edit" class="btn btn-info cus_btn">

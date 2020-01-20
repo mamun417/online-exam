@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Components;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Route;
+use Route;
 
 class fileHandlerComponent extends Controller
 {
-    public function currentControlle(){
-        $currentController = strtolower(str_replace('Controller', '', class_basename(Route::current()->controller)));
-
-        return $currentController;
+    public function currentController(){
+        return strtolower(str_replace('Controller', '', class_basename(Route::current()->controller)));
     }
 
     public function imageUpload($image, $fildName){
@@ -24,27 +21,24 @@ class fileHandlerComponent extends Controller
                 $fildName.'.mimes' => 'Invalid file try to upload!'
             ]);
 
-          if ($image){
-            $real_image = $image;
-            $image_name  = "Fictionsoft-".rand(8,8).time().
-            '.'.$image->getClientOriginalExtension();
-            Image::make($real_image)->resize(400,450)
-            ->save( base_path('public/backend/uploads/images/'.$this->currentControlle().'/'.$image_name, '100'));
+            if ($image) {
 
-            return $image_name;
+                $real_image = $image;
+                $image_name = "Fictionsoft-" . rand(8, 8) . time() . '.' . $image->getClientOriginalExtension();
+                Image::make($real_image)->save(base_path('public/backend/uploads/images/' . $this->currentControlle() . '/' . $image_name, '100'));
 
-        	}
+                return $image_name;
+            }
         }
     }
 
     public function imageDelete($imageName){
 
-        $imagePath = 'backend/uploads/images/'.$this->currentControlle().'/'.$imageName;
-       
+        $imagePath = 'backend/uploads/images/'.$this->currentController().'/'.$imageName;
+
     	if(file_exists($imagePath)){
             unlink($imagePath);
             return 0;
         }
-        
     }
 }

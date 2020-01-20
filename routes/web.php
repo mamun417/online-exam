@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
 
-	Route::get('admin', function () {
+	Route::get('/', function () {
 	    return redirect('dashboard');
 	});
 

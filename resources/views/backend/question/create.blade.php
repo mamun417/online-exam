@@ -2,7 +2,6 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Create Question</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('questions.index') }}">Questions</a>
@@ -18,6 +17,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
+
+                    <div class="ibox-title">
+                        <h5>Create Question</h5>
+                    </div>
+
                     <div class="ibox-content">
                         <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('questions.store') }}">
                            @csrf

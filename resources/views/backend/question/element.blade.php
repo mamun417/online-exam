@@ -1,5 +1,4 @@
-
- <div class="form-group">
+<div class="form-group">
     <label class="col-lg-2 control-label">Question<span class="required-star"> *</span></label>
     <div class="col-lg-6">
         <input type="text" value="{{ isset($question->question) ? $question->question : old('question')}}" name="question" class="form-control">
@@ -10,11 +9,11 @@
 <div class="form-group">
     <label class="col-lg-2 control-label">Department<span class="required-star"> *</span></label>
     <div class="col-lg-6">
-        <select selected class="form-control" name="department_id">
+        <select class="form-control" name="department_id">
 
-        	<option value="" >Select Deparment</option>
+        	<option value="">Select Department</option>
             @foreach($departments as $department )
-        	   <option @if( isset($question) and $question->department_id ==    $department->id) selected @endif value="{{ $department->id }}">
+        	   <option @if( isset($question) and $question->department_id == $department->id) selected @endif value="{{ $department->id }}">
                     {{ $department->name }}
                 </option>
             @endforeach
@@ -27,7 +26,7 @@
 <div class="form-group">
     <label class="col-lg-2 control-label">Subject<span class="required-star"> *</span></label>
     <div class="col-lg-6">
-        <select selected class="form-control" name="subject_id">
+        <select class="form-control" name="subject_id">
 
             <option value="">Select Subject</option>
             @foreach($subjects as $subject)
@@ -42,7 +41,7 @@
 <div class="form-group">
     <label class="col-lg-2 control-label">Question Type<span class="required-star"> *</span></label>
     <div class="col-lg-6">
-        <select selected class="form-control" name="question_type_id">
+        <select class="form-control" name="question_type_id">
 
             <option value="">Select Question Type</option>
             @foreach($question_types as $question_type)
@@ -68,8 +67,8 @@
         <input type="hidden" name="oldImage" value="{{ isset($question->image) ? $question->image :''}}">
         <input type="file" name="img" class="form-control">
         @error('img') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
-         @if(!empty($question->image))
-            <img src="{{asset('backend/uploads/images/question/'.$question->image) }}" style="margin-top:10px" width="80" height="100">
+        @if(!empty($question->image))
+            <img src="{{ asset('backend/uploads/images/question/'.$question->image) }}" style="margin-top:10px" width="80" height="100">
         @endif
     </div>
 </div>

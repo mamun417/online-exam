@@ -20,6 +20,6 @@ class Question extends Model
 	}
 
 	public function question_type(){
-        return $this->belongsTo(Question_type::class);
+        return $this->belongsTo(QuestionType::class);
 	}
 }

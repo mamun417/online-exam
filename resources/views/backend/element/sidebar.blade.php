@@ -10,7 +10,6 @@
                              </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="{{ route('show.profile') }}">Profile</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
                         <li><a href="{{ route('password.change') }}">Change Password</a></li>
                         <li class="divider"></li>
                         <li>
@@ -42,7 +41,7 @@
             <li class="{{ Request::is('questions') ? 'active' : '' }}">
                 <a href="{{ route('questions.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Questions</span></a>
             </li>
-          
+
             <!-- <li>
                 <a href="{{ route('examinations.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Examinations</span></a>
             </li> -->
