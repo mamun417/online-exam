@@ -22,6 +22,9 @@
     {{--sweet alert--}}
     <link href="{{ asset('backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
 
+    {{--Tokenize2--}}
+    <link href="{{ asset('backend/js/extra-plugin/tokenize2/tokenize2.min.css') }}" rel="stylesheet">
+
     {{--custom style--}}
     <link href="{{ asset('backend/css/custom_style.css') }}" rel="stylesheet">
 </head>
@@ -64,6 +67,9 @@
 
 {{--Sweetalert--}}
 <script src="{{ asset('backend/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
+
+{{--Tokenize2--}}
+<script src="{{ asset('backend/js/extra-plugin/tokenize2/tokenize2.min.js') }}"></script>
 
 <script>
 
@@ -110,5 +116,8 @@
         });
     }
 </script>
+
+@yield('custom-js')
+
 </body>
 </html>

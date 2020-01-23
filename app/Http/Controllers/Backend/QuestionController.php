@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Model\Option;
 use App\Model\QuestionType;
 use Illuminate\Http\Request;
 use App\Model\Department;
@@ -58,8 +59,9 @@ class QuestionController extends Controller
         $departments    = Department::all();
         $subjects       = Subject::all();
         $question_types = QuestionType::all();
+        $options        = Option::all();
 
-        return view('backend.question.create', compact('departments', 'subjects', 'question_types'));
+        return view('backend.question.create', compact('departments', 'subjects', 'question_types', 'options'));
     }
 
     public function store(Request $request)
@@ -70,6 +72,9 @@ class QuestionController extends Controller
             'subject_id'    => 'required',
             'question_type_id' => 'required'
         ]);
+
+         //store options
+        $this->storeOptions($request->options);
 
         if($request->img){
 
@@ -125,5 +130,16 @@ class QuestionController extends Controller
         }
 
         return back()->with('successTMsg', 'Question has been deleted successfully');
+    }
+
+    public function storeOptions($request_options = []){
+
+        $exist_ids = Option::whereIn('id', $request_options)->pluck('id')->toArray();
+
+        $store_able_options = array_merge(array_diff($request_options, $exist_ids), array_diff($exist_ids, $request_options));
+
+        foreach ($store_able_options as $option){
+            Option::create(['option' => $option]);
+        }
     }
 }
