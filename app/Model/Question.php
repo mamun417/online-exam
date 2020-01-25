@@ -22,4 +22,8 @@ class Question extends Model
 	public function question_type(){
         return $this->belongsTo(QuestionType::class);
 	}
+
+    public function options(){
+        return $this->belongsToMany(Option::class);
+    }
 }

@@ -73,16 +73,18 @@ class QuestionController extends Controller
             'question_type_id' => 'required'
         ]);
 
-         //store options
-        $this->storeOptions($request->options);
-
         if($request->img){
 
             $image = $this->fileHandler->imageUpload($request->file('img'), 'img');
             $request['image'] = $image;
         }
 
-        Question::create($request->all());
+        //store options
+        $option_ids = $this->storeOptions($request->options);
+
+        $question = Question::create($request->all());
+
+        $question->options()->attach($option_ids);
 
         return redirect()->route('questions.index')->with('successTMsg', 'Question save successfully');
     }
@@ -92,8 +94,9 @@ class QuestionController extends Controller
         $departments    = Department::all();
         $subjects       = Subject::all();
         $question_types = QuestionType::all();
+        $options        = $question->options;
 
-        return view('backend.question.edit', compact('question','departments', 'subjects', 'question_types'));
+        return view('backend.question.edit', compact('question','departments', 'subjects', 'question_types', 'options'));
     }
 
     public function update(Request $request, Question $question)
@@ -116,7 +119,12 @@ class QuestionController extends Controller
             }
         }
 
+        //store options
+        $option_ids = $this->storeOptions($request->options);
+
         $question->update($request->all());
+
+        $question->options()->sync($option_ids);
 
         return redirect(route('questions.index'))->with('successTMsg', 'Question has been updated successfully');
     }
@@ -138,8 +146,13 @@ class QuestionController extends Controller
 
         $store_able_options = array_merge(array_diff($request_options, $exist_ids), array_diff($exist_ids, $request_options));
 
+        $created_ids = [];
+
         foreach ($store_able_options as $option){
-            Option::create(['option' => $option]);
+            $create_option = Option::create(['option' => $option]);
+            $created_ids[] = $create_option->id;
         }
+
+        return array_merge($exist_ids, $created_ids);
     }
 }

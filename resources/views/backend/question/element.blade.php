@@ -67,7 +67,7 @@
             <label>Question Options</label>
             <select class="form-control options" name="options[]" multiple>
                 @foreach($options as $option)
-                    <option value="{{ $option->id }}">{{ $option->option }}</option>
+                    <option value="{{ $option->id }}" {{ isset($question) ? 'selected' : '' }}>{{ $option->option }}</option>
                 @endforeach
             </select>
             @error('question_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
