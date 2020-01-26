@@ -62,9 +62,9 @@
         </div>
 
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <div class="form-group" id="tokenize-select">
-            <label>Question Options</label>
+            <label>Option</label>
             <select class="form-control options" name="options[]" multiple>
                 @foreach($options as $option)
                     <option value="{{ $option->id }}" {{ isset($question) ? 'selected' : '' }}>{{ $option->option }}</option>
@@ -73,16 +73,30 @@
             @error('question_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label>Answer</label>
+            <div>
+                <label class="checkbox-inline i-checks"> <input name="correct_ans[]" type="radio" value="option1"> True </label>
+                <label class="checkbox-inline i-checks"> <input name="correct_ans[]" type="radio" value="option2"> False </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1">
+        <br>
+        <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+    </div>
 </div>
 
 @section('custom-js')
     <script>
 
         $('.options').tokenize2({
-            placeholder: "Type something to start...",
+            placeholder: "Type here...",
             displayNoResultsMessage: true,
             tokensAllowCustom: true,
-            sortable: true
+            sortable: true,
+            tokensMaxItems: 1,
         });
 
         /*$('.options').tokenize2({
