@@ -237,3 +237,10 @@ th.trash-table.sorting_desc::after {
 .page-heading {
     padding: 14px!important;
 }
+.single-option{
+    width: 100%;
+    float: left;
+}
+#optionsSection ul{
+    margin-bottom: 0!important;
+}

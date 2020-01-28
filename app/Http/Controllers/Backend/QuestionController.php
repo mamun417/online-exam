@@ -66,6 +66,8 @@ class QuestionController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
+
          $request->validate([
             'question'      => 'required',
             'department_id' => 'required',

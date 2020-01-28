@@ -62,30 +62,55 @@
         </div>
 
     </div>
-    <div class="col-sm-3">
-        <div class="form-group" id="tokenize-select">
-            <label>Option</label>
-            <select class="form-control options" name="options[]" multiple>
-                @foreach($options as $option)
-                    <option value="{{ $option->id }}" {{ isset($question) ? 'selected' : '' }}>{{ $option->option }}</option>
-                @endforeach
-            </select>
-            @error('question_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
-        </div>
-    </div>
-    <div class="col-sm-2">
+
+    <div class="col-sm-6">
+
         <div class="form-group">
-            <label>Answer</label>
+            <label>&nbsp;</label>
             <div>
-                <label class="checkbox-inline i-checks"> <input name="correct_ans[]" type="radio" value="option1"> True </label>
-                <label class="checkbox-inline i-checks"> <input name="correct_ans[]" type="radio" value="option2"> False </label>
+                <button id="addMoreOption" type="button" class="btn btn-primary" style="margin-bottom: 0;"><i class="fa fa-plus"></i> Add Option</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="optionsSection">
+
+                <?php
+                    $single_option = '<div class="single-option">';
+                    $single_option .= '<div class="col-sm-6">';
+                    $single_option .= '<div class="form-group" id="tokenize-select">';
+                    $single_option .= '<label>Option</label>';
+                    $single_option .= '<select class="form-control options" name="options[]" multiple>';
+                    foreach($options as $option){
+                        $single_option .= '<option value='.$option->id.'>'.$option->option.'</option>';
+                    }
+                    $single_option .= '</select>';
+                    $single_option .= '</div>';
+                    $single_option .= '</div>';
+
+                    $single_option .= '<div class="col-sm-4">';
+                    $single_option .= '<div class="form-group">';
+                    $single_option .= '<label>Answer</label>';
+                    $single_option .= '<div class="correct_ans">';
+                    $single_option .= '<label class="checkbox-inline i-checks"> <input name="correct_ans[]" type="radio" value="1"> True </label>';
+                    $single_option .= '<label class="checkbox-inline i-checks"> <input name="correct_ans[]" type="radio" value="0"> False </label>';
+                    $single_option .= '</div>';
+                    $single_option .= '</div>';
+                    $single_option .= '</div>';
+
+                    $single_option .= '<div class="col-sm-2">';
+                    $single_option .= '<br>';
+                    $single_option .= '<button onclick="removeOption(this)" type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button>';
+                    $single_option .= '</div>';
+                    $single_option .= '</div>';
+                ?>
+
+                {{--{!! $single_option !!}--}}
+
             </div>
         </div>
     </div>
-    <div class="col-sm-1">
-        <br>
-        <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
-    </div>
+
 </div>
 
 @section('custom-js')
@@ -112,6 +137,27 @@
             displayNoResultsMessage: true,
             noResultsMessageText: "No results mached '%s'"
         });*/
+
+        $('#addMoreOption').click(function () {
+
+            var count = $('#optionsSection').find('.single-option').length;
+
+            $('#optionsSection').append('{!! $single_option !!}').find('.correct_ans').last().find('input[type="radio"]').attr('name', 'correct_ans['+count+']');
+
+            $('.options').tokenize2({
+                placeholder: "Type here...",
+                displayNoResultsMessage: true,
+                tokensAllowCustom: true,
+                sortable: true,
+                tokensMaxItems: 1,
+            });
+        });
+
+        // Delete Single Option
+        function removeOption(e){
+            var target_option = $(e).parents('.single-option');
+            $(target_option).hide("fast", function(){  $(target_option).remove(); });
+        }
 
     </script>
 @endsection

@@ -52,7 +52,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div>Question Type</div>
+                                        <div>Type</div>
                                         <select name="perPage" id="perPage" onchange="submit()" class="input-sm form-control">
                                             @foreach($question_types as $type)
                                                 <option value="{{ $type->code }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $type->name }}</option>
