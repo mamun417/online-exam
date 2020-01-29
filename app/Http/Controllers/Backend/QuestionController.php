@@ -133,6 +133,8 @@ class QuestionController extends Controller
 
     public function destroy(Question $question)
     {
+        $question->options()->detach();
+
         $question->delete();
 
         if ($question->image) {

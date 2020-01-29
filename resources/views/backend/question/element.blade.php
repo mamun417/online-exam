@@ -80,7 +80,7 @@
                     $single_option .= '<div class="col-sm-6">';
                     $single_option .= '<div class="form-group" id="tokenize-select">';
                     $single_option .= '<label>Option</label>';
-                    $single_option .= '<select class="form-control options" name="options[]" multiple>';
+                    $single_option .= '<select class="form-control options" name="test.options[]" multiple>';
                     foreach($options as $option){
                         $single_option .= '<option value='.$option->id.'>'.$option->option.'</option>';
                     }
@@ -140,9 +140,7 @@
 
         $('#addMoreOption').click(function () {
 
-            var count = $('#optionsSection').find('.single-option').length;
-
-            $('#optionsSection').append('{!! $single_option !!}').find('.correct_ans').last().find('input[type="radio"]').attr('name', 'correct_ans['+count+']');
+            $('#optionsSection').append('{!! $single_option !!}');
 
             $('.options').tokenize2({
                 placeholder: "Type here...",
@@ -150,6 +148,11 @@
                 tokensAllowCustom: true,
                 sortable: true,
                 tokensMaxItems: 1,
+            });
+
+            //correct ans name
+            $('.single-option').each(function (index, element) {
+                $(element).find('.correct_ans').find('input[type="radio"]').attr('name', 'correct_ans['+index+']')
             });
         });
 
