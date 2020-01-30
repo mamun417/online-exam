@@ -66,8 +66,6 @@ class QuestionController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
-
          $request->validate([
             'question'      => 'required',
             'department_id' => 'required',
@@ -76,17 +74,46 @@ class QuestionController extends Controller
         ]);
 
         if($request->img){
-
             $image = $this->fileHandler->imageUpload($request->file('img'), 'img');
             $request['image'] = $image;
         }
 
+
         //store options
-        $option_ids = $this->storeOptions($request->options);
+        $option_data = $this->storeOptions($request->options);
+
+        $created_option_list = $option_data['created_option_list']; // ['name' => 'id']
+
+        $request_options = is_null($request->options) ? [] : $request->options;
+
+
+        // rearrange option_ids array in harmony with correct_ans array
+        $option_ids = [];
+        foreach ($request_options as $option_id){
+
+            if (array_key_exists($option_id, $created_option_list)){
+                $option_ids[] = (int) $created_option_list[$option_id];
+            }else{
+                $option_ids[] = (int) $option_id;
+            }
+        }
+
+
+        // correct_ans array value string to int
+        $request_correct_ans = is_null($request->correct_ans) ? [] : $request->correct_ans;
+        $correct_ans = array_map('intval', $request_correct_ans);
+
+        // make array from option_ids and correct_ans for attach in option_question
+        // [ 105 = ['correct_answer' => 1] ]
+        $attach_able_options = [];
+        foreach ($option_ids as $index => $id){
+            $attach_able_options[$id] = ['correct_answer' => $correct_ans[$index]];
+        }
+
 
         $question = Question::create($request->all());
 
-        $question->options()->attach($option_ids);
+        $question->options()->attach($attach_able_options);
 
         return redirect()->route('questions.index')->with('successTMsg', 'Question save successfully');
     }
@@ -116,7 +143,6 @@ class QuestionController extends Controller
             $request['image'] = $image;
 
             if($request->oldImage){
-
                 $this->fileHandler->imageDelete($request->oldImage);
             }
         }
@@ -146,17 +172,24 @@ class QuestionController extends Controller
 
     public function storeOptions($request_options = []){
 
+        $request_options = is_null($request_options) ? [] : $request_options;
+
         $exist_ids = Option::whereIn('id', $request_options)->pluck('id')->toArray();
 
+        // get options which option does not exists in database
         $store_able_options = array_merge(array_diff($request_options, $exist_ids), array_diff($exist_ids, $request_options));
 
         $created_ids = [];
+        $created_option_list = [];
 
+        // make new created option ids and list array (name, id)
         foreach ($store_able_options as $option){
             $create_option = Option::create(['option' => $option]);
             $created_ids[] = $create_option->id;
+            $created_option_list[$create_option->option] = $create_option->id;
         }
 
-        return array_merge($exist_ids, $created_ids);
+        // return new created option list (name, id) and all requested option ids array
+        return ['created_option_list' => $created_option_list, 'option_ids' => array_merge($exist_ids, $created_ids)];
     }
 }

@@ -80,7 +80,7 @@
                     $single_option .= '<div class="col-sm-6">';
                     $single_option .= '<div class="form-group" id="tokenize-select">';
                     $single_option .= '<label>Option</label>';
-                    $single_option .= '<select class="form-control options" name="test.options[]" multiple>';
+                    $single_option .= '<select class="form-control options" name="options[]" multiple>';
                     foreach($options as $option){
                         $single_option .= '<option value='.$option->id.'>'.$option->option.'</option>';
                     }

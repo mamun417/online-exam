@@ -35,7 +35,7 @@
 
                                     <div class="form-group">
                                         <div>Department</div>
-                                        <select name="perPage" id="perPage" onchange="submit()" class="input-sm form-control">
+                                        <select name="" id="perPage" onchange="submit()" class="input-sm form-control">
                                             @foreach($departments as $department)
                                                 <option value="{{ $department->id }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $department->name }}</option>
                                             @endforeach
@@ -44,7 +44,7 @@
 
                                     <div class="form-group">
                                         <div>Subject</div>
-                                        <select name="perPage" id="perPage" onchange="submit()" class="input-sm form-control">
+                                        <select name="" id="perPage" onchange="submit()" class="input-sm form-control">
                                             @foreach($subjects as $subject)
                                                 <option value="{{ $subject->id }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $subject->name }}</option>
                                             @endforeach
@@ -53,7 +53,7 @@
 
                                     <div class="form-group">
                                         <div>Type</div>
-                                        <select name="perPage" id="perPage" onchange="submit()" class="input-sm form-control">
+                                        <select name="" id="perPage" onchange="submit()" class="input-sm form-control">
                                             @foreach($question_types as $type)
                                                 <option value="{{ $type->code }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $type->name }}</option>
                                             @endforeach
@@ -117,6 +117,14 @@
 
                             </table>
                         </div>
+
+                        <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                            <div class="m-r-lg">
+                                Showing {{ $questions->firstItem() }} to {{ $questions->lastItem() }} of {{ $questions->total() }} entries
+                            </div>
+                            {{ $questions->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
+                        </div>
+
                     </div>
                 </div>
             </div>

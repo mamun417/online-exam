@@ -25,7 +25,7 @@ class fileHandlerComponent extends Controller
 
                 $real_image = $image;
                 $image_name = "Fictionsoft-" . rand(8, 8) . time() . '.' . $image->getClientOriginalExtension();
-                Image::make($real_image)->save(base_path('public/backend/uploads/images/' . $this->currentControlle() . '/' . $image_name, '100'));
+                Image::make($real_image)->save(base_path('public/backend/uploads/images/' . $this->currentController() . '/' . $image_name, '100'));
 
                 return $image_name;
             }
