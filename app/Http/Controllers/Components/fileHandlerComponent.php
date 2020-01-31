@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Components;
 
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
+use phpDocumentor\Reflection\Types\This;
 use Route;
 
 class fileHandlerComponent extends Controller
 {
-    public function currentController(){
+    public static function currentController(){
         return strtolower(str_replace('Controller', '', class_basename(Route::current()->controller)));
     }
 
-    public function imageUpload($image, $fildName){
+    public static function imageUpload($image, $fildName){
 
     	if($fildName){
             request()->validate([
@@ -25,16 +26,16 @@ class fileHandlerComponent extends Controller
 
                 $real_image = $image;
                 $image_name = "Fictionsoft-" . rand(8, 8) . time() . '.' . $image->getClientOriginalExtension();
-                Image::make($real_image)->save(base_path('public/backend/uploads/images/' . $this->currentController() . '/' . $image_name, '100'));
+                Image::make($real_image)->save(base_path('public/backend/uploads/images/' . self::currentController() . '/' . $image_name, '100'));
 
                 return $image_name;
             }
         }
     }
 
-    public function imageDelete($imageName){
+    public static function imageDelete($imageName){
 
-        $imagePath = 'backend/uploads/images/'.$this->currentController().'/'.$imageName;
+        $imagePath = 'backend/uploads/images/'.self::currentController().'/'.$imageName;
 
     	if(file_exists($imagePath)){
             unlink($imagePath);

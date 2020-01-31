@@ -183,8 +183,14 @@
 
         // Delete Single Option
         function removeOption(e){
+
             var target_option = $(e).parents('.single-option');
             $(target_option).hide("fast", function(){  $(target_option).remove(); });
+
+            // correct_ans naming
+            $('.single-option').each(function (index, element) {
+                $(element).find('.correct_ans').find('input[type="radio"]').attr('name', 'correct_ans['+index+']')
+            });
         }
 
     </script>

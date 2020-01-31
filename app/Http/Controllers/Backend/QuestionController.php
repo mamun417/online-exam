@@ -13,20 +13,26 @@ use App\Http\Controllers\Components\fileHandlerComponent;
 
 class QuestionController extends Controller
 {
-    public $fileHandler;
-
-    //create file handler component class object
-    function __construct()
-    {
-        $this->fileHandler = new fileHandlerComponent();
-    }
-
     public function index(Request $request)
     {
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
 
-        $questions =  Question::with('department', 'subject', 'question_type');
+        $questions =  Question::with('department', 'subject');
+
+        //dd(request('department'));
+
+        if (request('department')){
+            $questions->whereHas('department', function ($query) use ($keyword) {
+                $query->where('code', '=', request('department'));
+            });
+        }
+
+        if (request('subject')){
+            $questions->whereHas('subject', function ($query) use ($keyword) {
+                $query->where('code', '=', request('subject'));
+            });
+        }
 
         if($keyword){
 
@@ -35,13 +41,14 @@ class QuestionController extends Controller
             $questions = $questions->where('question', 'like', $keyword)
                 ->orWhere('description', 'like', $keyword)
                 ->orWhereHas('department', function ($query) use ($keyword) {
-                    $query->where('name', 'like', $keyword);
+                    if (!request('department')){
+                        $query->where('name', 'like', $keyword);
+                    }
                 })
                 ->orWhereHas('subject', function ($query) use ($keyword) {
-                    $query->where('name', 'like', $keyword);
-                })
-                ->orWhereHas('question_type', function ($query) use ($keyword) {
-                    $query->where('name', 'like', $keyword);
+                    if (!request('subject')){
+                        $query->where('name', 'like', $keyword);
+                    }
                 });
         }
 
@@ -49,20 +56,18 @@ class QuestionController extends Controller
 
         $departments = Department::all();
         $subjects = Subject::all();
-        $question_types = QuestionType::all();
 
-        return view('backend.question.index', compact('questions', 'departments', 'subjects', 'question_types'));
+        return view('backend.question.index', compact('questions', 'departments', 'subjects'));
     }
 
     public function create()
     {
         $departments    = Department::all();
         $subjects       = Subject::all();
-        $question_types = QuestionType::all();
-        $options        = Option::all();
+        $options        = [];
         $question_options = ['id' => ''];
 
-        return view('backend.question.create', compact('departments', 'subjects', 'question_types', 'options', 'question_options'));
+        return view('backend.question.create', compact('departments', 'subjects', 'options', 'question_options'));
     }
 
     public function store(Request $request)
@@ -74,7 +79,7 @@ class QuestionController extends Controller
         ]);
 
         if($request->img){
-            $image = $this->fileHandler->imageUpload($request->file('img'), 'img');
+            $image = fileHandlerComponent::imageUpload($request->file('img'), 'img');
             $request['image'] = $image;
         }
 
@@ -139,11 +144,11 @@ class QuestionController extends Controller
 
         if($request->img){
 
-            $image = $this->fileHandler->imageUpload($request->file('img'), 'img');
+            $image = fileHandlerComponent::imageUpload($request->file('img'), 'img');
             $request['image'] = $image;
 
             if($request->oldImage){
-                $this->fileHandler->imageDelete($request->oldImage);
+                fileHandlerComponent::imageDelete($request->oldImage);
             }
         }
 

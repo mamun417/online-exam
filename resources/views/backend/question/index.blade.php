@@ -35,27 +35,20 @@
 
                                     <div class="form-group">
                                         <div>Department</div>
-                                        <select name="" id="perPage" onchange="submit()" class="input-sm form-control">
+                                        <select name="department" id="perPage" onchange="submit()" class="input-sm form-control">
+                                            <option value="">Select</option>
                                             @foreach($departments as $department)
-                                                <option value="{{ $department->id }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $department->name }}</option>
+                                                <option value="{{ $department->code }}" {{ request('department') == $department->code ? ' selected' : '' }}>{{ $department->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <div>Subject</div>
-                                        <select name="" id="perPage" onchange="submit()" class="input-sm form-control">
+                                        <select name="subject" id="perPage" onchange="submit()" class="input-sm form-control">
+                                            <option value="">Select</option>
                                             @foreach($subjects as $subject)
-                                                <option value="{{ $subject->id }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $subject->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div>Type</div>
-                                        <select name="" id="perPage" onchange="submit()" class="input-sm form-control">
-                                            @foreach($question_types as $type)
-                                                <option value="{{ $type->code }}" {{ request('perPage') == 10 ? ' selected' : '' }}>{{ $type->name }}</option>
+                                                <option value="{{ $subject->code }}" {{ request('subject') == $subject->code ? ' selected' : '' }}>{{ $subject->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -81,7 +74,6 @@
                                         <th>Question</th>
                                         <th>Department</th>
                                         <th>Subject</th>
-                                        <th>Question Type</th>
                                         <th>Create At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -93,7 +85,6 @@
                                             <td>{{ ucfirst($question->question) }}</td>
                                             <td>{{ ucfirst($question->department->name) }}</td>
                                             <td>{{ ucfirst($question->subject->name) }}</td>
-                                            <td>{{ ucfirst($question->question_type->name) }}</td>
                                             <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
                                             <td class="text-center">
 
@@ -122,7 +113,7 @@
                             <div class="m-r-lg">
                                 Showing {{ $questions->firstItem() }} to {{ $questions->lastItem() }} of {{ $questions->total() }} entries
                             </div>
-                            {{ $questions->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
+                            {{ $questions->appends(['perPage' => request('perPage'), 'department' => request('department'), 'subject' => request('subject'), 'keyword' => request('keyword')])->links() }}
                         </div>
 
                     </div>
