@@ -60,8 +60,9 @@ class QuestionController extends Controller
         $subjects       = Subject::all();
         $question_types = QuestionType::all();
         $options        = Option::all();
+        $question_options = ['id' => ''];
 
-        return view('backend.question.create', compact('departments', 'subjects', 'question_types', 'options'));
+        return view('backend.question.create', compact('departments', 'subjects', 'question_types', 'options', 'question_options'));
     }
 
     public function store(Request $request)
@@ -69,8 +70,7 @@ class QuestionController extends Controller
          $request->validate([
             'question'      => 'required',
             'department_id' => 'required',
-            'subject_id'    => 'required',
-            'question_type_id' => 'required'
+            'subject_id'    => 'required'
         ]);
 
         if($request->img){
@@ -87,7 +87,7 @@ class QuestionController extends Controller
         $request_options = is_null($request->options) ? [] : $request->options;
 
 
-        // rearrange option_ids array in harmony with correct_ans array
+        // rearrange option_ids array in harmony with correct_ans array index
         $option_ids = [];
         foreach ($request_options as $option_id){
 
@@ -103,7 +103,7 @@ class QuestionController extends Controller
         $request_correct_ans = is_null($request->correct_ans) ? [] : $request->correct_ans;
         $correct_ans = array_map('intval', $request_correct_ans);
 
-        // make array from option_ids and correct_ans for attach in option_question
+        // make array from option_ids and correct_ans for attach in option_question table
         // [ 105 = ['correct_answer' => 1] ]
         $attach_able_options = [];
         foreach ($option_ids as $index => $id){
@@ -124,8 +124,9 @@ class QuestionController extends Controller
         $subjects       = Subject::all();
         $question_types = QuestionType::all();
         $options        = $question->options;
+        $question_options = $options->count() > 0 ? $options : ['id' => ''];
 
-        return view('backend.question.edit', compact('question','departments', 'subjects', 'question_types', 'options'));
+        return view('backend.question.edit', compact('question','departments', 'subjects', 'question_types', 'options', 'question_options'));
     }
 
     public function update(Request $request, Question $question)
@@ -133,8 +134,7 @@ class QuestionController extends Controller
         $request->validate([
             'question'      => 'required',
             'department_id' => 'required',
-            'subject_id'    => 'required',
-            'question_type_id' => 'required'
+            'subject_id'    => 'required'
         ]);
 
         if($request->img){
@@ -148,11 +148,39 @@ class QuestionController extends Controller
         }
 
         //store options
-        $option_ids = $this->storeOptions($request->options);
+        $option_data = $this->storeOptions($request->options);
+
+        $created_option_list = $option_data['created_option_list']; // ['name' => 'id']
+
+        $request_options = is_null($request->options) ? [] : $request->options;
+
+
+        // rearrange option_ids array in harmony with correct_ans array index
+        $option_ids = [];
+        foreach ($request_options as $option_id){
+
+            if (array_key_exists($option_id, $created_option_list)){
+                $option_ids[] = (int) $created_option_list[$option_id];
+            }else{
+                $option_ids[] = (int) $option_id;
+            }
+        }
+
+
+        // correct_ans array value string to int
+        $request_correct_ans = is_null($request->correct_ans) ? [] : $request->correct_ans;
+        $correct_ans = array_map('intval', $request_correct_ans);
+
+        // make array from option_ids and correct_ans for attach in option_question table
+        // [ 105 = ['correct_answer' => 1] ]
+        $attach_able_options = [];
+        foreach ($option_ids as $index => $id){
+            $attach_able_options[$id] = ['correct_answer' => $correct_ans[$index]];
+        }
 
         $question->update($request->all());
 
-        $question->options()->sync($option_ids);
+        $question->options()->sync($attach_able_options);
 
         return redirect(route('questions.index'))->with('successTMsg', 'Question has been updated successfully');
     }
@@ -191,5 +219,23 @@ class QuestionController extends Controller
 
         // return new created option list (name, id) and all requested option ids array
         return ['created_option_list' => $created_option_list, 'option_ids' => array_merge($exist_ids, $created_ids)];
+    }
+
+    public function getOptionList(){
+
+        $term = request('term');
+
+        $options = Option::where('is_active', 1)
+            ->where('option', 'LIKE', "%$term%")
+            ->select('option', 'id')
+            ->take(20)->get();
+
+        $new_options = [];
+
+        foreach ($options as $option){
+            $new_options[] = ['value' => $option->id, 'text' => $option->option];
+        }
+
+        return response()->json($new_options);
     }
 }

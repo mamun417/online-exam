@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model
 {
-    protected $fillable = ['question', 'department_id', 'subject_id', 'question_type_id', 'is_active', 'is_deleted', 'description', 'image'];
+    protected $fillable = ['question', 'department_id', 'subject_id', 'is_active', 'is_deleted', 'description', 'image'];
 
     public function department(){
         return $this->belongsTo(Department::class);
@@ -24,6 +24,6 @@ class Question extends Model
 	}
 
     public function options(){
-        return $this->belongsToMany(Option::class);
+        return $this->belongsToMany(Option::class)->withPivot('correct_answer');
     }
 }

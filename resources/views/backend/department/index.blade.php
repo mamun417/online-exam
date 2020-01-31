@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="wrapper wrapper-content animated">
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox">
@@ -42,7 +42,7 @@
                                             </span>
                                         </div>
                                          <a href="{{ route('departments.index') }}" class="btn btn-default btn-sm">Reset</a>
-                           
+
                                     </div>
                                 </form>
                             </div>

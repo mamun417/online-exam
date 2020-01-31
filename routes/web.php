@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 	//Questions
 	Route::resource('questions','Backend\QuestionController');
+	Route::get('get-option-list','Backend\QuestionController@getOptionList')->name('get-option-list');
 
 	//users
 	Route::get('show-profile', 'UserController@getProfile')->name('show.profile');

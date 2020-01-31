@@ -12,7 +12,7 @@
     <link href="{{ asset('backend/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{asset('backend/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
 
-    <link href="{{asset('backend/css/animate.css')}}" rel="stylesheet">
+    {{--<link href="{{asset('backend/css/animate.css')}}" rel="stylesheet">--}}
 
     <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet">
 
@@ -49,18 +49,12 @@
 <script src="{{ asset('backend/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
 <script src="{{ asset('backend/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
-<!-- Peity -->
-<script src="{{asset('backend/js/plugins/peity/jquery.peity.min.js')}}"></script>
-
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('backend/js/inspinia.js') }}"></script>
 <script src="{{asset('backend/js/plugins/pace/pace.min.js')}}"></script>
 
 <!-- iCheck -->
 <script src="{{asset('backend/js/plugins/iCheck/icheck.min.js')}}"></script>
-
-<!-- Peity -->
-<script src="{{asset('backend/js/demo/peity-demo.js')}}"></script>
 
 <!-- Toastr -->
 <script src="{{ asset('backend/js/plugins/toastr/toastr.min.js') }}"></script>

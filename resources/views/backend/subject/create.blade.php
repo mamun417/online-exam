@@ -18,7 +18,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form class="form-horizontal" method="POST" action="{{ route('subjects.store') }}">
+                        <form class="form-horizontal" method="POST" action="{{ redirect()->action('Backend\QuestionController@getOptionList') }}">
                             @csrf
 
                             @include('backend.subject.element')

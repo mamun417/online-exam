@@ -16,6 +16,8 @@ class CreateOptionsTable extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('option');
+            $table->tinyInteger('is_active')->nullable()->default(1);
+            $table->tinyInteger('is_deleted')->nullable()->default(0);
             $table->timestamps();
         });
     }
