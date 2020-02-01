@@ -55,7 +55,7 @@ class QuestionController extends Controller
         $questions = $questions->latest()->paginate($perPage);
 
         $departments = Department::all();
-        $subjects = Subject::all();
+        $subjects    = Subject::all();
 
         return view('backend.question.index', compact('questions', 'departments', 'subjects'));
     }

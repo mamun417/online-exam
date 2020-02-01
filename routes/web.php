@@ -26,21 +26,24 @@ Route::group(['middleware' => 'auth'], function(){
 	});
 
 	//Departments
-	Route::resource('departments','Backend\DepartmentController');
+	Route::resource('departments', 'Backend\DepartmentController');
 
 	//Subjects
-	Route::resource('subjects','Backend\SubjectController');
+	Route::resource('subjects', 'Backend\SubjectController');
 
 	//Examinations
-	Route::resource('examinations','Backend\ExaminationController');
+	Route::resource('examinations', 'Backend\ExaminationController');
 
 	//Questions
-	Route::resource('questions','Backend\QuestionController');
-	Route::get('get-option-list','Backend\QuestionController@getOptionList')->name('get-option-list');
+	Route::resource('questions', 'Backend\QuestionController');
+	Route::get('get-option-list', 'Backend\QuestionController@getOptionList')->name('get-option-list');
 
 	//users
 	Route::get('show-profile', 'UserController@getProfile')->name('show.profile');
 	Route::PUT('user/profile/{user}', 'UserController@updateProfile')->name('update.profile');
+
+	//Question Template
+	Route::resource('questionTemplates', 'Backend\QuestionTemplateController');
 
 	Route::get('password-change', 'UserController@changePassword')->name('password.change');
 	Route::POST('password-update', 'UserController@updatePassword')->name('password.update');
