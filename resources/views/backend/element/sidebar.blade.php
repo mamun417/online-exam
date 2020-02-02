@@ -28,23 +28,23 @@
                 </div>
             </li>
 
-            <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+            <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
                 <a href="{{ url('dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
 
-            <li class="{{ Request::is('questionTemplate') ? 'active' : '' }}">
+            <li class="{{ Request::is('questionTemplate*') ? 'active' : '' }}">
                 <a href="{{ route('questionTemplates.index') }}"><i class="fa fa-diamond"></i> <span class="nav-label">Question Template</span></a>
             </li>
 
-            <li class="{{ Request::is('departments') ? 'active' : '' }}">
+            <li class="{{ Request::is('departments*') ? 'active' : '' }}">
                 <a href="{{ route('departments.index') }}"><i class="fa fa-diamond"></i> <span class="nav-label">Departments</span></a>
             </li>
 
-            <li class="{{ Request::is('subjects') ? 'active' : '' }}">
+            <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
                 <a href="{{ route('subjects.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Subjects</span></a>
             </li>
             
-            <li class="{{ Request::is('questions') ? 'active' : '' }}">
+            <li class="{{ Request::is('questions*') ? 'active' : '' }}">
                 <a href="{{ route('questions.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Questions</span></a>
             </li>
 
