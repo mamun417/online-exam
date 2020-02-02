@@ -16,8 +16,25 @@ class QuestionTemplateController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->perPage ?: 10;
-        
+        $keyword = $request->keyword;
+    
         $questionTemplates =  QuestionTemplate::with('department', 'subject', 'questionType');
+
+        if($keyword){
+
+            $keyword = '%'.$keyword.'%';
+
+            $questionTemplates = $questionTemplates->WhereHas('department', function ($query) use ($keyword) {
+                    $query->where('name', 'like', $keyword);
+                })
+                ->orWhereHas('subject', function ($query) use ($keyword) {
+                        $query->where('name', 'like', $keyword);
+                })
+                ->orWhereHas('questionType', function ($query) use ($keyword) {
+                        $query->where('name', 'like', $keyword);
+                });
+        }
+
         $questionTemplates = $questionTemplates->latest()->paginate($perPage);
 
         return view('backend.questionTemplate.index', compact('questionTemplates'));
