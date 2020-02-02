@@ -17,7 +17,7 @@ class CreateOptionQuestionTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('question_id');
             $table->bigInteger('option_id');
-            $table->boolean('correct_answer')->nullable();
+            $table->string('correct_answer')->nullable();
         });
     }
 

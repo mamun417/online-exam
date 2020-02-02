@@ -112,7 +112,14 @@ class QuestionController extends Controller
         // [ 105 = ['correct_answer' => 1] ]
         $attach_able_options = [];
         foreach ($option_ids as $index => $id){
-            $attach_able_options[$id] = ['correct_answer' => $correct_ans[$index]];
+
+            if (array_key_exists($index, $correct_ans)){
+                $correct_answer = $correct_ans[$index];
+            }else{
+                $correct_answer = '';
+            }
+
+            $attach_able_options[$id] = ['correct_answer' => $correct_answer];
         }
 
 
@@ -180,7 +187,14 @@ class QuestionController extends Controller
         // [ 105 = ['correct_answer' => 1] ]
         $attach_able_options = [];
         foreach ($option_ids as $index => $id){
-            $attach_able_options[$id] = ['correct_answer' => $correct_ans[$index]];
+
+            if (array_key_exists($index, $correct_ans)){
+                $correct_answer = $correct_ans[$index];
+            }else{
+                $correct_answer = '';
+            }
+
+            $attach_able_options[$id] = ['correct_answer' => $correct_answer];
         }
 
         $question->update($request->all());

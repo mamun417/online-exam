@@ -83,8 +83,8 @@
                         $single_option .= '<div class="form-group">';
                         $single_option .= '<label>Answer</label>';
                         $single_option .= '<div class="correct_ans">';
-                        $true_check = isset($question_option->id) ? ($question_option->pivot->correct_answer == 1 ? 'checked' : '') : '';
-                        $false_check = isset($question_option->id) ? ($question_option->pivot->correct_answer == 0 ? 'checked' : '') : '';
+                        $true_check = isset($question_option->id) ? ($question_option->pivot->correct_answer === '1' ? 'checked' : '') : '';
+                        $false_check = isset($question_option->id) ? ($question_option->pivot->correct_answer === '0' ? 'checked' : '') : '';
                         $single_option .= '<label class="checkbox-inline i-checks"> <input '.$true_check.' name="correct_ans['.$key.']" type="radio" value="1"> True </label>';
                         $single_option .= '<label class="checkbox-inline i-checks"> <input '.$false_check.' name="correct_ans['.$key.']" type="radio" value="0"> False </label>';
                         $single_option .= '<button onclick="removeOption(this)" type="button" class="btn btn-danger btn-circle" style="margin-left: 20px;"><i class="fa fa-times"></i></button>';
@@ -92,12 +92,6 @@
                         $single_option .= '</div>';
                         $single_option .= '</div>';
                         $single_option .= '</div>';
-
-                        /*$single_option .= '<div class="col-sm-2">';
-                        $single_option .= '<br>';
-                        $single_option .= '<button onclick="removeOption(this)" type="button" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button>';
-                        $single_option .= '</div>';
-                        $single_option .= '</div>';*/
                     ?>
 
                     @if(Route::currentRouteName() === 'questions.edit' && isset($question_option->id))
@@ -126,27 +120,13 @@
                     },
 
                     placeholder: "Type here...",
-                    displayNoResultsMessage: true,
+                    //displayNoResultsMessage: true,
                     tokensAllowCustom: true,
                     sortable: true,
                     tokensMaxItems: 1,
                 });
             });
         @endif
-
-        /*$('.options').tokenize2({
-            dataSource: function(term, object){
-
-                $.get('', {term:term}, function (response) {
-                    object.trigger('tokenize:dropdown:fill', [response]);
-                });
-            },
-
-            placeholder: "Type your option",
-            searchFromStart: false,
-            displayNoResultsMessage: true,
-            noResultsMessageText: "No results mached '%s'"
-        });*/
 
         $('#addMoreOption').click(function () {
 
@@ -163,7 +143,7 @@
                 },
 
                 placeholder: "Type here...",
-                displayNoResultsMessage: true,
+                //displayNoResultsMessage: true,
                 tokensAllowCustom: true,
                 sortable: true,
                 tokensMaxItems: 1
