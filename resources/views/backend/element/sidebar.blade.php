@@ -3,7 +3,7 @@
         <ul class="nav metismenu nav-list" id="side-menu">
             <li class="nav-header ">
                 <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="{{url('backend/img/profile_small.jpg')}}" />
+                            <img alt="image" class="img-circle" src="{{ asset('backend/img/profile_small.jpg') }}" />
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
@@ -43,7 +43,7 @@
             <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
                 <a href="{{ route('subjects.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Subjects</span></a>
             </li>
-            
+
             <li class="{{ Request::is('questions*') ? 'active' : '' }}">
                 <a href="{{ route('questions.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Questions</span></a>
             </li>

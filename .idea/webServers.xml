@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="df492ea2-1fd5-47e9-9e63-e4143200d813" name="demo-medical-spark" url="http://www.glossybazar.com/">
+        <fileTransfer host="glossybazar.com" port="21" rootFolder="/public_html/demo/medi_spark">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
