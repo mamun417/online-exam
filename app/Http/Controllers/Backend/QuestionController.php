@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Model\Department;
 use App\Model\Subject;
 use App\Model\Question;
+use App\Model\QuestionTemplate;
 use App\Http\Controllers\Components\fileHandlerComponent;
 
 class QuestionController extends Controller
@@ -18,64 +19,38 @@ class QuestionController extends Controller
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
 
-        $questions =  Question::with('department', 'subject');
-
-        //dd(request('department'));
-
-        if (request('department')){
-            $questions->whereHas('department', function ($query) use ($keyword) {
-                $query->where('code', '=', request('department'));
-            });
-        }
-
-        if (request('subject')){
-            $questions->whereHas('subject', function ($query) use ($keyword) {
-                $query->where('code', '=', request('subject'));
-            });
-        }
+        $questions = new Question();
 
         if($keyword){
 
             $keyword = '%'.$keyword.'%';
 
             $questions = $questions->where('question', 'like', $keyword)
-                ->orWhere('description', 'like', $keyword)
-                ->orWhereHas('department', function ($query) use ($keyword) {
-                    if (!request('department')){
-                        $query->where('name', 'like', $keyword);
-                    }
-                })
-                ->orWhereHas('subject', function ($query) use ($keyword) {
-                    if (!request('subject')){
-                        $query->where('name', 'like', $keyword);
-                    }
-                });
+                ->orWhere('description', 'like', $keyword);
         }
 
         $questions = $questions->latest()->paginate($perPage);
 
-        $departments = Department::all();
-        $subjects    = Subject::all();
-
-        return view('backend.question.index', compact('questions', 'departments', 'subjects'));
+        return view('backend.question.index', compact('questions'));
     }
 
     public function create()
     {
-        $departments    = Department::all();
-        $subjects       = Subject::all();
+        
         $options        = [];
         $question_options = ['id' => ''];
 
-        return view('backend.question.create', compact('departments', 'subjects', 'options', 'question_options'));
+        $questionTemplates =  QuestionTemplate::with('department', 'subject', 'questionType')->get();
+
+        return view('backend.question.create', compact('options', 'question_options', 'questionTemplates'));
     }
 
     public function store(Request $request)
     {
+
          $request->validate([
             'question'      => 'required',
-            'department_id' => 'required',
-            'subject_id'    => 'required'
+            'question_template_id' => 'required'
         ]);
 
         if($request->img){
@@ -132,21 +107,19 @@ class QuestionController extends Controller
 
     public function edit(Question $question)
     {
-        $departments    = Department::all();
-        $subjects       = Subject::all();
-        $question_types = QuestionType::all();
-        $options        = $question->options;
+        $questionTemplates = QuestionTemplate::with('department', 'subject', 'questionType')->get();
+
+        $options = $question->options;
         $question_options = $options->count() > 0 ? $options : ['id' => ''];
 
-        return view('backend.question.edit', compact('question','departments', 'subjects', 'question_types', 'options', 'question_options'));
+        return view('backend.question.edit', compact('question','questionTemplates','options', 'question_options'));
     }
 
     public function update(Request $request, Question $question)
     {
         $request->validate([
             'question'      => 'required',
-            'department_id' => 'required',
-            'subject_id'    => 'required'
+            'question_template_id' => 'required'
         ]);
 
         if($request->img){

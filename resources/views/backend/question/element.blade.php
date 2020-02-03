@@ -6,31 +6,18 @@
             <input type="text" placeholder="Type question" value="{{ isset($question->question) ? $question->question : old('question')}}" name="question" class="form-control">
             @error('question') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
         </div>
-
+        
         <div class="form-group">
-            <label>Department<span class="required-star"> *</span></label>
-            <select class="form-control" name="department_id">
-                <option value="">Select Department</option>
-                @foreach($departments as $department )
-                    <option @if( isset($question) and $question->department_id == $department->id) selected @endif value="{{ $department->id }}">
-                        {{ $department->name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('department_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
-        </div>
+            <label>Question Template<span class="required-star"> *</span></label>
+            <select class="form-control" name="question_template_id">
 
-        <div class="form-group">
-            <label>Subject<span class="required-star"> *</span></label>
-            <select class="form-control" name="subject_id">
-
-                <option value="">Select Subject</option>
-                @foreach($subjects as $subject)
-                    <option @if( isset($question) and $question->subject_id == $subject->id) selected @endif value="{{ $subject->id }}">{{ $subject->name }}</option>
+                <option value="">Select Question Template</option>
+                @foreach($questionTemplates as $questionTemplate)
+                    <option @if( isset($question) and $question->question_template_id == $questionTemplate->id) selected @endif value="{{ $questionTemplate->id }}">{{ $questionTemplate->department->name}}-{{ $questionTemplate->subject->name }}-{{  $questionTemplate->questionType->name}}-{{ $questionTemplate->total_questions }}-{{ $questionTemplate->total_marks }}-{{ $questionTemplate->negative_marks }}</option>
                 @endforeach
 
             </select>
-            @error('subject_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+            @error('question_template_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
         </div>
 
         <div class="form-group">

@@ -34,26 +34,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div>Department</div>
-                                        <select name="department" id="perPage" onchange="submit()" class="input-sm form-control">
-                                            <option value="">Select</option>
-                                            @foreach($departments as $department)
-                                                <option value="{{ $department->code }}" {{ request('department') == $department->code ? ' selected' : '' }}>{{ $department->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div>Subject</div>
-                                        <select name="subject" id="perPage" onchange="submit()" class="input-sm form-control">
-                                            <option value="">Select</option>
-                                            @foreach($subjects as $subject)
-                                                <option value="{{ $subject->code }}" {{ request('subject') == $subject->code ? ' selected' : '' }}>{{ $subject->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
                                         <br>
                                         <div class="input-group">
                                             <input name="keyword" type="text" value="{{ request('keyword') }}" class="input-sm form-control" placeholder="Search Here">
@@ -72,8 +52,8 @@
                                 <thead>
                                     <tr>
                                         <th>Question</th>
-                                        <th>Department</th>
-                                        <th>Subject</th>
+                                        <th>Image</th>
+                                        <th>Description</th>
                                         <th>Create At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -83,8 +63,8 @@
                                     @foreach($questions as $question)
                                         <tr>
                                             <td>{{ ucfirst($question->question) }}</td>
-                                            <td>{{ ucfirst($question->department->name) }}</td>
-                                            <td>{{ ucfirst($question->subject->name) }}</td>
+                                            <td style="text-align: center;"> <img class="cus_thumbnail" src="{{ asset('backend/uploads/images/question/'.$question->image) }}" width="50" height="70"></td>
+                                            <td>{{ ucfirst(Str::limit($question->description, 40)) }}</td>
                                             <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
                                             <td class="text-center">
 
