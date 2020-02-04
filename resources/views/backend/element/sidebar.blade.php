@@ -33,7 +33,7 @@
             </li>
 
             <li class="{{ Request::is('question-template*') ? 'active' : '' }}">
-                <a href="{{ route('question-templates.index') }}"><i class="fa fa-chalkboard"></i><span class="nav-label">Question Template</span></a>
+                <a href="{{ route('question-templates.index') }}"><i class="fa fa-file-text"></i><span class="nav-label">Question Template</span></a>
             </li>
 
              <li class="{{ Request::is('questions*') ? 'active' : '' }}">

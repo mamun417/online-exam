@@ -4,6 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static create(array $all)
+ */
 class Question extends Model
 {
     protected $fillable = ['question', 'question_template_id', 'question_type_id',  'is_active', 'is_deleted', 'description', 'image'];
