@@ -19,8 +19,8 @@ class QuestionController extends Controller
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
 
-        $questions = Question::with('QuestionName', 'QuestionType');
-        
+        $questions = Question::with('template', 'questionType');
+
         if($keyword){
 
             $keyword = '%'.$keyword.'%';
@@ -36,19 +36,17 @@ class QuestionController extends Controller
 
     public function create()
     {
-        
         $options        = [];
         $question_options = ['id' => ''];
-       
-        $questionNames = QuestionTemplate::all();
+
+        $questionTemplates = QuestionTemplate::all();
         $questionTypes = QuestionType::all();
-        
-        return view('backend.question.create', compact('options', 'question_options', 'questionNames', 'questionTypes'));
+
+        return view('backend.question.create', compact('options', 'question_options', 'questionTemplates', 'questionTypes'));
     }
 
     public function store(Request $request)
     {
-
          $request->validate([
             'question' => 'required',
             'question_template_id' => 'required',
@@ -109,12 +107,12 @@ class QuestionController extends Controller
 
     public function edit(Question $question)
     {
-        $questions =  Question::with('QuestionName', 'QuestionType')->get();
-
         $options = $question->options;
         $question_options = $options->count() > 0 ? $options : ['id' => ''];
+        $questionTemplates = QuestionTemplate::all();
+        $questionTypes = QuestionType::all();
 
-        return view('backend.question.edit', compact('questions', 'options', 'question_options'));
+        return view('backend.question.edit', compact('question', 'options', 'question_options', 'questionTemplates', 'questionTypes'));
     }
 
     public function update(Request $request, Question $question)

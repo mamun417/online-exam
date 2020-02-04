@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class QuestionTemplate extends Model
 {
-    protected $fillable = ['name', 'department_id', 'subject_id', 'question_type_id', 'is_active', 'is_deleted', 'total_questions', 'total_marks', 'negative_marks'];
+    protected $fillable = ['name', 'department_id', 'subject_id', 'student_type_id', 'is_active', 'is_deleted', 'total_questions', 'total_marks', 'negative_marks'];
 
      public function department(){
-			return $this->hasOne(Department::class,'id', 'department_id');
-	}
+        return $this->belongsTo(Department::class);
+	 }
 
-	public function subject(){
-			return $this->hasOne(Subject::class,'id', 'subject_id');
-	}
+	 public function subject(){
+        return $this->belongsTo(Subject::class);
+	 }
 
-	public function questionType(){
-			return $this->hasOne(QuestionType::class,'id', 'question_type_id');
-	}
+	 public function studentType(){
+        return $this->belongsTo(StudentType::class);
+	 }
 }

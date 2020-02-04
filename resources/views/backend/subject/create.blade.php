@@ -14,7 +14,8 @@
         </div>
     </div>
 
-    <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
@@ -26,12 +27,16 @@
                             <div class="form-group">
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-10">
-                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs" type="submit"><strong>Submit</strong></button>
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs" type="submit">
+                                        <strong>Submit</strong>
+                                    </button>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 @endsection

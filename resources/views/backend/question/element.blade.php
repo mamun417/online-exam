@@ -2,12 +2,12 @@
     <div class="col-sm-6">
 
         <div class="form-group">
-            <label>Question Name<span class="required-star"> *</span></label>
+            <label>Question Template Name<span class="required-star"> *</span></label>
             <select class="form-control" name="question_template_id">
 
-                <option value="">Select Question Name</option>
-                @foreach($questionNames as $questionName)
-                    <option @if( isset($question) and $question->question_template_id == $questionName->id) selected @endif value="{{ $questionName->id }}">{{ $questionName->name}}</option>
+                <option value="">Select Template</option>
+                @foreach($questionTemplates as $template)
+                    <option @if( isset($question) and $question->question_template_id == $template->id) selected @endif value="{{ $template->id }}">{{ $template->name}}</option>
                 @endforeach
 
             </select>
@@ -15,22 +15,22 @@
         </div>
 
         <div class="form-group">
-            <label>Question<span class="required-star"> *</span></label>
-            <input type="text" placeholder="Question" value="{{ isset($questions->question) ? $questions->question : old('question')}}" name="question" class="form-control">
-            @error('question') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
-        </div>
-        
-        <div class="form-group">
             <label>Question Type<span class="required-star"> *</span></label>
             <select class="form-control" name="question_type_id">
 
-                <option value="">Select Question Type</option>
+                <option value="">Select Type</option>
                 @foreach($questionTypes as $questionType)
                     <option @if( isset($question) and $question->question_type_id == $questionType->id) selected @endif value="{{ $questionType->id }}">{{ $questionType->name}}</option>
                 @endforeach
 
             </select>
             @error('question_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="form-group">
+            <label>Question<span class="required-star"> *</span></label>
+            <input type="text" placeholder="Question" value="{{ isset($question->question) ? $question->question : old('question')}}" name="question" class="form-control">
+            @error('question') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
         </div>
 
         <div class="form-group">
@@ -150,9 +150,7 @@
             });
 
             // correct_ans naming
-            $('.single-option').each(function (index, element) {
-                $(element).find('.correct_ans').find('input[type="radio"]').attr('name', 'correct_ans['+index+']')
-            });
+            correctAnsNaming();
 
             // reload radio style
             $('.i-checks').iCheck({
@@ -165,13 +163,17 @@
         function removeOption(e){
 
             var target_option = $(e).parents('.single-option');
-            $(target_option).hide("fast", function(){  $(target_option).remove(); });
+            $(target_option).remove();
+            //$(target_option).hide("fast", function(){  $(target_option).remove(); });
 
             // correct_ans naming
+            correctAnsNaming();
+        }
+
+        function correctAnsNaming() {
             $('.single-option').each(function (index, element) {
                 $(element).find('.correct_ans').find('input[type="radio"]').attr('name', 'correct_ans['+index+']')
             });
         }
-
     </script>
 @endsection

@@ -1,10 +1,11 @@
 @extends('backend.layouts.master')
+
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('questionTemplates.index') }}">Question Template</a>
+                    <a href="{{ route('question-templates.index') }}">Question Template</a>
                 </li>
                 <li class="active">
                     <strong>Create</strong>
@@ -23,10 +24,10 @@
                     </div>
 
                     <div class="ibox-content">
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('questionTemplates.store') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('question-templates.store') }}">
                            @csrf
 
-                           @include('backend.questionTemplate.element')
+                           @include('backend.question-template.element')
 
                             <div class="form-group">
                                 <div class="col-lg-2"></div>

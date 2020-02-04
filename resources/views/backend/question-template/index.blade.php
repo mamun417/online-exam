@@ -69,14 +69,14 @@
                                             <td>{{ ucfirst($questionTemplate->name) }}</td>
                                             <td>{{ ucfirst($questionTemplate->department->name) }}</td>
                                             <td>{{ ucfirst($questionTemplate->subject->name) }}</td>
-                                            <td>{{ ucfirst($questionTemplate->questionType->name) }}</td>
+                                            <td>{{ ucfirst($questionTemplate->studentType->name) }}</td>
                                             <td>{{ ucfirst($questionTemplate->total_questions) }}</td>
                                             <td>{{ ucfirst($questionTemplate->total_marks) }}</td>
                                             <td>{{ ucfirst($questionTemplate->negative_marks) }}</td>
                                              <td>{{ date_format($questionTemplate->created_at, 'd-m-Y') }}</td>
                                             <td class="text-center">
 
-                                                <a href="{{ route('questionTemplates.edit', $questionTemplate->id) }}" title="Edit" class="btn btn-info cus_btn">
+                                                <a href="{{ route('question-templates.edit', $questionTemplate->id) }}" title="Edit" class="btn btn-info cus_btn">
                                                     <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
                                                 </a>
 
@@ -84,7 +84,7 @@
                                                     <i class="fa fa-trash"></i> <strong>Delete</strong>
                                                 </a>
 
-                                                <form id="row-delete-form{{ $questionTemplate->id }}" method="POST" action="{{ route('questionTemplates.destroy', $questionTemplate->id) }}" style="display: none" >
+                                                <form id="row-delete-form{{ $questionTemplate->id }}" method="POST" action="{{ route('question-templates.destroy', $questionTemplate->id) }}" style="display: none" >
                                                     @method('DELETE')
                                                     @csrf()
                                                 </form>

@@ -8,11 +8,11 @@ class Question extends Model
 {
     protected $fillable = ['question', 'question_template_id', 'question_type_id',  'is_active', 'is_deleted', 'description', 'image'];
 
-    public function QuestionName(){
-        return $this->belongsTo(QuestionTemplate::class);
+    public function template(){
+        return $this->belongsTo(QuestionTemplate::class, 'question_template_id');
 	}
 
-    public function QuestionType(){
+    public function questionType(){
         return $this->belongsTo(QuestionType::class);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Model\StudentType;
 use App\Model\Subject;
 use App\Model\Department;
 use App\Model\QuestionType;
@@ -12,13 +13,12 @@ use Illuminate\Http\Request;
 
 class QuestionTemplateController extends Controller
 {
-
     public function index(Request $request)
     {
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
 
-        $questionTemplates =  QuestionTemplate::with('department', 'subject', 'questionType');
+        $questionTemplates =  QuestionTemplate::with('department', 'subject', 'studentType');
 
         if($keyword){
 
@@ -42,11 +42,11 @@ class QuestionTemplateController extends Controller
 
     public function create()
     {
-        $departments   = Department::get();
-        $subjects      = Subject::get();
-        $questionTypes = QuestionType::get();
+        $departments   = Department::all();
+        $subjects      = Subject::all();
+        $studentTypes = StudentType::all();
 
-        return view('backend.questionTemplate.create', compact('departments', 'subjects', 'questionTypes'));
+        return view('backend.question-template.create', compact('departments', 'subjects', 'studentTypes'));
     }
 
     public function store(Request $request)
@@ -55,23 +55,23 @@ class QuestionTemplateController extends Controller
             'name'             => 'required',
             'department_id'    => 'required',
             'subject_id'       => 'required',
-            'question_type_id' => 'required',
+            'student_type_id' => 'required',
             'total_questions'  => 'required',
             'total_marks'      => 'required'
         ]);
 
         QuestionTemplate::create($request->all());
 
-        return redirect()->route('questionTemplates.index')->with('successTMsg','Question Template save successfully');
+        return redirect()->route('question-templates.index')->with('successTMsg','Question Template save successfully');
     }
 
     public function edit(QuestionTemplate $questionTemplate)
     {
-        $departments   = Department::get();
-        $subjects      = Subject::get();
-        $questionTypes = QuestionType::get();
+        $departments   = Department::all();
+        $subjects      = Subject::all();
+        $studentTypes = StudentType::all();
 
-        return view('backend.questionTemplate.edit', compact('questionTemplate', 'departments', 'subjects', 'questionTypes'));
+        return view('backend.question-template.edit', compact('questionTemplate', 'departments', 'subjects', 'studentTypes'));
     }
 
     public function update(Request $request, QuestionTemplate $questionTemplate)
@@ -80,13 +80,13 @@ class QuestionTemplateController extends Controller
             'name'             => 'required',
             'department_id'    => 'required',
             'subject_id'       => 'required',
-            'question_type_id' => 'required',
+            'student_type_id' => 'required',
             'total_questions'  => 'required',
             'total_marks'      => 'required'
         ]);
 
         $questionTemplate->update($request->all());
-        return redirect(route('questionTemplates.index'))->with('successTMsg', 'Question Template has been updated successfully');
+        return redirect(route('question-templates.index'))->with('successTMsg', 'Question Template has been updated successfully');
     }
 
     public function destroy(QuestionTemplate $questionTemplate)
