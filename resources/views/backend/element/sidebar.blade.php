@@ -32,8 +32,8 @@
                 <a href="{{ url('dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
 
-            <li class="{{ Request::is('questionTemplate*') ? 'active' : '' }}">
-                <a href="{{ route('questionTemplates.index') }}"><i class="fa fa-chalkboard"></i><span class="nav-label">Question Template</span></a>
+            <li class="{{ Request::is('question-template*') ? 'active' : '' }}">
+                <a href="{{ route('question-templates.index') }}"><i class="fa fa-chalkboard"></i><span class="nav-label">Question Template</span></a>
             </li>
 
              <li class="{{ Request::is('questions*') ? 'active' : '' }}">

@@ -18,10 +18,7 @@ class CreateQuestionTemplatesTable extends Migration
             $table->string('name');
             $table->bigInteger('department_id')->unsigned();
             $table->bigInteger('subject_id')->unsigned();
-            $table->bigInteger('question_type_id')->unsigned();
-            $table->foreign('department_id')->on('departments')->references('id')->onDelete('cascade');
-            $table->foreign('subject_id')->on('subjects')->references('id')->onDelete('cascade');
-            $table->foreign('question_type_id')->on('question_types')->references('id')->onDelete('cascade');
+            $table->bigInteger('student_type_id')->unsigned();
             $table->Integer('total_questions');
             $table->Integer('total_marks');
             $table->float('negative_marks')->nullable();

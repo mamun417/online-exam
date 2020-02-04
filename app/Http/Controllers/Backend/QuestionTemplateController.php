@@ -12,12 +12,12 @@ use Illuminate\Http\Request;
 
 class QuestionTemplateController extends Controller
 {
-   
+
     public function index(Request $request)
     {
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
-    
+
         $questionTemplates =  QuestionTemplate::with('department', 'subject', 'questionType');
 
         if($keyword){
@@ -37,7 +37,7 @@ class QuestionTemplateController extends Controller
 
         $questionTemplates = $questionTemplates->latest()->paginate($perPage);
 
-        return view('backend.questionTemplate.index', compact('questionTemplates'));
+        return view('backend.question-template.index', compact('questionTemplates'));
     }
 
     public function create()
@@ -64,7 +64,7 @@ class QuestionTemplateController extends Controller
 
         return redirect()->route('questionTemplates.index')->with('successTMsg','Question Template save successfully');
     }
-   
+
     public function edit(QuestionTemplate $questionTemplate)
     {
         $departments   = Department::get();

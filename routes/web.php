@@ -31,21 +31,18 @@ Route::group(['middleware' => 'auth'], function(){
 	//Subjects
 	Route::resource('subjects', 'Backend\SubjectController');
 
-	//Examinations
-	Route::resource('examinations', 'Backend\ExaminationController');
-
 	//Questions
 	Route::resource('questions', 'Backend\QuestionController');
 	Route::get('get-option-list', 'Backend\QuestionController@getOptionList')->name('get-option-list');
 
+    //Question Template
+    Route::resource('question-templates', 'Backend\QuestionTemplateController');
+
 	//users
 	Route::get('show-profile', 'UserController@getProfile')->name('show.profile');
-	Route::PUT('user/profile/{user}', 'UserController@updateProfile')->name('update.profile');
-
-	//Question Template
-	Route::resource('questionTemplates', 'Backend\QuestionTemplateController');
+	Route::put('user/profile/{user}', 'UserController@updateProfile')->name('update.profile');
 
 	Route::get('password-change', 'UserController@changePassword')->name('password.change');
-	Route::POST('password-update', 'UserController@updatePassword')->name('password.update');
+	Route::post('password-update', 'UserController@updatePassword')->name('password.update');
 });
 

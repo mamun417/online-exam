@@ -7,7 +7,7 @@
     </div>
     <div class="col-lg-2">
         <div class="ibox-tools">
-            <a href="{{ route('questionTemplates.create') }}" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><i class="fa fa-plus"></i> <strong>Create</strong></a>
+            <a href="{{ route('question-templates.create') }}" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><i class="fa fa-plus"></i> <strong>Create</strong></a>
         </div>
     </div>
 </div>
@@ -21,7 +21,7 @@
                         <div class="row" style="margin-bottom: 10px">
 
                             <div class="col-sm-12">
-                                <form action="{{ route('questionTemplates.index') }}" method="get" class="form-inline" role="form">
+                                <form action="{{ route('question-templates.index') }}" method="get" class="form-inline" role="form">
 
                                     <div class="form-group">
                                         <div>Records Per Page</div>
@@ -41,7 +41,7 @@
                                                 <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
                                             </span>
                                         </div>
-                                         <a href="{{ route('questionTemplates.index') }}" class="btn btn-default btn-sm">Reset</a>
+                                         <a href="{{ route('question-templates.index') }}" class="btn btn-default btn-sm">Reset</a>
                                     </div>
                                 </form>
                             </div>
@@ -54,10 +54,10 @@
                                         <th>Name</th>
                                         <th>Department</th>
                                         <th>Subject</th>
-                                        <th>Question Type</th>
+                                        <th>Student Type</th>
                                         <th>Total Question</th>
                                         <th>Total Marks</th>
-                                        <th>Nagetive Marks</th>
+                                        <th>Negative Marks</th>
                                         <th>Create At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -109,5 +109,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection

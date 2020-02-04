@@ -16,14 +16,12 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('question_template_id')->unsigned();
-            $table->foreign('question_template_id')->on('question_templates')->references('id')->onDelete('cascade');
             $table->bigInteger('question_type_id')->unsigned();
-            $table->foreign('question_type_id')->on('question_types')->references('id')->onDelete('cascade');
             $table->string('question');
+            $table->string('description')->nullable();
+            $table->string('image')->nullable();
             $table->tinyInteger('is_active')->nullable()->default(1);
             $table->tinyInteger('is_deleted')->nullable()->default(0);
-            $table->string('description', 500)->nullable();
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
