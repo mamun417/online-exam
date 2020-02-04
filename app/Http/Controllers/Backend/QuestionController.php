@@ -19,8 +19,8 @@ class QuestionController extends Controller
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
 
-        $questions = new Question();
-
+        $questions = Question::with('QuestionName', 'QuestionType');
+        
         if($keyword){
 
             $keyword = '%'.$keyword.'%';
@@ -39,18 +39,20 @@ class QuestionController extends Controller
         
         $options        = [];
         $question_options = ['id' => ''];
-
-        $questionTemplates =  QuestionTemplate::with('department', 'subject', 'questionType')->get();
-
-        return view('backend.question.create', compact('options', 'question_options', 'questionTemplates'));
+       
+        $questionNames = QuestionTemplate::all();
+        $questionTypes = QuestionType::all();
+        
+        return view('backend.question.create', compact('options', 'question_options', 'questionNames', 'questionTypes'));
     }
 
     public function store(Request $request)
     {
 
          $request->validate([
-            'question'      => 'required',
-            'question_template_id' => 'required'
+            'question' => 'required',
+            'question_template_id' => 'required',
+            'question_type_id' => 'required'
         ]);
 
         if($request->img){
@@ -107,19 +109,20 @@ class QuestionController extends Controller
 
     public function edit(Question $question)
     {
-        $questionTemplates = QuestionTemplate::with('department', 'subject', 'questionType')->get();
+        $questions =  Question::with('QuestionName', 'QuestionType')->get();
 
         $options = $question->options;
         $question_options = $options->count() > 0 ? $options : ['id' => ''];
 
-        return view('backend.question.edit', compact('question','questionTemplates','options', 'question_options'));
+        return view('backend.question.edit', compact('questions', 'options', 'question_options'));
     }
 
     public function update(Request $request, Question $question)
     {
         $request->validate([
             'question'      => 'required',
-            'question_template_id' => 'required'
+            'question_template_id' => 'required',
+            'question_type_id' => 'required'
         ]);
 
         if($request->img){

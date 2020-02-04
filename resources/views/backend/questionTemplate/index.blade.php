@@ -51,6 +51,7 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>Name</th>
                                         <th>Department</th>
                                         <th>Subject</th>
                                         <th>Question Type</th>
@@ -65,6 +66,7 @@
                                 <tbody>
                                     @foreach($questionTemplates as $questionTemplate)
                                         <tr>
+                                            <td>{{ ucfirst($questionTemplate->name) }}</td>
                                             <td>{{ ucfirst($questionTemplate->department->name) }}</td>
                                             <td>{{ ucfirst($questionTemplate->subject->name) }}</td>
                                             <td>{{ ucfirst($questionTemplate->questionType->name) }}</td>

@@ -51,8 +51,9 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>Question Name</th>
+                                        <th>Question Type</th>
                                         <th>Question</th>
-                                        <th>Image</th>
                                         <th>Description</th>
                                         <th>Create At</th>
                                         <th class="text-center">Actions</th>
@@ -63,7 +64,8 @@
                                     @foreach($questions as $question)
                                         <tr>
                                             <td>{{ ucfirst($question->question) }}</td>
-                                            <td style="text-align: center;"> <img class="cus_thumbnail" src="{{ asset('backend/uploads/images/question/'.$question->image) }}" width="50" height="70"></td>
+                                            <td>{{ ucfirst($question->question) }}</td>
+                                            <td>{{ ucfirst($question->question) }}</td>
                                             <td>{{ ucfirst(Str::limit($question->description, 40)) }}</td>
                                             <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
                                             <td class="text-center">

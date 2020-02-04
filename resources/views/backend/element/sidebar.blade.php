@@ -3,11 +3,11 @@
         <ul class="nav metismenu nav-list" id="side-menu">
             <li class="nav-header ">
                 <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="{{ asset('backend/img/profile_small.jpg') }}" />
+                            <img alt="image" class="img-circle" src="{{ asset('backend/img/admin1.png') }}" />
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
+                             </span> <span class="text-muted text-xs block">Administrator<b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="{{ route('show.profile') }}">Profile</a></li>
                         <li><a href="{{ route('password.change') }}">Change Password</a></li>
@@ -33,24 +33,21 @@
             </li>
 
             <li class="{{ Request::is('questionTemplate*') ? 'active' : '' }}">
-                <a href="{{ route('questionTemplates.index') }}"><i class="fa fa-diamond"></i> <span class="nav-label">Question Template</span></a>
+                <a href="{{ route('questionTemplates.index') }}"><i class="fa fa-chalkboard"></i><span class="nav-label">Question Template</span></a>
+            </li>
+
+             <li class="{{ Request::is('questions*') ? 'active' : '' }}">
+                <a href="{{ route('questions.index') }}"><i style="font-size: 20px" class="fa fa-question"></i> <span class="nav-label">Questions</span></a>
             </li>
 
             <li class="{{ Request::is('departments*') ? 'active' : '' }}">
-                <a href="{{ route('departments.index') }}"><i class="fa fa-diamond"></i> <span class="nav-label">Departments</span></a>
+                <a href="{{ route('departments.index') }}"><i style="font-size: 15px" class="fa fa-users"></i><span class="nav-label">Departments</span></a>
             </li>
 
             <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
                 <a href="{{ route('subjects.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Subjects</span></a>
             </li>
 
-            <li class="{{ Request::is('questions*') ? 'active' : '' }}">
-                <a href="{{ route('questions.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Questions</span></a>
-            </li>
-
-            <!-- <li>
-                <a href="{{ route('examinations.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Examinations</span></a>
-            </li> -->
         </ul>
     </div>
 </nav>

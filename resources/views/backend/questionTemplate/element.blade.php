@@ -1,4 +1,13 @@
 
+
+<div class="form-group">
+    <label class="col-lg-2 control-label">Name<span class="required-star"> *</span></label>
+    <div class="col-lg-6">
+        <input type="text" value="{{ isset($questionTemplate->name) ? $questionTemplate->name : old('name')}}" name="name" class="form-control">
+        @error('name') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+    </div>
+</div>
+
 <div class="form-group">
     <label class="col-lg-2 control-label">Department<span class="required-star"> *</span></label>
     <div class="col-lg-6">
@@ -63,7 +72,7 @@
 </div> 
 
  <div class="form-group">
-    <label class="col-lg-2 control-label">Negative Marks<span class="required-star"> *</span></label>
+    <label class="col-lg-2 control-label">Negative Marks/Per Question<span class="required-star"> *</span></label>
     <div class="col-lg-6">
         <input step="0.01" type="number" value="{{ isset($questionTemplate->negative_marks) ? $questionTemplate->negative_marks : old('negative_marks')}}" name="negative_marks" class="form-control">
         @error('negative_marks') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror

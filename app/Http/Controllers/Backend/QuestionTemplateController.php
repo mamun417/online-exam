@@ -24,7 +24,7 @@ class QuestionTemplateController extends Controller
 
             $keyword = '%'.$keyword.'%';
 
-            $questionTemplates = $questionTemplates->WhereHas('department', function ($query) use ($keyword) {
+            $questionTemplates = $questionTemplates->where('name', 'like', $keyword)->WhereHas('department', function ($query) use ($keyword) {
                     $query->where('name', 'like', $keyword);
                 })
                 ->orWhereHas('subject', function ($query) use ($keyword) {
@@ -52,6 +52,7 @@ class QuestionTemplateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'name'             => 'required',
             'department_id'    => 'required',
             'subject_id'       => 'required',
             'question_type_id' => 'required',
@@ -76,6 +77,7 @@ class QuestionTemplateController extends Controller
     public function update(Request $request, QuestionTemplate $questionTemplate)
     {
          $request->validate([
+            'name'             => 'required',
             'department_id'    => 'required',
             'subject_id'       => 'required',
             'question_type_id' => 'required',

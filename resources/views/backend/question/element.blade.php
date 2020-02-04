@@ -2,22 +2,35 @@
     <div class="col-sm-6">
 
         <div class="form-group">
-            <label>Question<span class="required-star"> *</span></label>
-            <input type="text" placeholder="Type question" value="{{ isset($question->question) ? $question->question : old('question')}}" name="question" class="form-control">
-            @error('question') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
-        </div>
-        
-        <div class="form-group">
-            <label>Question Template<span class="required-star"> *</span></label>
+            <label>Question Name<span class="required-star"> *</span></label>
             <select class="form-control" name="question_template_id">
 
-                <option value="">Select Question Template</option>
-                @foreach($questionTemplates as $questionTemplate)
-                    <option @if( isset($question) and $question->question_template_id == $questionTemplate->id) selected @endif value="{{ $questionTemplate->id }}">{{ $questionTemplate->department->name}}-{{ $questionTemplate->subject->name }}-{{  $questionTemplate->questionType->name}}-{{ $questionTemplate->total_questions }}-{{ $questionTemplate->total_marks }}-{{ $questionTemplate->negative_marks }}</option>
+                <option value="">Select Question Name</option>
+                @foreach($questionNames as $questionName)
+                    <option @if( isset($question) and $question->question_template_id == $questionName->id) selected @endif value="{{ $questionName->id }}">{{ $questionName->name}}</option>
                 @endforeach
 
             </select>
             @error('question_template_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="form-group">
+            <label>Question<span class="required-star"> *</span></label>
+            <input type="text" placeholder="Question" value="{{ isset($questions->question) ? $questions->question : old('question')}}" name="question" class="form-control">
+            @error('question') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+        </div>
+        
+        <div class="form-group">
+            <label>Question Type<span class="required-star"> *</span></label>
+            <select class="form-control" name="question_type_id">
+
+                <option value="">Select Question Type</option>
+                @foreach($questionTypes as $questionType)
+                    <option @if( isset($question) and $question->question_type_id == $questionType->id) selected @endif value="{{ $questionType->id }}">{{ $questionType->name}}</option>
+                @endforeach
+
+            </select>
+            @error('question_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
         </div>
 
         <div class="form-group">
