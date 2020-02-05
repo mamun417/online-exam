@@ -41,11 +41,23 @@
             </li>
 
             <li class="{{ Request::is('departments*') ? 'active' : '' }}">
-                <a href="{{ route('departments.index') }}"><i style="font-size: 15px" class="fa fa-users"></i><span class="nav-label">Departments</span></a>
+                <a href="{{ route('departments.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Departments</span></a>
             </li>
 
-            <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
-                <a href="{{ route('subjects.index') }}"><i class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Subjects</span></a>
+            <li>
+                <a href="#"><i style="font-size: 18px" class="fa fa-home" aria-hidden="true"></i><span class="nav-label">Home</span></a>
+            </li>
+
+            <li>
+                <a href="#"><i style="font-size: 18px" class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Study</span></a>
+            </li>
+
+            <li>
+                <a href="#"><i style="font-size: 18px" class="fa fa-pinterest"></i> <span class="nav-label">Practice</span></a>
+            </li>
+
+            <li>
+                <a href="#"><i style="font-size: 18px" class="fa fa-thermometer-empty" aria-hidden="true"></i><span class="nav-label">Exam</span></a>
             </li>
 
         </ul>
