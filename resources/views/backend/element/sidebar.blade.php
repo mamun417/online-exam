@@ -3,7 +3,7 @@
         <ul class="nav metismenu nav-list" id="side-menu">
             <li class="nav-header ">
                 <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="{{ asset('backend/img/admin1.png') }}" />
+                            <img alt="image" class="img-circle" src="{{ asset('backend/img/admin.png') }}" />
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
