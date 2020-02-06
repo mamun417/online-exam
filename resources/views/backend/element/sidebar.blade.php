@@ -44,12 +44,16 @@
                 <a href="{{ route('departments.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Departments</span></a>
             </li>
 
+            <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
+                <a href="{{ route('subjects.index') }}"><i style="font-size: 14px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
+            </li>
+
             <li>
                 <a href="#"><i style="font-size: 18px" class="fa fa-home" aria-hidden="true"></i><span class="nav-label">Home</span></a>
             </li>
 
             <li>
-                <a href="#"><i style="font-size: 18px" class="fa fa-book" aria-hidden="true"></i> <span class="nav-label">Study</span></a>
+                <a href="#"><i style="font-size: 18px" class="fa fa-graduation-cap"></i><span class="nav-label">Study</span></a>
             </li>
 
             <li>
