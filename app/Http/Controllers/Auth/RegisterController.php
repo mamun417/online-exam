@@ -56,6 +56,7 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'  => ['required', 'string', 'min:8', 'confirmed'],
+            'account_type_id' => ['required']
         ]);
     }
 
@@ -73,6 +74,7 @@ class RegisterController extends Controller
             'email'       => $data['email'],
             'password'    => Hash::make($data['password']),
             'expire_date' => Carbon::now()->addMonths(12),
+            'account_type_id'=> $data['account_type_id'],
             'role_id'     => 2
         ]);
     }
