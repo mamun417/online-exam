@@ -49,22 +49,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Account Type<span class="required-star"> *</span></label>
-                                <div class="col-lg-6">
-                                    <select class="form-control" name="account_type_id">
+                            @if(Auth::user()->role_id != 1)
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Account Type<span class="required-star"> *</span></label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" name="account_type_id">
+                                            <option {{ $user->account_type_id == 0 ? 'selected':'' }} value="0">Free</option>
+                                            <option {{ $user->account_type_id == 1 ? 'selected':'' }} value="1">Paid</option>
+                                        </select>
+                                    </div>
 
-                                        <option @if( isset($user->account_type_id) && $user->account_type_id == 0 ) selected
-                                        @endif value="0">Free</option>
-                                        <option @if( isset($user->account_type_id) && $user->account_type_id == 1 ) selected
-                                        @endif value="1">Paid</option>
-
-                                    </select>
+                                    @error('account_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
                                 </div>
-
-                                @error('account_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
-                            </div>
-
+                            @endif
 
                             <div class="form-group">
                                 <div class="col-lg-2"></div>

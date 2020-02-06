@@ -24,13 +24,14 @@ class QuestionTemplateController extends Controller
 
             $keyword = '%'.$keyword.'%';
 
-            $questionTemplates = $questionTemplates->where('name', 'like', $keyword)->WhereHas('department', function ($query) use ($keyword) {
+            $questionTemplates = $questionTemplates->where('name', 'like', $keyword)
+                ->WhereHas('department', function ($query) use ($keyword) {
                     $query->where('name', 'like', $keyword);
                 })
                 ->orWhereHas('subject', function ($query) use ($keyword) {
                         $query->where('name', 'like', $keyword);
                 })
-                ->orWhereHas('questionType', function ($query) use ($keyword) {
+                ->orWhereHas('studentType', function ($query) use ($keyword) {
                         $query->where('name', 'like', $keyword);
                 });
         }

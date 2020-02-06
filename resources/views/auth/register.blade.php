@@ -56,9 +56,13 @@
                         <option value="1">Paid</option>
                     </select>
 
-                    @error('account_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+                    @error('account_type_id')
+                    <span class="help-block m-b-none text-danger">
+                       <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary block full-width m-b">Registration</button>
 
             </form>
