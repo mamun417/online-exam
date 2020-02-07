@@ -17,11 +17,26 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//User routes............
 Route::group(['middleware' => 'auth'], function(){
 
-	Route::get('dashboard', function () {
-	    return view('backend.dashboard.index');
-	});
+    Route::get('dashboard', function () {
+        return view('backend.dashboard.index');
+    });
+
+    //Profile
+    Route::get('show-profile', 'UserController@getProfile')->name('show.profile');
+    Route::put('user/profile/{user}', 'UserController@updateProfile')->name('update.profile');
+
+    //Password
+    Route::get('password-change', 'UserController@changePassword')->name('password.change');
+    Route::post('password-update', 'UserController@updatePassword')->name('password.update');
+});
+
+
+
+//Admin routes.........
+Route::group(['middleware' => ['auth', 'admin']], function(){
 
 	//Departments
 	Route::resource('departments', 'Backend\DepartmentController');
@@ -36,15 +51,9 @@ Route::group(['middleware' => 'auth'], function(){
     //Question Template
     Route::resource('question-templates', 'Backend\QuestionTemplateController');
 
-	//users
-	Route::get('users', 'BackendUserController@index')->name('users.index');
-	Route::get('user/expire/date/{user}', 'BackendUserController@expireDateEdit')->name('user-expire-date.edit');
-	Route::post('user/expire/date/{user}', 'BackendUserController@expireDateUpdate')->name('user-expire-date.update');
-
-	Route::get('show-profile', 'UserController@getProfile')->name('show.profile');
-	Route::put('user/profile/{user}', 'UserController@updateProfile')->name('update.profile');
-
-	Route::get('password-change', 'UserController@changePassword')->name('password.change');
-	Route::post('password-update', 'UserController@updatePassword')->name('password.update');
+	//Users
+	Route::get('users', 'Backend\UserController@index')->name('users.index');
+	Route::get('user/expire/date/{user}', 'Backend\UserController@expireDateEdit')->name('user-expire-date.edit');
+	Route::post('user/expire/date/{user}', 'Backend\UserController@expireDateUpdate')->name('user-expire-date.update');
 });
 

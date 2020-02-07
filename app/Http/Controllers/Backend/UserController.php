@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 
-class BackendUserController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
