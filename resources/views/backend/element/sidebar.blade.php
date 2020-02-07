@@ -34,40 +34,30 @@
             </li>
 
             @if(Auth::check() && Auth::user()->role_id == 1)
+
                 <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
                     <a href="{{ url('dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
-            <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
-                <a href="{{ url('dashboard') }}"><i class="fa fa-th-large"></i><span class="nav-label">Dashboard</span></a>
-            </li>
 
-             <li class="{{ Request::is('users*', 'user*') ? 'active' : '' }}">
-                <a href="{{ Route('users.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Users</span></a>
-            </li>
+                 <li class="{{ Request::is('users*', 'user*') ? 'active' : '' }}">
+                    <a href="{{ Route('users.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Users</span></a>
+                </li>
 
-            <li class="{{ Request::is('question-template*') ? 'active' : '' }}">
-                <a href="{{ route('question-templates.index') }}"><i class="fa fa-file-text"></i><span class="nav-label">Question Template</span></a>
-            </li>
+                <li class="{{ Request::is('question-template*') ? 'active' : '' }}">
+                    <a href="{{ route('question-templates.index') }}"><i class="fa fa-file-text"></i><span class="nav-label">Question Template</span></a>
+                </li>
 
-             <li class="{{ Request::is('questions*') ? 'active' : '' }}">
-                <a href="{{ route('questions.index') }}"><i style="font-size: 20px" class="fa fa-question"></i> <span class="nav-label">Questions</span></a>
-            </li>
+                 <li class="{{ Request::is('questions*') ? 'active' : '' }}">
+                    <a href="{{ route('questions.index') }}"><i style="font-size: 20px" class="fa fa-question"></i> <span class="nav-label">Questions</span></a>
+                </li>
 
-            <li class="{{ Request::is('question-template*') ? 'active' : '' }}">
-                <a href="{{ route('question-templates.index') }}"><i class="fa fa-file-text"></i><span class="nav-label">Question Template</span></a>
-            </li>
+                <li class="{{ Request::is('departments*') ? 'active' : '' }}">
+                    <a href="{{ route('departments.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Departments</span></a>
+                </li>
 
-             <li class="{{ Request::is('questions*') ? 'active' : '' }}">
-                <a href="{{ route('questions.index') }}"><i style="font-size: 20px" class="fa fa-question"></i> <span class="nav-label">Questions</span></a>
-            </li>
-
-            <li class="{{ Request::is('departments*') ? 'active' : '' }}">
-                <a href="{{ route('departments.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Departments</span></a>
-            </li>
-
-            <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
-                <a href="{{ route('subjects.index') }}"><i style="font-size: 14px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
-            </li>
+                <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
+                    <a href="{{ route('subjects.index') }}"><i style="font-size: 14px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
+                </li>
             @else
                 <li>
                     <a href="#"><i style="font-size: 18px" class="fa fa-home" aria-hidden="true"></i><span class="nav-label">Home</span></a>
