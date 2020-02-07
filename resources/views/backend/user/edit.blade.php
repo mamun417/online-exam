@@ -4,13 +4,10 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Edit Department</h2>
+            <h2>Edit User Expire Date</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{('departments.index')}}">Departments</a>
-                </li>
-                <li class="active">
-                    <strong>Edit</strong>
+                    <a href="{{ route('users.index')}}">Users</a>
                 </li>
             </ol>
         </div>
@@ -21,11 +18,9 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form class="form-horizontal" method="POST" action="{{ route('departments.update', $department->id) }}">
+                        <form class="form-horizontal" method="post" action="{{ route('user-expire-date.update', $user->id) }}">
                             @csrf
-                            @method('PUT')
-
-                            @include('backend.department.element')
+                            @include('backend.user.element')
 
                             <div class="form-group">
                                 <div class="col-lg-2"></div>

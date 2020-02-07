@@ -3,12 +3,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Departments</h2>
-        </div>
-        <div class="col-lg-2">
-            <div class="ibox-tools">
-                <a href="{{ route('departments.create') }}" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><i class="fa fa-plus"></i> <strong>Create</strong></a>
-            </div>
+            <h2>Users</h2>
         </div>
     </div>
 
@@ -21,7 +16,7 @@
                         <div class="row" style="margin-bottom: 10px">
 
                             <div class="col-sm-12">
-                                <form action="{{ route('departments.index') }}" method="get" class="form-inline" role="form">
+                                <form action="{{ route('users.index') }}" method="get" class="form-inline" role="form">
 
                                     <div class="form-group">
                                         <div>Records Per Page</div>
@@ -41,7 +36,7 @@
                                                 <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
                                             </span>
                                         </div>
-                                         <a href="{{ route('departments.index') }}" class="btn btn-default btn-sm">Reset</a>
+                                         <a href="{{ route('users.index') }}" class="btn btn-default btn-sm">Reset</a>
 
                                     </div>
                                 </form>
@@ -53,33 +48,26 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Email</th>
                                         <th>Account Type</th>
-                                        <th>Created At</th>
+                                        <th>Expire Date</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach($departments as $department)
+                                    @foreach($users as $user)
                                         <tr>
-                                            <td>{{ ucfirst($department->name) }}</td>
-                                            <td>{{ date_format($department->created_at, 'd-m-Y') }}</td>
-                                            <td class="text-center">
-
-                                                <a href="{{ route('departments.edit', $department->id) }}" title="Edit" class="btn btn-info cus_btn">
+                                            <td>{{ ucfirst($user->name).' '.$user->last_name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->account_type_id == 1 ? 'Paid':'Free' }}</td>
+                                            <td>{{ $user->expire_date }}</td>
+                                            <td style="text-align: center">
+                                                <a href="{{ route('user-expire-date.edit', $user->id) }}" title="Edit" class="btn btn-info cus_btn">
                                                     <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
                                                 </a>
-
-                                                <a onclick="deleteRow({{ $department->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
-                                                    <i class="fa fa-trash"></i> <strong>Delete</strong>
-                                                </a>
-
-                                                <form id="row-delete-form{{ $department->id }}" method="POST" action="{{ route('departments.destroy', $department->id) }}" style="display: none" >
-                                                    @method('DELETE')
-                                                    @csrf()
-                                                </form>
-
                                             </td>
+                                          
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -89,9 +77,9 @@
 
                         <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
                             <div class="m-r-lg">
-                                Showing {{ $departments->firstItem() }} to {{ $departments->lastItem() }} of {{ $departments->total() }} entries
+                                Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} entries
                             </div>
-                            {{ $departments->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
+                            {{ $users->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
                         </div>
 
                     </div>

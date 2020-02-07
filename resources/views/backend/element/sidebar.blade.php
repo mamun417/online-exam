@@ -6,7 +6,7 @@
                             <img alt="image" class="img-circle" src="{{ asset('backend/img/admin.png') }}" />
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ ucfirst(Auth::user()->name) .' '. Auth::user()->last_name }}</strong>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ ucfirst(Auth::user()->name)}} {{ ucfirst(Auth::user()->last_name)}}</strong>
                              </span> <span class="text-muted text-xs block">Administrator<b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="{{ route('show.profile') }}">Profile</a></li>
@@ -18,7 +18,7 @@
                                 Log out
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
+                                    @csrf
                             </form>
                         </li>
                     </ul>
@@ -29,7 +29,11 @@
             </li>
 
             <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
-                <a href="{{ url('dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                <a href="{{ url('dashboard') }}"><i class="fa fa-th-large"></i><span class="nav-label">Dashboard</span></a>
+            </li>
+
+            <li class="{{ Request::is('users*') ? 'active' : '' }}">
+                <a href="{{ Route('users.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Users</span></a>
             </li>
 
             <li class="{{ Request::is('question-template*') ? 'active' : '' }}">
@@ -41,11 +45,11 @@
             </li>
 
             <li class="{{ Request::is('departments*') ? 'active' : '' }}">
-                <a href="{{ route('departments.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Departments</span></a>
+                <a href="{{ route('departments.index') }}"><i style="font-size: 18px" class="fa fa-renren"></i><span class="nav-label">Departments</span></a>
             </li>
 
             <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
-                <a href="{{ route('subjects.index') }}"><i style="font-size: 14px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
+                <a href="{{ route('subjects.index') }}"><i style="font-size: 18px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
             </li>
 
             <li>

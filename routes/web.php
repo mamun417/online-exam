@@ -39,6 +39,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('question-templates', 'Backend\QuestionTemplateController');
 
 	//users
+	Route::get('users', 'BackendUserController@index')->name('users.index');
+	Route::get('user/expire/date/{user}', 'BackendUserController@expireDateEdit')->name('user-expire-date.edit');
+	Route::post('user/expire/date/{user}', 'BackendUserController@expireDateUpdate')->name('user-expire-date.update');
+
 	Route::get('show-profile', 'UserController@getProfile')->name('show.profile');
 	Route::put('user/profile/{user}', 'UserController@updateProfile')->name('update.profile');
 

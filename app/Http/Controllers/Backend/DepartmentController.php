@@ -7,10 +7,13 @@ use App\Model\Department;
 use Illuminate\Http\Request;
 use Str;
 
+
 class DepartmentController extends Controller
 {
     public function index()
     {
+      
+
         $perPage = request()->perPage ?: 10;
         $keyword = request()->keyword;
 

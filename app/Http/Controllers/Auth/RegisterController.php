@@ -12,16 +12,7 @@ use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
+  
 
     use RegistersUsers;
 
@@ -68,12 +59,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        
         return User::create([
             'name'        => $data['name'],
             'last_name'   => $data['last_name'],
             'email'       => $data['email'],
             'password'    => Hash::make($data['password']),
-            'expire_date' => Carbon::now()->addMonths(12),
+            'expire_date' => Carbon::today()->addMonths(12)->format('d-m-y'),
             'account_type_id'=> $data['account_type_id'],
             'role_id'     => 2
         ]);
