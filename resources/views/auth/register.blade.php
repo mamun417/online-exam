@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
         <div class="ibox-content">
             <h2 class="font-bold" style="text-align: center">Registration</h2>
             <form class="m-t" role="form" method="POST" action="{{ route('register') }}">
