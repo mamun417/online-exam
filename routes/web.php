@@ -11,15 +11,13 @@
 |
 */
 
+Route::get('/', function () {
+    return view('home');
+});
 
 Auth::routes();
 
-
 Route::group(['middleware' => 'auth'], function(){
-
-	Route::get('/', function () {
-	    return redirect('dashboard');
-	});
 
 	Route::get('dashboard', function () {
 	    return view('backend.dashboard.index');
