@@ -11,7 +11,7 @@ use Validator;
 
 class UserController extends Controller
 {
-    public function getProfile(){
+    public function profile(){
         $user = User::find(Auth::user()->id);
         return view('backend.partial.profile', compact('user'));
     }
@@ -24,7 +24,7 @@ class UserController extends Controller
         ]);
 
         $user->update($request->all());
-        return redirect(route('show.profile'))->with('successTMsg', 'Examination has been updated successfully');
+        return redirect(route('profile'))->with('successTMsg', 'Examination has been updated successfully');
     }
 
     public function changePassword(){

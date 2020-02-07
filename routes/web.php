@@ -18,15 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 //User routes............
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
 
     Route::get('dashboard', function () {
         return view('backend.dashboard.index');
     });
 
     //Profile
-    Route::get('show-profile', 'UserController@getProfile')->name('show.profile');
-    Route::put('user/profile/{user}', 'UserController@updateProfile')->name('update.profile');
+    Route::get('profile', 'UserController@profile')->name('profile');
+    Route::put('profile/{user}', 'UserController@updateProfile')->name('profile.update');
 
     //Password
     Route::get('password-change', 'UserController@changePassword')->name('password.change');

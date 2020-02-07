@@ -21,7 +21,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form class="form-horizontal" method="POST" action="{{ route('update.profile', $user->id) }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('profile.update', $user->id) }}">
                             @csrf
                             @method('PUT')
 

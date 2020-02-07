@@ -13,7 +13,7 @@
                         </span> <span class="text-muted text-xs block">{{ Auth::user()->role_id == 1 ? 'Administrator' : 'Student'}}<b class="caret"></b></span> </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="{{ route('show.profile') }}">Profile</a></li>
+                        <li><a href="{{ route('profile') }}">Profile</a></li>
                         <li><a href="{{ route('password.change') }}">Change Password</a></li>
                         <li class="divider"></li>
                         <li>
