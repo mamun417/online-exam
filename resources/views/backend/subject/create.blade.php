@@ -1,11 +1,11 @@
 @extends('backend.layouts.master')
+
 @section('content')
-    <div class="row wrapper border-bottom white-bg page-heading">
+     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Create Subject</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ ('subjects.index') }}">Subjects</a>
+                    <a href="{{ route('subjects.index') }}">Subject</a>
                 </li>
                 <li class="active">
                     <strong>Create</strong>
@@ -18,6 +18,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
+
+                    <div class="ibox-title">
+                        <h5>Create Subject</h5>
+                    </div>
+
                     <div class="ibox-content">
                         <form class="form-horizontal" method="POST" action="{{ route('subjects.store') }}">
                             @csrf

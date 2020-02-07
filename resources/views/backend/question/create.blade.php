@@ -1,10 +1,10 @@
 @extends('backend.layouts.master')
 @section('content')
-    <div class="row wrapper border-bottom white-bg page-heading">
+     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('questions.index') }}">Questions</a>
+                    <a href="{{ route('questions.index') }}">Question</a>
                 </li>
                 <li class="active">
                     <strong>Create</strong>

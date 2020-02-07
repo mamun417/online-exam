@@ -9,9 +9,17 @@ class BackendUserController extends Controller
 {
     public function index()
     {
+    	$perPage = request()->perPage ?: 10;
+        $keyword = request()->keyword;
 
     	$users = new User();
-    	$users = $users->latest()->paginate(1);
+
+    	if ($keyword){
+    		$keyword = '%'.$keyword.'%';
+            $users = $users->where('name', 'like', $keyword)->orWhere('last_name', 'like', $keyword)->orWhere('email', 'like', $keyword);
+        }
+
+    	$users = $users->latest()->paginate($perPage);
 
     	return view('backend.user.index', compact('users'));
     }

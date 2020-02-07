@@ -1,13 +1,11 @@
 @extends('backend.layouts.master')
 
 @section('content')
-
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
-            <h2>Edit Department</h2>
+   <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{('departments.index')}}">Departments</a>
+                    <a href="{{ route('departments.index') }}"> Department </a>
                 </li>
                 <li class="active">
                     <strong>Edit</strong>
@@ -20,6 +18,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
+
+                    <div class="ibox-title">
+                        <h5>Edit Department</h5>
+                    </div>
+
                     <div class="ibox-content">
                         <form class="form-horizontal" method="POST" action="{{ route('departments.update', $department->id) }}">
                             @csrf

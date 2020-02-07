@@ -20,7 +20,7 @@ class DepartmentController extends Controller
         $departments = new Department();
 
         if ($keyword){
-            $departments = $departments->where('name', 'like', '%'.request()->keyword.'%');
+            $departments = $departments->where('name', 'like', '%'.$keyword.'%');
         }
 
         $departments = $departments->latest()->paginate($perPage);

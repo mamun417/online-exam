@@ -2,12 +2,14 @@
 
 @section('content')
 
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
-            <h2>Edit User Expire Date</h2>
+     <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('users.index')}}">Users</a>
+                    <a href="{{ route('users.index') }}"> User </a>
+                </li>
+                <li class="active">
+                    <strong>Edit</strong>
                 </li>
             </ol>
         </div>
@@ -17,6 +19,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
+
+                    <div class="ibox-title">
+                        <h5>Edit User Expire Date</h5>
+                    </div>
+
                     <div class="ibox-content">
                         <form class="form-horizontal" method="post" action="{{ route('user-expire-date.update', $user->id) }}">
                             @csrf

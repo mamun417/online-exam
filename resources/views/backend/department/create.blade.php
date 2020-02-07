@@ -2,10 +2,9 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Create Department</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('departments.index') }}">Departments</a>
+                    <a href="{{ route('departments.index') }}"> Department </a>
                 </li>
                 <li class="active">
                     <strong>Create</strong>
@@ -18,6 +17,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
+
+                    <div class="ibox-title">
+                        <h5>Create Department</h5>
+                    </div>
+
                     <div class="ibox-content">
                         <form class="form-horizontal" method="POST" action="{{ route('departments.store') }}">
                            @csrf
