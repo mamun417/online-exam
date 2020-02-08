@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('content')
-         <div class="row wrapper border-bottom white-bg page-heading">
+     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>

@@ -63,8 +63,8 @@
                     <a href="#"><i style="font-size: 18px" class="fa fa-home" aria-hidden="true"></i><span class="nav-label">Home</span></a>
                 </li>
 
-                <li>
-                    <a href="#"><i style="font-size: 18px" class="fa fa-graduation-cap"></i><span class="nav-label">Study</span></a>
+                <li class="{{ Request::is('study*') ? 'active' : '' }}">
+                    <a href="{{ route('study.select-subject') }}"><i style="font-size: 18px" class="fa fa-graduation-cap"></i><span class="nav-label">Study</span></a>
                 </li>
 
                 <li>
