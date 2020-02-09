@@ -103,8 +103,18 @@ class QuestionController extends Controller
         $question = Question::create($request->all());
 
         $question->options()->attach($attach_able_options);
-
+        
         return redirect()->route('questions.index')->with('successTMsg', 'Question save successfully');
+    }
+
+    public function show(Question $question)
+    {
+        $options = $question->options;
+        $question_options = $options->count() > 0 ? $options : ['id' => ''];
+        
+        $question = Question::with('template', 'questionType')->first();
+
+        return view('backend.question.view', compact('question', 'question_options'));
     }
 
     public function edit(Question $question)
@@ -177,6 +187,7 @@ class QuestionController extends Controller
         $question->update($request->all());
 
         $question->options()->sync($attach_able_options);
+        
 
         return redirect(route('questions.index'))->with('successTMsg', 'Question has been updated successfully');
     }
