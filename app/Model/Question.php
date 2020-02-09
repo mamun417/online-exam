@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $all)
+ * @method static WhereHas(string $string, \Closure $param)
  */
 class Question extends Model
 {
+
     protected $fillable = ['question', 'slug', 'question_template_id', 'question_type_id',  'is_active', 'is_deleted', 'description', 'image'];
 
     public function template(){
@@ -29,5 +31,13 @@ class Question extends Model
 */
     public function options(){
         return $this->belongsToMany(Option::class)->withPivot('correct_answer');
+    }
+
+    public function scopeActive($query){
+        return $query->where('is_active', true);
+    }
+
+    public function correctAnswer(){
+        return $this->belongsToMany(Option::class)->wherePivot('correct_answer',1);
     }
 }

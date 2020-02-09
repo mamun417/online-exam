@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
     Route::get('study', 'StudyController@showSelectSubject')->name('study.select-subject');
     Route::post('study', 'StudyController@selectSubject')->name('study.select-subject');
     Route::get('study/question/{question?}', 'StudyController@question')->name('study.question');
+    Route::post('study/question', 'StudyController@submitQuestion')->name('study.question.submit');
 });
 
 

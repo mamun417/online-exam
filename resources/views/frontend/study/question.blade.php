@@ -30,35 +30,34 @@
 
                         @include('flash-messages.flash-messages')
 
-                        <div class="row">
-                            <form class="form-horizontal" method="POST" action="{{ route('study.select-subject') }}">
-                                @csrf
+                        <form action="{{ route('study.question.submit') }}" method="POST" class="form-horizontal">
+                            @csrf
 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="m-b-sm" style="font-size: 14px">What is your name ?</label>
-                                        <div class="i-checks"><label> <input name="options[]" type="checkbox" value=""> <i></i> Option one </label></div>
-                                        <div class="i-checks"><label> <input name="options[]" type="checkbox" value=""> <i></i> Option two checked </label></div>
-                                        <div class="i-checks"><label> <input name="options[]" type="checkbox" value=""> <i></i> Option one </label></div>
-                                        <div class="i-checks"><label> <input name="options[]" type="checkbox" value=""> <i></i> Option two checked </label></div>
-                                        @error('options') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
-                                    </div>
-                                </div>
-
+                            <input name="question_id" value="{{ $question->id }}" type="hidden">
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <div class="col-lg-2"></div>
-                                    <div class="col-lg-10">
-                                        <button class="btn btn-sm btn-primary pull-left m-t-n-xs m-r-xs" type="submit">
-                                            <strong>Submit</strong>
-                                        </button>
-                                        <a href="#" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button">
-                                            <strong>Skip</strong>
-                                        </a>
-                                    </div>
+                                    <label class="m-b-sm" style="font-size: 14px">{{ $question->question }}</label>
+                                    @foreach($question_options as $option)
+                                        <div class="i-checks">
+                                            <label> <input name="options[]" value="{{ $option->id }}" type="checkbox"> <i></i> {{ $option->option }} </label>
+                                        </div>
+                                    @endforeach
+                                    @error('options') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
                                 </div>
+                            </div>
 
-                            </form>
-                        </div>
+                            <div class="form-group">
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-10">
+                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs m-r-xs" type="submit">
+                                        <strong>Submit</strong>
+                                    </button>
+                                    <a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button">
+                                        <strong>Skip</strong>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
