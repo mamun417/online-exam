@@ -54,7 +54,6 @@
                                         <th>Template Name</th>
                                         <th>Question Type</th>
                                         <th>Question</th>
-                                        <th>Description</th>
                                         <th>Create At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -66,9 +65,12 @@
                                             <td>{{ ucfirst($question->template->name) }}</td>
                                             <td>{{ ucfirst($question->questionType->name) }}</td>
                                             <td>{{ ucfirst($question->question) }}</td>
-                                            <td>{{ ucfirst(Str::limit($question->description, 40)) }}</td>
                                             <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
                                             <td class="text-center">
+
+                                                <a href="{{ route('questions.show', $question->id) }}" title="View" class="btn btn-primary cus_btn">
+                                                    <i class="fa fa-eye"></i> <strong>View</strong>
+                                                </a>
 
                                                 <a href="{{ route('questions.edit', $question->id) }}" title="Edit" class="btn btn-info cus_btn">
                                                     <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>

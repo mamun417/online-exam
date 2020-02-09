@@ -11,6 +11,7 @@ use App\Model\Subject;
 use App\Model\Question;
 use App\Model\QuestionTemplate;
 use App\Http\Controllers\Components\fileHandlerComponent;
+use Str;
 
 class QuestionController extends Controller
 {
@@ -98,11 +99,22 @@ class QuestionController extends Controller
         }
 
 
+        $request['slug'] = Str::slug($request->question);
         $question = Question::create($request->all());
 
         $question->options()->attach($attach_able_options);
-
+        
         return redirect()->route('questions.index')->with('successTMsg', 'Question save successfully');
+    }
+
+    public function show(Question $question)
+    {
+        $options = $question->options;
+        $question_options = $options->count() > 0 ? $options : ['id' => ''];
+        
+        $question = Question::with('template', 'questionType')->first();
+
+        return view('backend.question.view', compact('question', 'question_options'));
     }
 
     public function edit(Question $question)
@@ -171,9 +183,11 @@ class QuestionController extends Controller
             $attach_able_options[$id] = ['correct_answer' => $correct_answer];
         }
 
+        $request['slug'] = Str::slug($request->question);
         $question->update($request->all());
 
         $question->options()->sync($attach_able_options);
+        
 
         return redirect(route('questions.index'))->with('successTMsg', 'Question has been updated successfully');
     }
