@@ -54,15 +54,28 @@ class StudyController extends Controller
             'options' => ''
         ]);
 
+        $student_answer = array_map('intval', $request->options);
+
+        //get question correct answer
         $question = Question::find($request->question_id);
-        $question_correct_answer = $question->correctAnswer;
+        $question_correct_answers = $question->correctAnswers;
 
-        $question_correct_answer = $question_correct_answer;
+        $correct_answers = [];
+        foreach ($question_correct_answers as $answer){
+            $correct_answers[] = $answer->id;
+        }
 
-        dd($request->options, $question_correct_answer);
+        //check two array contain same element or not to know student given answer right or wrong
+        sort($student_answer);
+        sort($correct_answers);
 
-        //dd($student_answer);
+        $answer = $student_answer == $correct_answers ? true : false;
 
-        dd($request->all());
+        if ($answer){
+            Session::flash('success', 'Your given answer is correct.');
+        }else{
+            Session::flash('error', 'Incorrect answer.');
+        }
+        return back();
     }
 }

@@ -54,7 +54,6 @@
                                         <th>Template Name</th>
                                         <th>Question Type</th>
                                         <th>Question</th>
-                                        <th>Description</th>
                                         <th>Create At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -65,8 +64,7 @@
                                         <tr>
                                             <td>{{ ucfirst($question->template->name) }}</td>
                                             <td>{{ ucfirst($question->questionType->name) }}</td>
-                                            <td>{{ ucfirst($question->question) }}</td>
-                                            <td>{{ ucfirst(Str::limit($question->description, 40)) }}</td>
+                                            <td>{{ ucfirst(Str::limit($question->question, 40)) }}</td>
                                             <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
                                             <td class="text-center">
 

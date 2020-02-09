@@ -36,7 +36,7 @@ class Question extends Model
         return $query->where('is_active', true);
     }
 
-    public function correctAnswer(){
+    public function correctAnswers(){
         return $this->belongsToMany(Option::class)->wherePivot('correct_answer',1);
     }
 }
