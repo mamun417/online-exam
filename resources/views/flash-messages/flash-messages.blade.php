@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row no-margins">
     <div class="col-lg-6">
-        @if(!$message = Session::get('success'))
+        @if($message = Session::get('success'))
             <div class="alert alert-success alert-dismissable">
                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                 <strong>Good Job!</strong> {{ 'Eikhane message show korano hbe' }}.
