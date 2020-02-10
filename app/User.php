@@ -8,11 +8,13 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @method static find($id)
- * @method static where(string $string, $id)
+ * @method where(string $string, string $string1, string $keyword)
  */
 class User extends Authenticatable
 {
     use Notifiable;
+
+    protected $dates = ['expire_date'];
 
     /**
      * The attributes that are mass assignable.

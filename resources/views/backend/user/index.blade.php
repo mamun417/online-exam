@@ -37,7 +37,6 @@
                                             </span>
                                         </div>
                                          <a href="{{ route('users.index') }}" class="btn btn-default btn-sm">Reset</a>
-
                                     </div>
                                 </form>
                             </div>
@@ -61,13 +60,13 @@
                                             <td>{{ ucfirst($user->name).' '.$user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->account_type_id == 1 ? 'Paid':'Free' }}</td>
-                                            <td>{{ $user->expire_date }}</td>
+                                            <td>{{ $user->expire_date->format('d-m-Y') }}</td>
                                             <td style="text-align: center">
-                                                <a href="{{ route('user-expire-date.edit', $user->id) }}" title="Edit" class="btn btn-info cus_btn">
+                                                <a href="{{ route('user.edit', $user->id) }}" title="Edit" class="btn btn-info cus_btn">
                                                     <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
                                                 </a>
                                             </td>
-                                          
+
                                         </tr>
                                     @endforeach
                                 </tbody>

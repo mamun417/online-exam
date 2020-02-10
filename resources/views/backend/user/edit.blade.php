@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="ibox-content">
-                        <form class="form-horizontal" method="post" action="{{ route('user-expire-date.update', $user->id) }}">
+                        <form class="form-horizontal" method="post" action="{{ route('user.update', $user->id) }}">
                             @csrf
                             @include('backend.user.element')
 

@@ -59,8 +59,8 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
 	//Users
 	Route::get('users', 'Backend\UserController@index')->name('users.index');
-	Route::get('user/expire/date/{user}', 'Backend\UserController@expireDateEdit')->name('user-expire-date.edit');
-	Route::post('user/expire/date/{user}', 'Backend\UserController@expireDateUpdate')->name('user-expire-date.update');
+	Route::get('user/{user}', 'Backend\UserController@edit')->name('user.edit');
+	Route::post('user/{user}', 'Backend\UserController@update')->name('user.update');
 });
 
 
