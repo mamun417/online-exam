@@ -21,12 +21,13 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
-                        <h5>Edit User Expire Date</h5>
+                        <h5>Update User</h5>
                     </div>
 
                     <div class="ibox-content">
                         <form class="form-horizontal" method="post" action="{{ route('user.update', $user->id) }}">
                             @csrf
+
                             @include('backend.user.element')
 
                             <div class="form-group">

@@ -59,8 +59,8 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
 	//Users
 	Route::get('users', 'Backend\UserController@index')->name('users.index');
-	Route::get('user/{user}', 'Backend\UserController@edit')->name('user.edit');
-	Route::post('user/{user}', 'Backend\UserController@update')->name('user.update');
+	Route::get('users/edit/{user}', 'Backend\UserController@edit')->name('user.edit');
+	Route::post('users/update/{user}', 'Backend\UserController@update')->name('user.update');
 });
 
 
