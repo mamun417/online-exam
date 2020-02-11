@@ -92,6 +92,9 @@ html, body{
 .color-success{
     color: #1c84c6;
 }
+.text-primary{
+    color: #1ab394;
+}
 .required-star{
     color: red;
 }

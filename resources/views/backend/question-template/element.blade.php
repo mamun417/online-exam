@@ -10,13 +10,12 @@
     <div class="form-group">
         <label>Department<span class="required-star"> *</span></label>
         <select class="form-control" name="department_id">
-            <option value="" >Select Department</option>
+            <option value="">Select Department</option>
             @foreach($departments as $department )
-               <option @if( isset($questionTemplate) and $questionTemplate->department_id ==    $department->id) selected @endif value="{{ $department->id }}">
+               <option @if( isset($questionTemplate) and $questionTemplate->department_id == $department->id) selected @endif value="{{ $department->id }}">
                     {{ $department->name }}
                 </option>
             @endforeach
-
         </select>
         @error('department_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
     </div>

@@ -11,5 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 class Subject extends Model
 {
     protected $fillable = ['name', 'subject_code', 'code', 'is_active', 'is_deleted'];
+
+    public function questionTemplates(){
+        return $this->hasMany(QuestionTemplate::class);
+    }
 }
 

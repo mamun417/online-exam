@@ -43,9 +43,9 @@ class QuestionTemplateController extends Controller
 
     public function create()
     {
-        $departments   = Department::all();
-        $subjects      = Subject::all();
-        $studentTypes = StudentType::all();
+        $departments   = Department::latest()->get();
+        $subjects      = Subject::latest()->get();
+        $studentTypes = StudentType::latest()->get();
 
         return view('backend.question-template.create', compact('departments', 'subjects', 'studentTypes'));
     }
@@ -55,10 +55,12 @@ class QuestionTemplateController extends Controller
         $request->validate([
             'name'             => 'required',
             'department_id'    => 'required',
-            'subject_id'       => 'required',
+            'subject_id'       => 'required|unique:question_templates',
             'student_type_id' => 'required',
             'total_questions'  => 'required',
             'total_marks'      => 'required'
+        ],[
+            'subject_id.unique' => 'This subject already has template.'
         ]);
 
         QuestionTemplate::create($request->all());
@@ -68,9 +70,9 @@ class QuestionTemplateController extends Controller
 
     public function edit(QuestionTemplate $questionTemplate)
     {
-        $departments   = Department::all();
-        $subjects      = Subject::all();
-        $studentTypes = StudentType::all();
+        $departments   = Department::latest()->get();
+        $subjects      = Subject::latest()->get();
+        $studentTypes = StudentType::latest()->get();
 
         return view('backend.question-template.edit', compact('questionTemplate', 'departments', 'subjects', 'studentTypes'));
     }
@@ -80,7 +82,7 @@ class QuestionTemplateController extends Controller
          $request->validate([
             'name'             => 'required',
             'department_id'    => 'required',
-            'subject_id'       => 'required',
+            'subject_id'       => 'required|unique:question_templates,subject_id,'.$questionTemplate->id,
             'student_type_id' => 'required',
             'total_questions'  => 'required',
             'total_marks'      => 'required'

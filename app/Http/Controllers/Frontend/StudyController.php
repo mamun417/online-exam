@@ -23,12 +23,12 @@ class StudyController extends Controller
             'subject_id' => 'required'
         ]);
 
-        $study = [
+        $question_paper_info = [
             'student_id' => Auth::id(),
             'subject_id' => $request->subject_id
         ];
 
-        Session::put('study', $study);
+        Session::put('question_paper_info', $question_paper_info);
 
         return redirect()->route('study.question');
     }
@@ -36,22 +36,21 @@ class StudyController extends Controller
     public function question()
     {
         $question = Question::WhereHas('template', function ($query) {
-            $subject_id = Session::get('study')['subject_id'];
+            $subject_id = Session::get('question_paper_info')['subject_id'];
             $query->where('subject_id', $subject_id);
         })->active()->inRandomOrder()->take(1)->first();
 
         $question_options = $question->options;
+        $correct_answers = $student_answer = [];
 
-        //dd($question->toArray(), $question_options->toArray());
-
-        return view('frontend.study.question', compact('question', 'question_options'));
+        return view('frontend.study.question', compact('question', 'question_options', 'correct_answers', 'student_answer'));
     }
 
     public function submitQuestion(Request $request){
 
         $request->validate([
             'question_id' => 'required',
-            'options' => ''
+            'options' => 'required'
         ]);
 
         $student_answer = array_map('intval', $request->options);
@@ -73,9 +72,15 @@ class StudyController extends Controller
 
         if ($answer){
             Session::flash('success', 'Your given answer is correct.');
-        }else{
-            Session::flash('error', 'Incorrect answer.');
+            return back();
         }
-        return back();
+
+        //if question answer not correct
+        $question_options = $question->options;
+
+        Session::flash('error', 'Incorrect answer.');
+        return view('frontend.study.question',
+            compact('question','question_options', 'student_answer', 'correct_answers')
+        );
     }
 }

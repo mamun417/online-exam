@@ -30,7 +30,7 @@
 
                         @include('flash-messages.flash-messages')
 
-                        <form action="{{ route('study.question.submit') }}" method="POST" class="form-horizontal">
+                        <form onsubmit="submitQuestionForm(this)" action="{{ route('study.question.submit') }}" method="POST" class="form-horizontal">
                             @csrf
 
                             <input name="question_id" value="{{ $question->id }}" type="hidden">
@@ -38,8 +38,11 @@
                                 <div class="form-group">
                                     <label class="m-b-sm" style="font-size: 14px">{{ $question->question }}</label>
                                     @foreach($question_options as $option)
-                                        <div class="i-checks">
-                                            <label> <input name="options[]" value="{{ $option->id }}" type="checkbox"> <i></i> {{ $option->option }} </label>
+                                        <div class="i-checks {{ in_array($option->id, $correct_answers) ? 'text-primary' : (in_array($option->id, $student_answer) ? 'text-danger' : '') }}">
+                                            <label>
+                                                <input name="options[]" value="{{ $option->id }}" {{  in_array($option->id, $student_answer) ? 'checked' : '' }} type="checkbox">
+                                                <i></i> {{ $option->option }}
+                                            </label>
                                         </div>
                                     @endforeach
                                     @error('options') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
@@ -50,7 +53,7 @@
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-10">
                                     <button class="btn btn-sm btn-primary pull-left m-t-n-xs m-r-xs" type="submit">
-                                        <strong>Submit</strong>
+                                        <strong>Next</strong>
                                     </button>
                                     <a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button">
                                         <strong>Skip</strong>
@@ -64,10 +67,21 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('custom-js')
     <script>
+
+        function submitQuestionForm(e){
+            event.preventDefault();
+            if($('input[name="options[]"]:checked').length === 0){
+                alert('You have to select at least one option.');
+                return false;
+            }
+            e.submit();
+        }
+
         //show confirm message when delete table row
         function finishedStudy() {
             swal({
