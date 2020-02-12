@@ -43,8 +43,8 @@ class QuestionTemplateController extends Controller
 
     public function create()
     {
-        $departments   = Department::latest()->get();
-        $subjects      = Subject::latest()->get();
+        $departments = Department::latest()->get();
+        $subjects  = Subject::has('questionTemplates', '=', 0)->latest()->get();
         $studentTypes = StudentType::latest()->get();
 
         return view('backend.question-template.create', compact('departments', 'subjects', 'studentTypes'));
@@ -70,8 +70,14 @@ class QuestionTemplateController extends Controller
 
     public function edit(QuestionTemplate $questionTemplate)
     {
-        $departments   = Department::latest()->get();
-        $subjects      = Subject::latest()->get();
+        $template_subject_id = $questionTemplate->subject->id;
+
+        $departments = Department::latest()->get();
+
+        $subjects = Subject::whereHas('questionTemplates', function ($q) use ($template_subject_id){
+            $q->where('subject_id', '!=', $template_subject_id);
+        }, '=', 0)->latest()->get();
+
         $studentTypes = StudentType::latest()->get();
 
         return view('backend.question-template.edit', compact('questionTemplate', 'departments', 'subjects', 'studentTypes'));
