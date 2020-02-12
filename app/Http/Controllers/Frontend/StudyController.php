@@ -13,6 +13,10 @@ class StudyController extends Controller
 {
     public function showSelectSubject()
     {
+        //check is select any subject for study
+        $question_paper_info = Session::get('question_paper_info');
+        if ($question_paper_info){ return redirect()->route('study.question'); }
+
         $subjects = Subject::all();
         return view('frontend.study.select-subject', compact('subjects'));
     }
@@ -39,7 +43,11 @@ class StudyController extends Controller
     {
         $question_paper_info = Session::get('question_paper_info');
 
-        if ($question_paper_info['generated_question_count'] > 4){
+        //check is select any subject for study
+        if ($question_paper_info == []){ return redirect()->route('study.select-subject'); }
+
+        //check limit cross
+        if ($question_paper_info['generated_question_count'] == 10){
             Session::flash('limit_cross', 'Dear '.Auth::user()->name.' '.Auth::user()->last_name.', it\'s time to finished your study.');
             return view('frontend.study.question');
         }
@@ -99,5 +107,10 @@ class StudyController extends Controller
         return view('frontend.study.question',
             compact('question','question_options', 'student_answer', 'correct_answers')
         );
+    }
+
+    public function finished(){
+        Session::put('question_paper_info', []);
+        return redirect()->route('study.select-subject')->with('success', 'Thank you '.Auth::user()->name.' '.Auth::user()->last_name.', Have a good day.');
     }
 }

@@ -21,6 +21,9 @@
                     </div>
 
                     <div class="ibox-content">
+
+                        @include('flash-messages.flash-messages')
+
                         <form class="form-horizontal" method="POST" action="{{ route('study.select-subject') }}">
                             @csrf
 

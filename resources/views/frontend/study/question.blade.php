@@ -24,6 +24,9 @@
                         <a onclick="finishedStudy()" href="javascript:void(0)" class="btn btn-sm btn-danger pull-right m-t-n-xs" type="button">
                             <strong>Finished</strong>
                         </a>
+                        <form id="finished-form" method="POST" action="{{ route('study.finished') }}" style="display: none" >
+                            @csrf()
+                        </form>
                     </div>
 
                     <div class="ibox-content">
@@ -53,9 +56,10 @@
                                 <div class="form-group">
                                     <div class="col-lg-2"></div>
                                     <div class="col-lg-10">
-                                        <button class="btn btn-sm btn-primary pull-left m-t-n-xs m-r-xs" type="submit">
+                                        <button class="btn btn-sm btn-primary pull-left m-t-n-xs m-r-xs" style="width: 80px" type="submit">
                                             <strong>Next</strong>
                                         </button>
+
                                         {{--<a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button">
                                             <strong>Skip</strong>
                                         </a>--}}
@@ -95,7 +99,7 @@
                 confirmButtonText: "Yes, finished study!",
                 closeOnConfirm: true
             }, function () {
-                //go to action and show welcome message for again join with us.
+                document.getElementById('finished-form').submit();
             });
         }
     </script>
