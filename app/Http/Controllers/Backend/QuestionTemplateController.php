@@ -29,10 +29,10 @@ class QuestionTemplateController extends Controller
                     $query->where('name', 'like', $keyword);
                 })
                 ->orWhereHas('subject', function ($query) use ($keyword) {
-                        $query->where('name', 'like', $keyword);
+                    $query->where('name', 'like', $keyword);
                 })
                 ->orWhereHas('studentType', function ($query) use ($keyword) {
-                        $query->where('name', 'like', $keyword);
+                    $query->where('name', 'like', $keyword);
                 });
         }
 
@@ -44,7 +44,7 @@ class QuestionTemplateController extends Controller
     public function create()
     {
         $departments = Department::latest()->get();
-        $subjects  = Subject::has('questionTemplates', '=', 0)->latest()->get();
+        $subjects  = Subject::doesntHave('questionTemplates')->latest()->get();
         $studentTypes = StudentType::latest()->get();
 
         return view('backend.question-template.create', compact('departments', 'subjects', 'studentTypes'));
@@ -56,7 +56,7 @@ class QuestionTemplateController extends Controller
             'name'             => 'required',
             'department_id'    => 'required',
             'subject_id'       => 'required|unique:question_templates',
-            'student_type_id' => 'required',
+            'student_type_id'  => 'required',
             'total_questions'  => 'required',
             'total_marks'      => 'required'
         ],[
@@ -74,9 +74,9 @@ class QuestionTemplateController extends Controller
 
         $departments = Department::latest()->get();
 
-        $subjects = Subject::whereHas('questionTemplates', function ($q) use ($template_subject_id){
+        $subjects = Subject::whereDoesntHave('questionTemplates', function ($q) use ($template_subject_id){
             $q->where('subject_id', '!=', $template_subject_id);
-        }, '=', 0)->latest()->get();
+        })->latest()->get();
 
         $studentTypes = StudentType::latest()->get();
 
@@ -89,7 +89,7 @@ class QuestionTemplateController extends Controller
             'name'             => 'required',
             'department_id'    => 'required',
             'subject_id'       => 'required|unique:question_templates,subject_id,'.$questionTemplate->id,
-            'student_type_id' => 'required',
+            'student_type_id'  => 'required',
             'total_questions'  => 'required',
             'total_marks'      => 'required'
         ]);

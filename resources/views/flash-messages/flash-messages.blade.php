@@ -20,5 +20,12 @@
                 <strong>Warning!</strong> {{ $message }}
             </div>
         @endif()
+
+        @if($message = Session::get('limit_cross'))
+            <div class="alert alert-warning no-margins">
+                <strong>Warning!</strong> {{ $message }}
+            </div>
+        @endif()
+
     </div>
 </div>

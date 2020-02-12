@@ -30,38 +30,39 @@
 
                         @include('flash-messages.flash-messages')
 
-                        <form onsubmit="submitQuestionForm(this)" action="{{ route('study.question.submit') }}" method="POST" class="form-horizontal">
-                            @csrf
+                        @if(!Session::get('limit_cross'))
+                            <form onsubmit="submitQuestionForm(this)" action="{{ route('study.question.submit') }}" method="POST" class="form-horizontal">
+                                @csrf
 
-                            <input name="question_id" value="{{ $question->id }}" type="hidden">
-                            <div class="col-lg-6">
+                                <input name="question_id" value="{{ $question->id }}" type="hidden">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="m-b-sm" style="font-size: 14px">{{ $question->question }}</label>
+                                        @foreach($question_options as $option)
+                                            <div class="i-checks {{ in_array($option->id, $correct_answers) ? 'text-primary' : (in_array($option->id, $student_answer) ? 'text-danger' : '') }}">
+                                                <label>
+                                                    <input name="options[]" value="{{ $option->id }}" {{  in_array($option->id, $student_answer) ? 'checked' : '' }} type="checkbox">
+                                                    <i></i> {{ $option->option }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                        @error('options') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
-                                    <label class="m-b-sm" style="font-size: 14px">{{ $question->question }}</label>
-                                    @foreach($question_options as $option)
-                                        <div class="i-checks {{ in_array($option->id, $correct_answers) ? 'text-primary' : (in_array($option->id, $student_answer) ? 'text-danger' : '') }}">
-                                            <label>
-                                                <input name="options[]" value="{{ $option->id }}" {{  in_array($option->id, $student_answer) ? 'checked' : '' }} type="checkbox">
-                                                <i></i> {{ $option->option }}
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                    @error('options') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-10">
+                                        <button class="btn btn-sm btn-primary pull-left m-t-n-xs m-r-xs" type="submit">
+                                            <strong>Next</strong>
+                                        </button>
+                                        {{--<a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button">
+                                            <strong>Skip</strong>
+                                        </a>--}}
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-lg-2"></div>
-                                <div class="col-lg-10">
-                                    <button class="btn btn-sm btn-primary pull-left m-t-n-xs m-r-xs" type="submit">
-                                        <strong>Next</strong>
-                                    </button>
-                                    <a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button">
-                                        <strong>Skip</strong>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

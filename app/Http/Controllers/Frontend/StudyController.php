@@ -24,21 +24,38 @@ class StudyController extends Controller
         ]);
 
         $question_paper_info = [
+            'question_paper_type' => 'study',
             'student_id' => Auth::id(),
-            'subject_id' => $request->subject_id
+            'subject_id' => $request->subject_id,
+            'generated_question_ids' => [],
+            'generated_question_count' => 0,
         ];
 
         Session::put('question_paper_info', $question_paper_info);
-
         return redirect()->route('study.question');
     }
 
     public function question()
     {
-        $question = Question::WhereHas('template', function ($query) {
-            $subject_id = Session::get('question_paper_info')['subject_id'];
+        $question_paper_info = Session::get('question_paper_info');
+
+        if ($question_paper_info['generated_question_count'] > 4){
+            Session::flash('limit_cross', 'Dear '.Auth::user()->name.' '.Auth::user()->last_name.', it\'s time to finished your study.');
+            return view('frontend.study.question');
+        }
+
+        $subject_id = $question_paper_info['subject_id'];
+        $generated_question_ids = $question_paper_info['generated_question_ids'];
+
+        //generate question
+        $question = Question::WhereHas('template', function ($query) use ($subject_id) {
             $query->where('subject_id', $subject_id);
-        })->active()->inRandomOrder()->take(1)->first();
+        })->whereNotIn('id', $generated_question_ids)->active()->inRandomOrder()->take(1)->first();
+
+        //store question id to prevent generate same question
+        array_push($question_paper_info['generated_question_ids'], $question->id);
+        $question_paper_info['generated_question_count']++;
+        Session::put('question_paper_info', $question_paper_info);
 
         $question_options = $question->options;
         $correct_answers = $student_answer = [];
