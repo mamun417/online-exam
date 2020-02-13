@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function profile(){
         $user = User::find(Auth::user()->id);
-        return view('backend.partial.profile', compact('user'));
+        return view('admin.partial.profile', compact('user'));
     }
 
     public function updateProfile(Request $request, User $user){
@@ -28,7 +28,7 @@ class UserController extends Controller
     }
 
     public function changePassword(){
-        return view('backend.partial.change_password');
+        return view('admin.partial.change_password');
     }
 
     public function updatePassword(Request $request){

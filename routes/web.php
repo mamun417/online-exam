@@ -21,7 +21,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
 
     Route::get('dashboard', function () {
-        return view('backend.dashboard.index');
+        return view('admin.dashboard.index');
     });
 
     //Profile
@@ -43,25 +43,25 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
 
 
 //Admin routes.........
-Route::group(['middleware' => ['auth', 'admin']], function(){
+Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.'], function(){
 
 	//Departments
-	Route::resource('departments', 'Backend\DepartmentController');
+	Route::resource('departments', 'Admin\DepartmentController');
 
 	//Subjects
-	Route::resource('subjects', 'Backend\SubjectController');
+	Route::resource('subjects', 'Admin\SubjectController');
 
 	//Questions
-	Route::resource('questions', 'Backend\QuestionController');
-	Route::get('get-option-list', 'Backend\QuestionController@getOptionList')->name('get-option-list');
+	Route::resource('questions', 'Admin\QuestionController');
+	Route::get('get-option-list', 'Admin\QuestionController@getOptionList')->name('get-option-list');
 
     //Question Template
-    Route::resource('question-templates', 'Backend\QuestionTemplateController');
+    Route::resource('question-templates', 'Admin\QuestionTemplateController');
 
 	//Users
-	Route::get('users', 'Backend\UserController@index')->name('users.index');
-	Route::get('users/edit/{user}', 'Backend\UserController@edit')->name('user.edit');
-	Route::post('users/update/{user}', 'Backend\UserController@update')->name('user.update');
+	Route::get('users', 'Admin\UserController@index')->name('users.index');
+	Route::get('users/edit/{user}', 'Admin\UserController@edit')->name('user.edit');
+	Route::post('users/update/{user}', 'Admin\UserController@update')->name('user.update');
 });
 
 

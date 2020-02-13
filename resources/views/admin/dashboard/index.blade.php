@@ -22,7 +22,7 @@
                         <div class="ibox-content">
 
                             <div class="table-responsive">
-                                <h2>Welcome to Medical Spark</h2>
+                                <h2>Welcome to dashboard</h2>
 
                             </div>
 

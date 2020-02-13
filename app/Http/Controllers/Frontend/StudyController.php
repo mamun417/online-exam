@@ -32,7 +32,7 @@ class StudyController extends Controller
             'student_id' => Auth::id(),
             'subject_id' => $request->subject_id,
             'generated_question_ids' => [],
-            'generated_question_count' => 0,
+            'generated_question_count' => 200,
         ];
 
         Session::put('question_paper_info', $question_paper_info);
@@ -43,11 +43,11 @@ class StudyController extends Controller
     {
         $question_paper_info = Session::get('question_paper_info');
 
-        //check is select any subject for study
+        //check has selected any subject for study
         if ($question_paper_info == []){ return redirect()->route('study.select-subject'); }
 
         //check limit cross
-        if ($question_paper_info['generated_question_count'] == 10){
+        if ($question_paper_info['generated_question_count'] == 0){
             Session::flash('limit_cross', 'Dear '.Auth::user()->name.' '.Auth::user()->last_name.', it\'s time to finished your study.');
             return view('frontend.study.question');
         }
@@ -62,7 +62,7 @@ class StudyController extends Controller
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);
-        $question_paper_info['generated_question_count']++;
+        $question_paper_info['generated_question_count']--;
         Session::put('question_paper_info', $question_paper_info);
 
         $question_options = $question->options;

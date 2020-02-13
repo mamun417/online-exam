@@ -1,11 +1,11 @@
-@extends('backend.layouts.master')
+@extends('layouts.master')
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('subjects.index') }}">Study</a>
+                    <a href="{{ route('study.select-subject') }}">Study</a>
                 </li>
                 <li class="active">
                     <strong>Question</strong>
