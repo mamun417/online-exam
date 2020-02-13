@@ -24,7 +24,7 @@
                         <a onclick="finishedStudy()" href="javascript:void(0)" class="btn btn-sm btn-danger pull-right m-t-n-xs" type="button">
                             <strong>Finished</strong>
                         </a>
-                        <form id="finished-form" method="POST" action="{{ route('study.finished') }}" style="display: none" >
+                        <form id="finished-form" method="POST" action="{{ route('question.finished') }}" style="display: none" >
                             @csrf()
                         </form>
                     </div>
