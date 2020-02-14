@@ -67,12 +67,12 @@
                     <a href="{{ route('study.select-subject') }}"><i style="font-size: 18px" class="fa fa-graduation-cap"></i><span class="nav-label">Study</span></a>
                 </li>
 
-                <li>
-                    <a href="#"><i style="font-size: 18px" class="fa fa-pinterest"></i> <span class="nav-label">Practice</span></a>
+                <li class="{{ Request::is('practice*') ? 'active' : '' }}">
+                    <a href="{{ route('practice.select-subject') }}"><i style="font-size: 18px" class="fa fa-pinterest"></i> <span class="nav-label">Practice</span></a>
                 </li>
 
                 <li>
-                    <a href="#"><i style="font-size: 18px" class="fa fa-thermometer-empty" aria-hidden="true"></i><span class="nav-label">Exam</span></a>
+                    <a href="#"><i style="font-size: 18px" class="fa fa-thermometer-empty" aria-hidden="true"></i><span class="nav-label">Examination</span></a>
                 </li>
             @endif
         </ul>

@@ -19,12 +19,14 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
 
+                    @php($question_paper_type = substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), ".")))
+
                     <div class="ibox-title">
                         <h5>Select Your Answer</h5>
                         <a onclick="finishedStudy()" href="javascript:void(0)" class="btn btn-sm btn-danger pull-right m-t-n-xs" type="button">
                             <strong>Finished</strong>
                         </a>
-                        <form id="finished-form" method="POST" action="{{ route('question.finished') }}" style="display: none" >
+                        <form id="finished-form" method="POST" action="{{ route($question_paper_type.'.question.finished') }}" style="display: none" >
                             @csrf()
                         </form>
                     </div>
@@ -34,7 +36,7 @@
                         @include('flash-messages.flash-messages')
 
                         @if(!Session::get('limit_cross'))
-                            <form onsubmit="submitQuestionForm(this)" action="{{ route('study.question.submit') }}" method="POST" class="form-horizontal">
+                            <form onsubmit="submitQuestionForm(this)" action="{{ route($question_paper_type.'.question.submit') }}" method="POST" class="form-horizontal">
                                 @csrf
 
                                 <input name="question_id" value="{{ $question->id }}" type="hidden">
