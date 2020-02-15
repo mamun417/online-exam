@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static create(array $all)
  * @method static doesntHave(string $string)
  * @method static whereDoesntHave(string $string, \Closure $param)
+ * @method static find($subject_id)
  */
 class Subject extends Model
 {

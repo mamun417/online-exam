@@ -67,7 +67,7 @@ class PracticeController extends Controller
         //generate question
         $question = Question::WhereHas('template', function ($query) use ($subject_id) {
             $query->where('subject_id', $subject_id);
-        })->whereNotIn('id', $generated_question_ids)->active()->inRandomOrder()->take(1)->first();
+        })->whereNotIn('id', $generated_question_ids)->where('question_type_id', '!=', 3)->active()->inRandomOrder()->take(1)->first();
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);
@@ -108,39 +108,46 @@ class PracticeController extends Controller
     public function summery()
     {
         $question_paper_info = Session::get('question_paper_info');
+        $subject = Subject::find($question_paper_info['subject_id']);
         $total_answered_question_ids = $question_paper_info['generated_question_ids'];
-
-        //dd($total_answered_question_ids);
 
         $right_answer = 0;
         $wrong_answer = 0;
 
-        foreach ($total_answered_question_ids as $answered_question_id){
+        $ids_ordered = implode(',', $total_answered_question_ids);
+
+        $total_questions = Question::with('options')->whereIn('id', $total_answered_question_ids)
+            ->orderByRaw("FIELD(id, $ids_ordered)")->get();
+
+        foreach ($total_questions as $question){
 
             //get student answer
             $student_answer = Examination::find($question_paper_info['examination_id'])
-                ->answers()->where('question_id', $answered_question_id)
+                ->answers()->where('question_id', $question->id)
                 ->pluck('option_id')->toArray();
 
 
-            //get question correct answer
-            $question_correct_answers = Question::find($answered_question_id)->correctAnswers;
+            $question['student_answer'] = $student_answer;
 
+            //get question correct answer
             $correct_answers = [];
-            foreach ($question_correct_answers as $answer){
+            foreach ($question->correctAnswers as $answer){
                 $correct_answers[] = $answer->id;
             }
+
+            $question['original_answer'] = $correct_answers;
 
             //check two array contain same element or not to know student given answer right or wrong
             sort($student_answer);
             sort($correct_answers);
 
             $student_answer == $correct_answers ? $right_answer++ : $wrong_answer++;
+            $question['is_correct_answer'] = $student_answer == $correct_answers;
         }
 
-        return view('frontend.question.summery');
+        //dd($total_questions->toArray());
 
-        dd('Total', $total_answered_question_ids, 'Right', $right_answer, 'Wrong', $wrong_answer);
+        return view('frontend.question.summery', compact('subject','total_questions', 'right_answer', 'wrong_answer'));
     }
 
     public function finished(){

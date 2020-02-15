@@ -244,3 +244,8 @@ th.trash-table.sorting_desc::after {
 #optionsSection ul{
     margin-bottom: 0!important;
 }
+.error_answer{
+    background-color: #f5eeee;
+    padding: 8px 8px;
+    border-radius: 4px;
+}

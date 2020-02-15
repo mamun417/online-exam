@@ -62,9 +62,11 @@
                                             <strong>Next</strong>
                                         </button>
 
-                                        {{--<a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button">
-                                            <strong>Skip</strong>
-                                        </a>--}}
+                                        @if(Session::get('question_paper_info')['question_paper_type'] == 'practice')
+                                            <a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" style="width: 80px">
+                                                <strong>Skip</strong>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </form>

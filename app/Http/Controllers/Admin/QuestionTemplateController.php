@@ -71,14 +71,12 @@ class QuestionTemplateController extends Controller
     public function edit(QuestionTemplate $questionTemplate)
     {
         $template_subject_id = $questionTemplate->subject->id;
-
         $departments = Department::latest()->get();
+        $studentTypes = StudentType::latest()->get();
 
         $subjects = Subject::whereDoesntHave('questionTemplates', function ($q) use ($template_subject_id){
             $q->where('subject_id', '!=', $template_subject_id);
         })->latest()->get();
-
-        $studentTypes = StudentType::latest()->get();
 
         return view('admin.question-template.edit', compact('questionTemplate', 'departments', 'subjects', 'studentTypes'));
     }
