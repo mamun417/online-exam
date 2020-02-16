@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Model\Examination;
 use App\Model\Question;
+use App\Model\QuestionTemplate;
 use App\Model\Subject;
 use Auth;
 use Illuminate\Http\Request;
@@ -30,6 +31,8 @@ class PracticeController extends Controller
             'question_quantity' => 'required'
         ]);
 
+        $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $request->subject_id)->first();
+
         $examination = Examination::create([
             'user_id' => Auth::id(),
             'subject_id' => $request->subject_id,
@@ -41,7 +44,7 @@ class PracticeController extends Controller
             'student_id' => Auth::id(),
             'subject_id' => $request->subject_id,
             'generated_question_ids' => [],
-            'question_quantity' => $request->question_quantity
+            'question_quantity' => $question_template->questions_count > 200 ? 200 : $question_template->questions_count
         ];
 
         Session::put('question_paper_info', []);
@@ -110,6 +113,7 @@ class PracticeController extends Controller
         $question_paper_info = Session::get('question_paper_info');
         $subject = Subject::find($question_paper_info['subject_id']);
         $total_answered_question_ids = $question_paper_info['generated_question_ids'];
+        array_pop($total_answered_question_ids);
 
         $right_answer = 0;
         $wrong_answer = 0;

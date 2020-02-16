@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $all)
+ * @method static withCount(string $string)
  */
 class QuestionTemplate extends Model
 {
@@ -22,4 +23,8 @@ class QuestionTemplate extends Model
 	 public function studentType(){
         return $this->belongsTo(StudentType::class);
 	 }
+
+    public function questions(){
+        return $this->hasMany(Question::class);
+    }
 }

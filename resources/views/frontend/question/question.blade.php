@@ -82,6 +82,10 @@
 @section('custom-js')
     <script>
 
+        if(performance.navigation.type === 2){
+            location.reload(true);
+        }
+
         function submitQuestionForm(e){
             event.preventDefault();
             if($('input[name="options[]"]:checked').length === 0){

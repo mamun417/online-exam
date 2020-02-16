@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Model\Question;
+use App\Model\QuestionTemplate;
 use App\Model\Subject;
 use Auth;
+use foo\bar;
 use Illuminate\Http\Request;
 use Session;
 
@@ -29,12 +31,14 @@ class StudyController extends Controller
             'subject_id' => 'required'
         ]);
 
+        $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $request->subject_id)->first();
+
         $question_paper_info = [
             'question_paper_type' => 'study',
             'student_id' => Auth::id(),
             'subject_id' => $request->subject_id,
             'generated_question_ids' => [],
-            'question_quantity' => 200
+            'question_quantity' => $question_template->questions_count > 200 ? 200 : $question_template->questions_count
         ];
 
         Session::put('question_paper_info', []);
@@ -70,6 +74,8 @@ class StudyController extends Controller
 
         $question_options = $question->options;
         $correct_answers = $student_answer = [];
+
+        //dd('ok');
 
         return view('frontend.question.question', compact('question', 'question_options', 'correct_answers', 'student_answer'));
     }
