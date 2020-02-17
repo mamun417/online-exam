@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @method static find($id)
  * @method where(string $string, string $string1, string $keyword)
+ * @method static paid()
  */
 class User extends Authenticatable
 {
@@ -42,4 +43,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopePaid($query){
+        return $query->where('account_type_id', 1);
+    }
 }

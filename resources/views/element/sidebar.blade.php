@@ -58,6 +58,10 @@
                 <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
                     <a href="{{ route('admin.subjects.index') }}"><i style="font-size: 14px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
                 </li>
+
+                <li class="{{ Request::is('notifications*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.notifications.index') }}"><i style="font-size: 14px" class="fa fa-bell"></i><span class="nav-label">Notifications</span></a>
+                </li>
             @else
                 <li>
                     <a href="#"><i style="font-size: 18px" class="fa fa-home" aria-hidden="true"></i><span class="nav-label">Home</span></a>

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static doesntHave(string $string)
  * @method static whereDoesntHave(string $string, \Closure $param)
  * @method static find($subject_id)
+ * @method static has(string $string)
  */
 class Subject extends Model
 {

@@ -46,30 +46,34 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
     Route::post('practice/question', 'PracticeController@submitQuestion')->name('practice.question.submit');
     Route::get('practice/summery', 'PracticeController@summery')->name('practice.summery');
     Route::post('practice/finished', 'PracticeController@finished')->name('practice.question.finished');
+    Route::post('practice/restart', 'PracticeController@restart')->name('practice.question.restart');
 });
 
 
 
 //Admin routes.........
-Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.'], function(){
+Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'namespace' => 'Admin'], function(){
 
 	//Departments
-	Route::resource('departments', 'Admin\DepartmentController');
+	Route::resource('departments', 'DepartmentController');
 
 	//Subjects
-	Route::resource('subjects', 'Admin\SubjectController');
+	Route::resource('subjects', 'SubjectController');
 
 	//Questions
-	Route::resource('questions', 'Admin\QuestionController');
-	Route::get('get-option-list', 'Admin\QuestionController@getOptionList')->name('get-option-list');
+	Route::resource('questions', 'QuestionController');
+	Route::get('get-option-list', 'QuestionController@getOptionList')->name('get-option-list');
 
     //Question Template
-    Route::resource('question-templates', 'Admin\QuestionTemplateController');
+    Route::resource('question-templates', 'QuestionTemplateController');
 
 	//Users
-	Route::get('users', 'Admin\UserController@index')->name('users.index');
-	Route::get('users/edit/{user}', 'Admin\UserController@edit')->name('user.edit');
-	Route::post('users/update/{user}', 'Admin\UserController@update')->name('user.update');
+	Route::get('users', 'UserController@index')->name('users.index');
+	Route::get('users/edit/{user}', 'UserController@edit')->name('user.edit');
+	Route::post('users/update/{user}', 'UserController@update')->name('user.update');
+
+	//Notifications
+    Route::resource('notifications', 'NotificationController');
 });
 
 

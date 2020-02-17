@@ -38,13 +38,15 @@ class PracticeController extends Controller
             'subject_id' => $request->subject_id,
         ]);
 
+        $request_quantity = $request->question_quantity;
+
         $question_paper_info = [
             'question_paper_type' => 'practice',
             'examination_id' => $examination->id,
             'student_id' => Auth::id(),
             'subject_id' => $request->subject_id,
             'generated_question_ids' => [],
-            'question_quantity' => $question_template->questions_count > 200 ? 200 : $question_template->questions_count
+            'question_quantity' => $question_template->questions_count > $request_quantity ? $request_quantity : $question_template->questions_count
         ];
 
         Session::put('question_paper_info', []);
@@ -61,9 +63,9 @@ class PracticeController extends Controller
 
         //check limit cross
         if ($question_paper_info['question_quantity'] == 0){
-            Session::flash('limit_cross', 'Dear '.Auth::user()->name.' '.Auth::user()->last_name.', it\'s time to finished your study.');
-            return view('frontend.question.question');
+            return redirect()->route('practice.summery');
         }
+
         $subject_id = $question_paper_info['subject_id'];
         $generated_question_ids = $question_paper_info['generated_question_ids'];
 
@@ -83,8 +85,8 @@ class PracticeController extends Controller
         return view('frontend.question.question', compact('question', 'question_options', 'correct_answers', 'student_answer'));
     }
 
-    public function submitQuestion(Request $request){
-
+    public function submitQuestion(Request $request)
+    {
         $request->validate([
             'question_id' => 'required',
             'options' => 'required'
@@ -111,6 +113,12 @@ class PracticeController extends Controller
     public function summery()
     {
         $question_paper_info = Session::get('question_paper_info');
+
+        if (!isset($question_paper_info['examination_id']) || ($question_paper_info['question_quantity'] > 0)){
+           Session::flash('limit_cross', 'You have no summery yet.');
+           return view('frontend.question.summery');
+        }
+
         $subject = Subject::find($question_paper_info['subject_id']);
         $total_answered_question_ids = $question_paper_info['generated_question_ids'];
         array_pop($total_answered_question_ids);
@@ -149,12 +157,20 @@ class PracticeController extends Controller
             $question['is_correct_answer'] = $student_answer == $correct_answers;
         }
 
-        //dd($total_questions->toArray());
-
         return view('frontend.question.summery', compact('subject','total_questions', 'right_answer', 'wrong_answer'));
     }
 
-    public function finished(){
+    public function finished()
+    {
+        $question_paper_info = Session::get('question_paper_info');
+        $question_paper_info['question_quantity'] = 0;
+        Session::put('question_paper_info', $question_paper_info);
+
+        return redirect()->route('practice.summery');
+    }
+
+    public function restart()
+    {
         Session::put('question_paper_info', []);
         return redirect()->route('practice.select-subject')->with('success', 'Thank you '.Auth::user()->name.' '.Auth::user()->last_name.', Have a good day.');
     }
