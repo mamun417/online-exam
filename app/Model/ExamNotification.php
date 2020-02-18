@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ExamNotification extends Model
 {
-    protected $fillable = ['subject_id', 'mail_subject', 'start_date', 'notice'];
+    protected $dates = ['start_date', 'end_date'];
+
+    protected $fillable = ['subject_id', 'mail_subject', 'notice', 'duration', 'start_date', 'end_date'];
 
     public function subject(){
         return $this->belongsTo(Subject::class);

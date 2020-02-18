@@ -26,13 +26,12 @@
     {{--Tokenize2--}}
     <link href="{{ asset('admin/js/extra-plugin/tokenize2/tokenize2.min.css') }}" rel="stylesheet">
 
-    {{--Date timepicker--}}
-    <link href="{{ asset('admin/css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
-
-    <link href="{{ asset('admin/css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
+    {{--Datetime picker--}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     {{--custom style--}}
     <link href="{{ asset('admin/css/custom_style.css') }}" rel="stylesheet">
+
 </head>
 <body>
 
@@ -60,7 +59,7 @@
 <script src="{{ asset('admin/js/plugins/pace/pace.min.js')}}"></script>
 
 <!-- Data picker -->
-<script src="{{ asset('admin/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
+{{--<script src="{{ asset('admin/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>--}}
 
 <!-- iCheck -->
 <script src="{{ asset('admin/js/plugins/iCheck/icheck.min.js') }}"></script>
@@ -79,6 +78,9 @@
 
 {{--Tokenize2--}}
 <script src="{{ asset('admin/js/extra-plugin/tokenize2/tokenize2.min.js') }}"></script>
+
+{{--Datetime picker--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 <script>
 
@@ -100,11 +102,11 @@
         };
 
         @if(session('successTMsg'))
-            toastr.success('{{ session('successTMsg') }}');
+        toastr.success('{{ session('successTMsg') }}');
         @endif
 
         @if(session('errorTMsg'))
-            toastr.error('{{ session('errorTMsg') }}');
+        toastr.error('{{ session('errorTMsg') }}');
         @endif
     });
 

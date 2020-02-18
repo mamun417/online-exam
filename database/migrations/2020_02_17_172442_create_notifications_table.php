@@ -17,8 +17,10 @@ class CreateNotificationsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('subject_id');
             $table->string('mail_subject');
-            $table->dateTime('start_date');
             $table->string('notice');
+            $table->string('duration');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->tinyInteger('is_active')->nullable()->default(1);
             $table->tinyInteger('is_deleted')->nullable()->default(0);
             $table->timestamps();

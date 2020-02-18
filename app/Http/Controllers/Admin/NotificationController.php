@@ -33,12 +33,18 @@ class NotificationController extends Controller
             'notice' => 'required'
         ]);
 
-        $request['start_date'] = date('Y-m-d', strtotime($request->start_date));
+        $start_date = $request->start_date;
+        $subject = Subject::find($request->subject_id);
+        $notice = str_replace(['[[SUBJECT]]', '[[DATE-TIME]]'], [strtolower($subject->name), $start_date], $request->notice);
+
+        $request['start_date'] = date('Y-m-d H:i:s', strtotime($request->start_date));
+        $request['end_date'] = date('Y-m-d H:i:s',strtotime($request->start_date)+$request->duration*60*60);
+        $request['notice'] = $notice;
         ExamNotification::create($request->all());
 
         //send notification to paid users
         $paid_users = User::paid()->get();
-        Notification::send($paid_users, new ExaminationNotification());
+        Notification::send($paid_users, new ExaminationNotification($notice, $request->mail_subject));
 
         return redirect()->route('admin.notifications.index')->with('successTMsg', 'Notification save successfully');
     }

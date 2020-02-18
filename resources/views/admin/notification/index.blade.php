@@ -53,8 +53,10 @@
                                     <tr>
                                         <th>Subject Name</th>
                                         <th>Mail Subject</th>
-                                        <th>Start Date</th>
                                         <th>Notice</th>
+                                        <th>Duration</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
                                         <th>Created At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -65,8 +67,10 @@
                                         <tr>
                                             <td>{{ ucfirst($notification->subject->name) }}</td>
                                             <td>{{ $notification->mail_subject }}</td>
-                                            <td>{{ $notification->start_date }}</td>
                                             <td>{{ $notification->notice }}</td>
+                                            <td>{{ $notification->duration }} hours</td>
+                                            <td>{{ $notification->start_date->format('d-m-Y h:i A') }}</td>
+                                            <td>{{ $notification->end_date->format('d-m-Y h:i A') }}</td>
                                             <td>{{ $notification->created_at->format('d-m-Y') }}</td>
                                             <td class="text-center">
                                                 <a onclick="deleteRow({{ $notification->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">

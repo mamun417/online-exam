@@ -6,19 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\HtmlString;
 
 class ExaminationNotification extends Notification
 {
     use Queueable;
+
+    public $notice;
+    public $mail_subject;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($notice, $mail_subject)
     {
-        //
+        $this->notice = $notice;
+        $this->mail_subject = $mail_subject;
     }
 
     /**
@@ -41,9 +46,12 @@ class ExaminationNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting(' ')
+            ->line(new HtmlString('<b>Hello! </b>'. $notifiable->name .' '. $notifiable->last_name.','))
+            ->line(new HtmlString('<span style="float: right">Date: '.date('d-m-Y').'</span><br>'))
+            ->subject($this->mail_subject)
+            ->line($this->notice);
+            //->action('Online Exam', url('/examination'));
     }
 
     /**

@@ -11,13 +11,8 @@
 
 @section('custom-js')
     <script>
-        $('.expire_date').datepicker({
-            format: 'dd-mm-yyyy',
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
+        $('.expire_date').datetimepicker({
+            format:'DD-MM-YYYY',
         });
     </script>
 @endsection
