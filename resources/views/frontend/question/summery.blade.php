@@ -1,11 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
+
+    @php($question_paper_type = substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), ".")))
+
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('study.select-subject') }}">Practice</a>
+                    <a @if($question_paper_type == 'practice') href="{{ route('study.select-subject') }}" @endif>{{ ucfirst($question_paper_type) }}</a>
                 </li>
                 <li class="active">
                     <strong>Summery</strong>
@@ -18,18 +21,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
-
-                    @php($question_paper_type = substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), ".")))
-
                     <div class="ibox-title">
                         <h5>Summery Details</h5>
                         @if(!Session::get('limit_cross'))
-                            <a onclick="restartPractice()" href="javascript:void(0)" class="btn btn-sm btn-warning pull-right m-t-n-xs" type="button">
-                                <i class="fa fa-refresh"></i> <strong>Restart</strong>
-                            </a>
-                            <form id="finished-form" method="POST" action="{{ route($question_paper_type.'.question.restart') }}" style="display: none" >
-                                @csrf()
-                            </form>
+                            @if($question_paper_type == 'practice')
+                                <a onclick="restartPractice()" href="javascript:void(0)" class="btn btn-sm btn-warning pull-right m-t-n-xs" type="button">
+                                    <i class="fa fa-refresh"></i> <strong>Restart</strong>
+                                </a>
+                                <form id="finished-form" method="POST" action="{{ route($question_paper_type.'.question.restart') }}" style="display: none" >
+                                    @csrf()
+                                </form>
+                            @endif
                         @endif
                     </div>
 

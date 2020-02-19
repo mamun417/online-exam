@@ -53,7 +53,7 @@
                                     <tr>
                                         <th>Subject Name</th>
                                         <th>Mail Subject</th>
-                                        <th>Notice</th>
+                                        <th style="width: 28%">Notice</th>
                                         <th>Duration</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>

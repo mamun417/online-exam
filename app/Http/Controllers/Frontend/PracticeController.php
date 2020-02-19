@@ -166,7 +166,8 @@ class PracticeController extends Controller
         $question_paper_info['question_quantity'] = 0;
         Session::put('question_paper_info', $question_paper_info);
 
-        return redirect()->route('practice.summery');
+        $question_paper_type = $question_paper_info['question_paper_type'];
+        return redirect()->route($question_paper_type.'.summery');
     }
 
     public function restart()

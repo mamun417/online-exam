@@ -50,8 +50,8 @@ class ExaminationNotification extends Notification
             ->line(new HtmlString('<b>Hello! </b>'. $notifiable->name .' '. $notifiable->last_name.','))
             ->line(new HtmlString('<span style="float: right">Date: '.date('d-m-Y').'</span><br>'))
             ->subject($this->mail_subject)
-            ->line($this->notice);
-            //->action('Online Exam', url('/examination'));
+            ->line($this->notice)
+            ->action('Online Exam', route('examination.prepare'));
     }
 
     /**

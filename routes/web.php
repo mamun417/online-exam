@@ -47,6 +47,14 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
     Route::get('practice/summery', 'PracticeController@summery')->name('practice.summery');
     Route::post('practice/finished', 'PracticeController@finished')->name('practice.question.finished');
     Route::post('practice/restart', 'PracticeController@restart')->name('practice.question.restart');
+
+    //examination
+    Route::get('examination', 'ExaminationController@prepareExam')->name('examination.prepare');
+    Route::get('examination/start', 'ExaminationController@startExam')->name('examination.start');
+    Route::get('examination/question', 'ExaminationController@question')->name('examination.question');
+    Route::post('examination/question', 'ExaminationController@submitQuestion')->name('examination.question.submit');
+    Route::get('examination/summery', 'PracticeController@summery')->name('examination.summery');
+    Route::post('examination/finished', 'PracticeController@finished')->name('examination.question.finished');
 });
 
 
