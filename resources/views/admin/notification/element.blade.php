@@ -2,10 +2,10 @@
 
     <div class="form-group">
         <label>Exam<span class="required-star"> *</span></label>
-        <select class="form-control" name="subject_id">
+        <select class="form-control" name="question_template_id">
             <option value="">Select Subject</option>
-            @foreach($subjects as $subject)
-                <option @if( isset($questionTemplate) and $questionTemplate->subject_id == $subject->id) selected @endif value="{{ $subject->id }}">{{ $subject->name }}</option>
+            @foreach($question_templates as $question_template)
+                <option value="{{ $question_template->id }}">{{ $question_template->subject->name }}</option>
             @endforeach
         </select>
         @error('subject_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror

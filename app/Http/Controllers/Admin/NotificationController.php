@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\ExamNotification;
+use App\Model\QuestionTemplate;
 use App\Model\Subject;
 use App\Notifications\ExaminationNotification;
 use App\User;
@@ -27,29 +28,31 @@ class NotificationController extends Controller
                 ->orWhere('end_date', 'like', '%'.request()->keyword.'%');
         }
 
-        $notifications = $notifications->with('subject')->latest()->paginate($perPage);
+        $notifications = $notifications->with('template', 'template.subject')->latest()->paginate($perPage);
+
+        //dd($notifications->toArray());
 
         return view('admin.notification.index', compact('notifications'));
     }
 
     public function create()
     {
-        $subjects = Subject::has('questionTemplates')->latest()->get();
-        return view('admin.notification.create', compact('subjects'));
+        $question_templates = QuestionTemplate::with('subject')->latest()->get();
+        return view('admin.notification.create', compact('question_templates'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'subject_id' => 'required',
+            'question_template_id' => 'required',
             'mail_subject' => 'required',
             'start_date' => 'required',
             'notice' => 'required'
         ]);
 
         $start_date = $request->start_date;
-        $subject = Subject::find($request->subject_id);
-        $notice = str_replace(['[[SUBJECT]]', '[[DATE-TIME]]'], [strtolower($subject->name), $start_date], $request->notice);
+        $question_template = QuestionTemplate::where('id', $request->question_template_id)->first();
+        $notice = str_replace(['[[SUBJECT]]', '[[DATE-TIME]]'], [strtolower($question_template->subject->name), $start_date], $request->notice);
 
         $request['start_date'] = date('Y-m-d H:i:s', strtotime($request->start_date));
         $request['end_date'] = date('Y-m-d H:i:s',strtotime($request->start_date)+$request->duration*60*60);

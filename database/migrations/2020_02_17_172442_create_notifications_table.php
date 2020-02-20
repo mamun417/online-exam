@@ -15,7 +15,7 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('exam_notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('subject_id');
+            $table->bigInteger('question_template_id');
             $table->string('mail_subject');
             $table->string('notice');
             $table->string('duration');

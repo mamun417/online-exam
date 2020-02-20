@@ -65,7 +65,7 @@
                                 <tbody>
                                     @foreach($notifications as $notification)
                                         <tr>
-                                            <td>{{ ucfirst($notification->subject->name) }}</td>
+                                            <td>{{ ucfirst($notification->template->subject->name) }}</td>
                                             <td>{{ $notification->mail_subject }}</td>
                                             <td>{{ $notification->notice }}</td>
                                             <td>{{ $notification->duration }} hours</td>
