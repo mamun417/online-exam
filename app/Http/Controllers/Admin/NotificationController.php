@@ -14,7 +14,21 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $notifications = ExamNotification::with('subject')->latest()->paginate(25);
+        $perPage = request()->perPage ?: 10;
+        $keyword = request()->keyword;
+
+        $notifications = new ExamNotification();
+
+        if ($keyword){
+            $notifications = $notifications->where('mail_subject', 'like', '%'.request()->keyword.'%')
+                ->orWhere('notice', 'like', '%'.request()->keyword.'%')
+                ->orWhere('duration', 'like', '%'.request()->keyword.'%')
+                ->orWhere('start_date', 'like', '%'.request()->keyword.'%')
+                ->orWhere('end_date', 'like', '%'.request()->keyword.'%');
+        }
+
+        $notifications = $notifications->with('subject')->latest()->paginate($perPage);
+
         return view('admin.notification.index', compact('notifications'));
     }
 

@@ -21,7 +21,7 @@
                         <div class="row" style="margin-bottom: 10px">
 
                             <div class="col-sm-12">
-                                <form action="{{ route('admin.users.index') }}" method="get" class="form-inline" role="form">
+                                <form action="{{ route('admin.notifications.index') }}" method="get" class="form-inline" role="form">
 
                                     <div class="form-group">
                                         <div>Records Per Page</div>
@@ -41,7 +41,7 @@
                                                 <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
                                             </span>
                                         </div>
-                                         <a href="{{ route('admin.users.index') }}" class="btn btn-default btn-sm">Reset</a>
+                                         <a href="{{ route('admin.notifications.index') }}" class="btn btn-default btn-sm">Reset</a>
                                     </div>
                                 </form>
                             </div>
