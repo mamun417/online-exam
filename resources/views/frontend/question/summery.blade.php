@@ -37,6 +37,8 @@
 
                     <div class="ibox-content">
 
+                        @php($question_paper_type = substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), ".")))
+
                         @include('flash-messages.flash-messages')
 
                         @if(!Session::get('limit_cross'))
@@ -56,9 +58,15 @@
                                             Right Answer
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge badge-danger">{{ $wrong_answer }}</span>
+                                            <span class="badge badge-warning">{{ $wrong_answer }}</span>
                                             Wrong Answer
                                         </li>
+                                        @if($question_paper_type == 'examination')
+                                            <li class="list-group-item">
+                                                <span class="badge badge-danger">{{ $wrong_answer*$subject->questionTemplates->first()->negative_marks }}</span>
+                                                Negative Marks
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
 

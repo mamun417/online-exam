@@ -40,7 +40,7 @@
                                 @csrf
 
                                 <input name="question_id" value="{{ $question->id }}" type="hidden">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="m-b-sm" style="font-size: 14px"><b>{{ count(Session::get('question_paper_info')['generated_question_ids']) }}.</b> {{ $question->question }}</label>
                                         @foreach($question_options as $option)
@@ -56,8 +56,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-lg-2"></div>
-                                    <div class="col-lg-10">
+                                    <div class="col-lg-12">
                                         <button class="btn btn-sm btn-primary pull-left m-t-n-xs m-r-xs" style="width: 80px" type="submit">
                                             <strong>Next</strong>
                                         </button>
