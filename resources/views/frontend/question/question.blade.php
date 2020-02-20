@@ -42,7 +42,7 @@
                                 <input name="question_id" value="{{ $question->id }}" type="hidden">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="m-b-sm" style="font-size: 14px">{{ $question->question }}</label>
+                                        <label class="m-b-sm" style="font-size: 14px"><b>{{ count(Session::get('question_paper_info')['generated_question_ids']) }}.</b> {{ $question->question }}</label>
                                         @foreach($question_options as $option)
                                             <div class="i-checks {{ in_array($option->id, $correct_answers) ? 'text-primary' : (in_array($option->id, $student_answer) ? 'text-danger' : '') }}">
                                                 <label>
@@ -99,7 +99,7 @@
         function finishedStudy() {
             swal({
                 title: "Are you sure?",
-                text: "You want to finished yor study for today!",
+                text: "You want to finished yor "+'{{ $question_paper_type }}'+" for today!",
                 type: "warning",
                 showCancelButton: true,
                 allowOutsideClick: true,
