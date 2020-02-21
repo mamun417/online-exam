@@ -85,3 +85,16 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'namespace' =
 });
 
 
+// SSLCOMMERZ Start
+Route::get('/payment', 'SslCommerzPaymentController@exampleEasyCheckout')->name('payment');
+Route::get('/example2', 'SslCommerzPaymentController@exampleHostedCheckout');
+
+Route::post('/pay', 'SslCommerzPaymentController@index');
+Route::post('/pay-via-ajax', 'SslCommerzPaymentController@payViaAjax');
+
+Route::post('/success', 'SslCommerzPaymentController@success');
+Route::post('/fail', 'SslCommerzPaymentController@fail');
+Route::post('/cancel', 'SslCommerzPaymentController@cancel');
+
+Route::post('/ipn', 'SslCommerzPaymentController@ipn');
+//SSLCOMMERZ END

@@ -21,7 +21,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "dashboard";
+    protected $redirectTo = 'dashboard';
 
     /**
      * Create a new controller instance.
@@ -58,14 +58,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //paid user registration
+        if ($data['account_type_id'] == 1){
+            $this->redirectTo = 'payment';
+        }
+
         return User::create([
+            'role_id'     => 2,
+            'account_type_id' => $data['account_type_id'],
             'name'        => $data['name'],
             'last_name'   => $data['last_name'],
             'email'       => $data['email'],
             'password'    => Hash::make($data['password']),
-            'expire_date' => Carbon::today()->addMonths(12)->format('d-m-y'),
-            'account_type_id'=> $data['account_type_id'],
-            'role_id'     => 2
+            'expire_date' => Carbon::today()->addMonths(12)->format('Y-m-d'),
+            'is_paid' => 0
         ]);
     }
 }

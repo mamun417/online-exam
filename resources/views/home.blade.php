@@ -21,9 +21,10 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
 
+                            @include('flash-messages.flash-messages')
+
                             <div class="table-responsive">
                                 <h2>Welcome to Medical Spark</h2>
-
                             </div>
 
                         </div>

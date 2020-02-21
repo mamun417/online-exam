@@ -3,12 +3,23 @@
     <words>
       <w>addon</w>
       <w>autoclose</w>
+      <w>commerz</w>
+      <w>detials</w>
       <w>dismissable</w>
+      <w>easycheckout</w>
       <w>fillable</w>
       <w>ibox</w>
+      <w>informations</w>
+      <w>initate</w>
       <w>intval</w>
+      <w>medi</w>
       <w>olderror</w>
+      <w>payement</w>
       <w>pinterest</w>
+      <w>sslc</w>
+      <w>sslcommerz</w>
+      <w>successfull</w>
+      <w>trnsaction</w>
     </words>
   </dictionary>
 </component>
