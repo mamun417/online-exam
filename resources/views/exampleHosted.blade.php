@@ -30,45 +30,16 @@
 </head>
 <body class="bg-light">
 <div class="container">
-    <div class="py-5 text-center">
-        <h2>Hosted Payment - SSLCommerz</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. We have provided this sample form for understanding Hosted Checkout Payment with SSLCommerz.</p>
+    <div class="text-center" style="margin-top: 5px">
+        <h2>Medi Spark</h2>
     </div>
 
     <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your cart</span>
-                <span class="badge badge-secondary badge-pill">3</span>
-            </h4>
-            <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">1000</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">50</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">150</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (BDT)</span>
-                    <strong>1200 TK</strong>
-                </li>
-            </ul>
+
+        <div class="col-md-2">
+
         </div>
+
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Billing address</h4>
             <form action="{{ url('/pay') }}" method="POST" class="needs-validation">
@@ -77,10 +48,19 @@
                     <div class="col-md-12 mb-3">
                         <label for="firstName">Full name</label>
                         <input type="text" name="customer_name" class="form-control" id="customer_name" placeholder=""
-                               value="John Doe" required>
+                               value="{{ auth()->user()->name.' '. auth()->user()->last_name }}" required>
                         <div class="invalid-feedback">
                             Valid customer name is required.
                         </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" name="customer_email" class="form-control" id="email"
+                           placeholder="you@example.com" value="{{ auth()->user()->email }}" required>
+                    <div class="invalid-feedback">
+                        Please enter a valid email address for shipping updates.
                     </div>
                 </div>
 
@@ -91,7 +71,7 @@
                             <span class="input-group-text">+88</span>
                         </div>
                         <input type="text" name="customer_mobile" class="form-control" id="mobile" placeholder="Mobile"
-                               value="01711xxxxxx" required>
+                               value="" required>
                         <div class="invalid-feedback" style="width: 100%;">
                             Your Mobile number is required.
                         </div>
@@ -99,32 +79,18 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                    <input type="email" name="customer_email" class="form-control" id="email"
-                           placeholder="you@example.com" value="you@example.com" required>
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                    </div>
-                </div>
-
-                <div class="mb-3">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-                           value="93 B, New Eskaton Road" required>
+                    <input type="text" class="form-control" id="address" placeholder="Full Address"
+                           value="" required>
                     <div class="invalid-feedback">
                         Please enter your shipping address.
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                </div>
-
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="country">Country</label>
-                        <select class="custom-select d-block w-100" id="country" required>
+                        <select name="customer_country" class="custom-select d-block w-100" id="country" required>
                             <option value="">Choose...</option>
                             <option value="Bangladesh">Bangladesh</option>
                         </select>
@@ -134,7 +100,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="state">State</label>
-                        <select class="custom-select d-block w-100" id="state" required>
+                        <select name="customer_state" class="custom-select d-block w-100" id="state" required>
                             <option value="">Choose...</option>
                             <option value="Dhaka">Dhaka</option>
                         </select>
@@ -144,36 +110,19 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" required>
+                        <input name="customer_zip" type="text" class="form-control" id="zip" placeholder="" required>
                         <div class="invalid-feedback">
                             Zip code required.
                         </div>
                     </div>
                 </div>
-                <hr class="mb-4">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="same-address">
-                    <input type="hidden" value="1200" name="amount" id="total_amount" required/>
-                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
-                        address</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="save-info">
-                    <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                </div>
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout (Hosted)</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now</button>
             </form>
         </div>
     </div>
 
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2019 Company Name</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
+    <footer class="pt-2 text-muted text-center text-small">
+        {{--<p class="mb-1">&copy; {{ date('Y') }} Medi Spark</p>--}}
     </footer>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

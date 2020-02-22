@@ -3,6 +3,6 @@
         <strong></strong>
     </div>
     <div>
-        <strong>Copyright</strong> Fictionsoft &copy; 2020
+        <strong>Copyright</strong> Fictionsoft &copy; {{ date('Y') }}
     </div>
 </div>

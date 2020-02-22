@@ -50,6 +50,7 @@
                                         <th>Email</th>
                                         <th>Account Type</th>
                                         <th>Expire Date</th>
+                                        <th class="text-center">Payment Status</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -61,6 +62,13 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->account_type_id == 1 ? 'Paid':'Free' }}</td>
                                             <td>{{ $user->expire_date->format('d-m-Y') }}</td>
+                                            <td class="text-center">
+                                                @if($user->is_paid == 1)
+                                                    <span class="badge badge-primary" style="min-width: 50px">Paid</span>
+                                                @else
+                                                    <span class="badge badge-danger">Unpaid</span>
+                                                @endif
+                                            </td>
                                             <td style="text-align: center">
                                                 <a href="{{ route('admin.user.edit', $user->id) }}" title="Edit" class="btn btn-info cus_btn">
                                                     <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>

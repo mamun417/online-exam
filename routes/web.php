@@ -20,8 +20,8 @@ Auth::routes();
 //User routes............
 Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
 
-    Route::get('dashboard', function () {
-        return view('admin.dashboard.index');
+    Route::get('home', function () {
+        return view('home');
     });
 
     //Profile
@@ -62,6 +62,10 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
 //Admin routes.........
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'namespace' => 'Admin'], function(){
 
+    Route::get('home', function () {
+        return view('home');
+    });
+
 	//Departments
 	Route::resource('departments', 'DepartmentController');
 
@@ -86,15 +90,18 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'namespace' =
 
 
 // SSLCOMMERZ Start
-Route::get('/payment', 'SslCommerzPaymentController@exampleEasyCheckout')->name('payment');
-Route::get('/example2', 'SslCommerzPaymentController@exampleHostedCheckout');
+Route::group(['middleware' => 'auth'], function(){
 
-Route::post('/pay', 'SslCommerzPaymentController@index');
-Route::post('/pay-via-ajax', 'SslCommerzPaymentController@payViaAjax');
+    Route::get('/example1', 'SslCommerzPaymentController@exampleEasyCheckout');
+    Route::get('/payment', 'SslCommerzPaymentController@exampleHostedCheckout')->name('payment');
 
-Route::post('/success', 'SslCommerzPaymentController@success');
-Route::post('/fail', 'SslCommerzPaymentController@fail');
-Route::post('/cancel', 'SslCommerzPaymentController@cancel');
+    Route::post('/pay', 'SslCommerzPaymentController@index');
+    Route::post('/pay-via-ajax', 'SslCommerzPaymentController@payViaAjax');
 
-Route::post('/ipn', 'SslCommerzPaymentController@ipn');
+    Route::post('/success', 'SslCommerzPaymentController@success');
+    Route::post('/fail', 'SslCommerzPaymentController@fail');
+    Route::post('/cancel', 'SslCommerzPaymentController@cancel');
+
+    Route::post('/ipn', 'SslCommerzPaymentController@ipn');
+});
 //SSLCOMMERZ END

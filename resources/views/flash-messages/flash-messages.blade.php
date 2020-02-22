@@ -29,3 +29,17 @@
 
     </div>
 </div>
+
+@if($message = Session::get('payment_success'))
+    <div class="alert alert-success alert-dismissable">
+        <strong>Success!</strong> {{ $message }}
+        @php(Session::forget('payment_success'))
+    </div>
+@endif()
+
+@if($message = Session::get('payment_fail'))
+    <div class="alert alert-danger alert-dismissable">
+        <strong>Success!</strong> {{ $message }}
+        @php(Session::forget('payment_fail'))
+    </div>
+@endif()

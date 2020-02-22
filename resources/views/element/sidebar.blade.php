@@ -36,7 +36,7 @@
             @if(Auth::check() && Auth::user()->role_id == 1)
 
                  <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
-                    <a href="{{ url('dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                    <a href="{{ url('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                  </li>
 
                  <li class="{{ Request::is('notifications*') ? 'active' : '' }}">
@@ -63,8 +63,8 @@
                     <a href="{{ route('admin.subjects.index') }}"><i style="font-size: 14px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
                  </li>
             @else
-                <li>
-                    <a href="#"><i style="font-size: 18px" class="fa fa-home" aria-hidden="true"></i><span class="nav-label">Home</span></a>
+                <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+                    <a href="{{ url('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></a>
                 </li>
 
                 <li class="{{ Request::is('study*') ? 'active' : '' }}">
