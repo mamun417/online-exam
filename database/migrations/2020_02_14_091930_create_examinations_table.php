@@ -18,6 +18,7 @@ class CreateExaminationsTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('subject_id');
             $table->bigInteger('department_id')->nullable();
+            $table->string('result')->nullable();
             $table->timestamps();
         });
     }

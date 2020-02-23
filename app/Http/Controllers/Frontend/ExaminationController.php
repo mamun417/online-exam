@@ -47,10 +47,10 @@ class ExaminationController extends Controller
         $exam_notification = ExamNotification::latest()->first();
         $subject_id = $exam_notification->template->subject_id;
 
-        $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $subject_id)->first();
-
-        //check student already started exam
-
+        //$question_template = QuestionTemplate::withCount('questions')->where('subject_id', $subject_id)->first();
+        $question_template = QuestionTemplate::withCount(['questions' => function ($query) {
+            $query->where('question_type_id', '=', 3);
+        }])->where('subject_id', $subject_id)->first();
 
         $examination = Examination::create([
             'user_id' => Auth::id(),

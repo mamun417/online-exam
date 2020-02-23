@@ -58,10 +58,18 @@
                                             Right Answer
                                         </li>
                                         <li class="list-group-item">
+                                            <span class="badge badge-primary">{{ ($right_answer*$per_question_mark)-($wrong_answer*$subject->questionTemplates->first()->negative_marks) }}</span>
+                                            Obtain marks
+                                        </li>
+                                        <li class="list-group-item">
                                             <span class="badge badge-warning">{{ $wrong_answer }}</span>
                                             Wrong Answer
                                         </li>
                                         @if($question_paper_type == 'examination')
+                                            <li class="list-group-item">
+                                                <span class="badge badge-danger">{{ $subject->questionTemplates->first()->negative_marks }}</span>
+                                                Negative Marks/Question
+                                            </li>
                                             <li class="list-group-item">
                                                 <span class="badge badge-danger">{{ $wrong_answer*$subject->questionTemplates->first()->negative_marks }}</span>
                                                 Negative Marks

@@ -3,15 +3,16 @@
     <div id="app">
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Dashboard</h2>
-                <ol class="breadcrumb">
+                <h2>Home</h2>
+               {{-- <ol class="breadcrumb">
                     <li>
                         <a>Dashboard</a>
                     </li>
                     <li class="active">
                         <strong>Home</strong>
                     </li>
-                </ol>
+                </ol>--}}
+
             </div>
         </div>
 

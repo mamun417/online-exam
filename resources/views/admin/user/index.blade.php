@@ -3,7 +3,7 @@
 @section('content')
      <div class="row wrapper border-bottom white-bg page-heading">
        <div class="col-lg-10">
-            <h2>Users</h2>
+            <h2>Students</h2>
         </div>
     </div>
 

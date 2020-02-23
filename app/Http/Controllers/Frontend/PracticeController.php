@@ -31,7 +31,9 @@ class PracticeController extends Controller
             'question_quantity' => 'required'
         ]);
 
-        $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $request->subject_id)->first();
+        $question_template = QuestionTemplate::withCount(['questions' => function ($query) {
+            $query->where('question_type_id', '!=', 3);
+        }])->where('subject_id', $request->subject_id)->first();
 
         $examination = Examination::create([
             'user_id' => Auth::id(),
@@ -121,7 +123,6 @@ class PracticeController extends Controller
 
         $subject = Subject::find($question_paper_info['subject_id']);
         $total_answered_question_ids = $question_paper_info['generated_question_ids'];
-        array_pop($total_answered_question_ids);
 
         $right_answer = 0;
         $wrong_answer = 0;
@@ -157,7 +158,17 @@ class PracticeController extends Controller
             $question['is_correct_answer'] = $student_answer == $correct_answers;
         }
 
-        return view('frontend.question.summery', compact('subject','total_questions', 'right_answer', 'wrong_answer'));
+
+        $question_template = QuestionTemplate::where('subject_id', $question_paper_info['subject_id'])->get()->first();
+        $per_question_mark = $question_template->total_marks/$question_template->total_questions;
+
+        //examination table update with result
+        if ($question_paper_info['question_paper_type'] == 'examination'){
+            //dd($per_question_mark*$right_answer);
+            Examination::where('id', $question_paper_info['examination_id'])->update(['result' => ($per_question_mark*$right_answer)-($wrong_answer*$subject->questionTemplates->first()->negative_marks)]);
+        }
+
+        return view('frontend.question.summery', compact('subject','total_questions', 'right_answer', 'wrong_answer', 'per_question_mark'));
     }
 
     public function finished()

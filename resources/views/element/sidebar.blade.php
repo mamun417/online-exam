@@ -44,7 +44,7 @@
                  </li>
 
                  <li class="{{ Request::is('users*', 'user*') ? 'active' : '' }}">
-                    <a href="{{ Route('admin.users.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Users</span></a>
+                    <a href="{{ Route('admin.users.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Students</span></a>
                  </li>
 
                  <li class="{{ Request::is('question-template*') ? 'active' : '' }}">
@@ -75,8 +75,17 @@
                     <a href="{{ route('practice.select-subject') }}"><i style="font-size: 18px" class="fa fa-pinterest"></i> <span class="nav-label">Practice</span></a>
                 </li>
 
-                <li class="{{ Request::is('examination*') ? 'active' : '' }}">
+                @php
+                    $cur_route_name = Route::currentRouteName();
+                    $current_controller = class_basename(Route::current()->controller)
+                @endphp
+
+                <li class="{{ $current_controller == 'ExaminationController' ? 'active' : '' }}">
                     <a href="{{ route('examination.prepare') }}"><i style="font-size: 18px" class="fa fa-thermometer-empty" aria-hidden="true"></i><span class="nav-label">Examination</span></a>
+                </li>
+
+                <li class="{{ Request::is('examination/result*') ? 'active' : '' }}">
+                    <a href="{{ route('examination.result') }}"><i style="font-size: 18px" class="fa fa-bookmark" aria-hidden="true"></i><span class="nav-label">Result</span></a>
                 </li>
             @endif
         </ul>

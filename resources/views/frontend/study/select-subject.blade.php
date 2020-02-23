@@ -46,7 +46,7 @@
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-10">
                                     <button class="btn btn-sm btn-primary pull-left m-t-n-xs" type="submit">
-                                        <strong>Submit</strong>
+                                        <strong>Next</strong>
                                     </button>
                                 </div>
                             </div>

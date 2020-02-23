@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,5 +15,9 @@ class Examination extends Model
 
     public function answers(){
         return $this->hasMany(Answer::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

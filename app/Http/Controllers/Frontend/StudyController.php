@@ -31,7 +31,9 @@ class StudyController extends Controller
             'subject_id' => 'required'
         ]);
 
-        $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $request->subject_id)->first();
+        $question_template = QuestionTemplate::withCount(['questions' => function ($query) {
+            $query->where('question_type_id', '!=', 3);
+        }])->where('subject_id', $request->subject_id)->first();
 
         $question_paper_info = [
             'question_paper_type' => 'study',

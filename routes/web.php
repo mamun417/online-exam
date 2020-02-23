@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
     Route::post('examination/question', 'ExaminationController@submitQuestion')->name('examination.question.submit');
     Route::get('examination/summery', 'PracticeController@summery')->name('examination.summery');
     Route::post('examination/finished', 'PracticeController@finished')->name('examination.question.finished');
+    Route::get('examination/result', 'ResultController@index')->name('examination.result');
 });
 
 
