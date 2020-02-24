@@ -17,13 +17,13 @@
         @if($message = Session::get('warning'))
             <div class="alert alert-warning alert-dismissable">
                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                <strong>Warning!</strong> {{ $message }}
+                {{ $message }}
             </div>
         @endif()
 
         @if($message = Session::get('limit_cross'))
             <div class="alert alert-warning no-margins">
-                <strong>Warning!</strong> {{ $message }}
+                {{ $message }}
             </div>
         @endif()
 

@@ -35,14 +35,19 @@
                                     </tbody>
 
                                 </table>
-                            @endif
-                        </div>
 
-                        <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                            <div class="m-r-lg">
-                                Showing {{ $results->firstItem() }} to {{ $results->lastItem() }} of {{ $results->total() }} entries
-                            </div>
-                            {{ $results->links() }}
+                                <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                    <div class="m-r-lg">
+                                        Showing {{ $results->firstItem() }} to {{ $results->lastItem() }} of {{ $results->total() }} entries
+                                    </div>
+                                    {{ $results->links() }}
+                                </div>
+
+                            @else
+                                <div class="alert alert-warning no-margins">
+                                    No result found
+                                </div>
+                            @endif
                         </div>
 
                     </div>

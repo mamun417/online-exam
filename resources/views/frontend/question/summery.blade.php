@@ -59,7 +59,7 @@
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge badge-primary">{{ ($right_answer*$per_question_mark)-($wrong_answer*$subject->questionTemplates->first()->negative_marks) }}</span>
-                                            Obtain marks
+                                            Obtain Marks
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge badge-warning">{{ $wrong_answer }}</span>

@@ -73,8 +73,8 @@
                                             <td>{{ $notification->end_date->format('d-m-Y h:i A') }}</td>
                                             <td>{{ $notification->created_at->format('d-m-Y') }}</td>
 
-                                            @if(config('app.env') === 'local')
-                                                <td class="text-center">
+                                            <td class="text-center">
+                                                @if(config('app.env') === 'local')
                                                     <a onclick="deleteRow({{ $notification->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
                                                         <i class="fa fa-trash"></i> <strong>Delete</strong>
                                                     </a>
@@ -83,20 +83,22 @@
                                                         @method('DELETE')
                                                         @csrf()
                                                     </form>
-                                                </td>
-                                            @endif
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>
 
                             </table>
-                        </div>
-
-                        <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                            <div class="m-r-lg">
-                                Showing {{ $notifications->firstItem() }} to {{ $notifications->lastItem() }} of {{ $notifications->total() }} entries
+                            <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                <div class="m-r-lg">
+                                    Showing {{ $notifications->firstItem() }} to {{ $notifications->lastItem() }} of {{ $notifications->total() }} entries
+                                </div>
+                                {{ $notifications->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
                             </div>
-                            {{ $notifications->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
                         </div>
 
                     </div>

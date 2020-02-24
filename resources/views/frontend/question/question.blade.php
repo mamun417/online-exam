@@ -42,7 +42,23 @@
                                 <input name="question_id" value="{{ $question->id }}" type="hidden">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label class="m-b-sm" style="font-size: 14px"><b>{{ count(Session::get('question_paper_info')['generated_question_ids']) }}.</b> {{ $question->question }}</label>
+
+                                        @if($question->description)
+                                            <label>
+                                                <u>Description:</u> {{  $question->description  }}
+                                            </label><br><br>
+                                        @endif
+
+                                        @if($question->image)
+                                            <label>
+                                                <img src="{{ asset('admin/uploads/images/question/'.$question->image) }}" style="height: 100px" width="100px" class="">
+                                            </label><br><br>
+                                        @endif
+
+                                        <label class="m-b-sm" style="font-size: 14px">
+                                            <b>{{ count(Session::get('question_paper_info')['generated_question_ids']) }}.</b>
+                                            {{ $question->question }}
+                                        </label>
                                         @foreach($question_options as $option)
                                             <div class="i-checks {{ in_array($option->id, $correct_answers) ? 'text-primary' : (in_array($option->id, $student_answer) ? 'text-danger' : '') }}">
                                                 <label>

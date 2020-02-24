@@ -15,6 +15,8 @@ class PracticeController extends Controller
 {
     public function showSelectSubject()
     {
+        Session::forget('limit_cross');
+
         $question_paper_info = Session::get('question_paper_info');
         if ($question_paper_info and $question_paper_info['question_paper_type'] == 'practice'){
             return redirect()->route('practice.question');
