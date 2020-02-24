@@ -61,7 +61,7 @@
                                             <strong>Next</strong>
                                         </button>
 
-                                        @if(Session::get('question_paper_info')['question_paper_type'] == 'practice')
+                                        @if(Session::get('question_paper_info')['question_paper_type'] == 'practice' || Session::get('question_paper_info')['question_paper_type'] == 'examination')
                                             <a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" style="width: 80px">
                                                 <strong>Skip</strong>
                                             </a>

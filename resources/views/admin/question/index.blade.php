@@ -72,15 +72,16 @@
                                                     <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
                                                 </a>
 
-                                                <a onclick="deleteRow({{ $question->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
-                                                    <i class="fa fa-trash"></i> <strong>Delete</strong>
-                                                </a>
+                                                @if(config('app.env') === 'local')
+                                                    <a onclick="deleteRow({{ $question->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
+                                                        <i class="fa fa-trash"></i> <strong>Delete</strong>
+                                                    </a>
 
-                                                <form id="row-delete-form{{ $question->id }}" method="POST" action="{{ route('admin.questions.destroy', $question->id) }}" style="display: none" >
-                                                    @method('DELETE')
-                                                    @csrf()
-                                                </form>
-
+                                                    <form id="row-delete-form{{ $question->id }}" method="POST" action="{{ route('admin.questions.destroy', $question->id) }}" style="display: none" >
+                                                        @method('DELETE')
+                                                        @csrf()
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

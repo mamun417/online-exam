@@ -72,16 +72,19 @@
                                             <td>{{ $notification->start_date->format('d-m-Y h:i A') }}</td>
                                             <td>{{ $notification->end_date->format('d-m-Y h:i A') }}</td>
                                             <td>{{ $notification->created_at->format('d-m-Y') }}</td>
-                                            <td class="text-center">
-                                                <a onclick="deleteRow({{ $notification->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
-                                                    <i class="fa fa-trash"></i> <strong>Delete</strong>
-                                                </a>
 
-                                                <form id="row-delete-form{{ $notification->id }}" method="POST" action="{{ route('admin.notifications.destroy', $notification->id) }}" style="display: none" >
-                                                    @method('DELETE')
-                                                    @csrf()
-                                                </form>
-                                            </td>
+                                            @if(config('app.env') === 'local')
+                                                <td class="text-center">
+                                                    <a onclick="deleteRow({{ $notification->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
+                                                        <i class="fa fa-trash"></i> <strong>Delete</strong>
+                                                    </a>
+
+                                                    <form id="row-delete-form{{ $notification->id }}" method="POST" action="{{ route('admin.notifications.destroy', $notification->id) }}" style="display: none" >
+                                                        @method('DELETE')
+                                                        @csrf()
+                                                    </form>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

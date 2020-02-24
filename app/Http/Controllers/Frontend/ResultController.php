@@ -15,6 +15,7 @@ class ResultController extends Controller
         $subject_id = $exam_notification->template->subject_id;
 
         $results = Examination::with('user')->where('subject_id', $subject_id)
+            ->where('is_exam', true)
             ->orderByRaw('result DESC')->paginate(15);
 
         return view('frontend.result.index', compact('results'));

@@ -48,7 +48,7 @@
                  </li>
 
                  <li class="{{ Request::is('question-template*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.question-templates.index') }}"><i class="fa fa-file-text"></i><span class="nav-label">Question Template</span></a>
+                    <a href="{{ route('admin.question-templates.index') }}"><i class="fa fa-file-text"></i><span class="nav-label">Exam</span></a>
                  </li>
 
                  <li class="{{ Request::is('questions*') ? 'active' : '' }}">
@@ -80,9 +80,11 @@
                     $current_controller = class_basename(Route::current()->controller)
                 @endphp
 
-                <li class="{{ $current_controller == 'ExaminationController' ? 'active' : '' }}">
-                    <a href="{{ route('examination.prepare') }}"><i style="font-size: 18px" class="fa fa-thermometer-empty" aria-hidden="true"></i><span class="nav-label">Examination</span></a>
-                </li>
+                @if(Auth::check() and Auth::user()->account_type_id == 1)
+                    <li class="{{ $current_controller == 'ExaminationController' ? 'active' : '' }}">
+                        <a href="{{ route('examination.prepare') }}"><i style="font-size: 18px" class="fa fa-thermometer-empty" aria-hidden="true"></i><span class="nav-label">Examination</span></a>
+                    </li>
+                @endif
 
                 <li class="{{ Request::is('examination/result*') ? 'active' : '' }}">
                     <a href="{{ route('examination.result') }}"><i style="font-size: 18px" class="fa fa-bookmark" aria-hidden="true"></i><span class="nav-label">Result</span></a>

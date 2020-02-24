@@ -165,7 +165,10 @@ class PracticeController extends Controller
         //examination table update with result
         if ($question_paper_info['question_paper_type'] == 'examination'){
             //dd($per_question_mark*$right_answer);
-            Examination::where('id', $question_paper_info['examination_id'])->update(['result' => ($per_question_mark*$right_answer)-($wrong_answer*$subject->questionTemplates->first()->negative_marks)]);
+            Examination::where('id', $question_paper_info['examination_id'])->update([
+                'result' => ($per_question_mark*$right_answer)-($wrong_answer*$subject->questionTemplates->first()->negative_marks),
+                'is_exam' => true
+            ]);
         }
 
         return view('frontend.question.summery', compact('subject','total_questions', 'right_answer', 'wrong_answer', 'per_question_mark'));
