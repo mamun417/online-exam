@@ -9,6 +9,8 @@
 
     <title>Medical-Spark</title>
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
     <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">

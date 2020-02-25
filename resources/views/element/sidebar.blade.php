@@ -72,7 +72,7 @@
                 </li>
 
                 <li class="{{ Request::is('practice*') ? 'active' : '' }}">
-                    <a href="{{ route('practice.select-subject') }}"><i style="font-size: 18px" class="fa fa-pinterest"></i> <span class="nav-label">Practice</span></a>
+                    <a href="{{ route('practice.select-subject') }}"><i class="fa fa-flask" aria-hidden="true"></i> <span class="nav-label">Practice</span></a>
                 </li>
 
                 @php

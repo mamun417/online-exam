@@ -41,7 +41,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Question Quantity<span class="required-star"> *</span></label>
+                                    <label>Number Of Question<span class="required-star"> *</span></label>
                                     <select class="form-control" name="question_quantity">
                                         <option value="">Select</option>
                                         <option value="25" {{ old('question_quantity') == 25 ? 'selected':'' }} >25</option>
@@ -59,7 +59,7 @@
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-10">
                                     <button class="btn btn-sm btn-primary pull-left m-t-n-xs" type="submit">
-                                        <strong>Submit</strong>
+                                        <strong>Next</strong>
                                     </button>
                                 </div>
                             </div>

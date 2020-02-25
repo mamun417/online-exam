@@ -43,18 +43,6 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
 
-                                        @if($question->description)
-                                            <label>
-                                                <u>Description:</u> {{  $question->description  }}
-                                            </label><br><br>
-                                        @endif
-
-                                        @if($question->image)
-                                            <label>
-                                                <img src="{{ asset('admin/uploads/images/question/'.$question->image) }}" style="height: 100px" width="100px" class="">
-                                            </label><br><br>
-                                        @endif
-
                                         <label class="m-b-sm" style="font-size: 14px">
                                             <b>{{ count(Session::get('question_paper_info')['generated_question_ids']) }}.</b>
                                             {{ $question->question }}
@@ -69,6 +57,19 @@
                                         @endforeach
                                         @error('options') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
                                     </div>
+
+                                    @if($question->description)
+                                        <label>
+                                            <u>Explanation:</u> {{  $question->description  }}
+                                        </label><br><br>
+                                    @endif
+
+                                    @if($question->image)
+                                        <label>
+                                            <img src="{{ asset('admin/uploads/images/question/'.$question->image) }}" style="height: 150px; width: 150px" class="">
+                                        </label><br><br>
+                                    @endif
+
                                 </div>
 
                                 <div class="form-group">
