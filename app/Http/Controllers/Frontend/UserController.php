@@ -20,10 +20,10 @@ class UserController extends Controller
         $request->validate([
             'name'      => 'required|max:200|string',
             'last_name' => 'required|max:200|string',
-            'email'     => 'required'
+            //'email'     => 'required'
         ]);
 
-        $user->update($request->all());
+        $user->update($request->except('email'));
         return redirect(route('profile'))->with('successTMsg', 'Examination has been updated successfully');
     }
 

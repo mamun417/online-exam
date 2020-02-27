@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Email<span class="required-star"> *</span></label>
                                 <div class="col-lg-6">
-                                    <input type="text" value="{{ isset($user->email) ? $user->email : old('email')}}" name="email" class="form-control">
+                                    <input type="email" value="{{ isset($user->email) ? $user->email : old('email')}}" disabled name="email" class="form-control">
                                     @error('email') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
