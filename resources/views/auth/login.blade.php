@@ -12,14 +12,14 @@
                 <div class="form-group">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
                     @error('email')
-                    <span class="help-block m-b-none text-danger">{{ $message }}</span>
+                        <span class="help-block m-b-none text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <div class="form-group">
                     <input id="password" type="password" value="" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
                     @error('password')
-                    <span class="help-block m-b-none text-danger">{{ $message }}</span>
+                        <span class="help-block m-b-none text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -30,6 +30,12 @@
                     <small>Do not have an account?</small>
                 </p>
                 <a class="btn btn-sm btn-white btn-block" href="{{ route('register') }}">Create an account</a>
+                <a href="login/facebook" class="btn btn-block btn-social btn-facebook" style="margin-top: 10px">
+                    <span class="fa fa-facebook"></span> Sign in with Facebook
+                </a>
+                <a href="login/google" class="btn btn-block btn-social btn-google">
+                    <span class="fa fa-google"></span> Sign in with Google
+                </a>
             </form>
         </div>
     </div>

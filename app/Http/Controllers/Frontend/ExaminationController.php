@@ -33,7 +33,7 @@ class ExaminationController extends Controller
             return view('frontend.examination.prepare', compact('exam_notification'));
         }
 
-        //start exam
+        //exam wait for starting
         if (strtotime($current_date) >= strtotime($start_date) && strtotime($current_date) <= strtotime($end_date)){
             $start_exam = true;
             return view('frontend.examination.prepare', compact('start_exam', 'exam_notification'));

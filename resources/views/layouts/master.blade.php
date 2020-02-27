@@ -34,6 +34,8 @@
     {{--custom style--}}
     <link href="{{ asset('admin/css/custom_style.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('admin/js/plugins/time-circles/TimeCircles.css') }}" rel="stylesheet">
+
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
@@ -85,6 +87,8 @@
 
 {{--Datetime picker--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript" src="{{ asset('admin/js/plugins/time-circles/TimeCircles.js') }}"></script>
 
 <script>
 

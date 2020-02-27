@@ -53,6 +53,7 @@
                                     </div>
                                 </div>
                             @else
+                                <div class="example" data-date="{{ $exam_notification->start_date }}" style="width: 500px; height: 150px;"></div>
                                 <p>Your exam english will be held on {{ $exam_notification->start_date->format('d-m-Y h:i A') }}. Please be prepared for your online exam.</p>
                             @endisset
                         @endif
@@ -61,6 +62,18 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('custom-js')
+    <script>
+        $(".example").TimeCircles({count_past_zero: false}).addListener(countdownComplete);
+
+        function countdownComplete(unit, value, total){
+            if(total <= 0){
+                setTimeout(location.reload.bind(location), 1000);
+            }
+        }
+    </script>
 @endsection
 
 
