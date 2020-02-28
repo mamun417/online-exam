@@ -119,7 +119,6 @@ class LoginController extends Controller
         return false;
     }
 
-
     /**
      * Log the user out of the application.
      *
