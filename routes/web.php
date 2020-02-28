@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 //User routes............
-Route::group(['middleware' => 'auth', 'namespace' => 'Frontend'], function(){
+Route::group(['middleware' => ['auth', 'checkUserStatus'], 'namespace' => 'Frontend'], function(){
 
     Route::get('home', function () {
         return view('home');

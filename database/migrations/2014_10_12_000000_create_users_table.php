@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->date('expire_date')->nullable();
             $table->boolean('is_paid')->default(0);
+            $table->boolean('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

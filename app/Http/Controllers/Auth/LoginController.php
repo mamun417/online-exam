@@ -44,6 +44,27 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        //check active status
+        if ($this->guard()->user()->status == 0){
+            Auth::logout();
+            return redirect('login')->with('error', 'Your account is not active. Please contact with admin.');
+        }
+
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended($this->redirectPath());
+    }
 
     /**
      * Redirect the user to the GitHub authentication page.

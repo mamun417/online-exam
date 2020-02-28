@@ -51,6 +51,7 @@
                                         <th>Phone</th>
                                         <th>Account Type</th>
                                         <th>Expire Date</th>
+                                        <th class="text-center">Account Status</th>
                                         <th class="text-center">Payment Status</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -64,6 +65,13 @@
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->account_type_id == 1 ? 'Paid':'Free' }}</td>
                                             <td>{{ $user->expire_date->format('d-m-Y') }}</td>
+                                            <td class="text-center">
+                                                @if($user->status == 1)
+                                                    <span class="badge badge-primary" style="min-width: 50px">Active</span>
+                                                @else
+                                                    <span class="badge badge-danger">Inactive</span>
+                                                @endif
+                                            </td>
                                             <td class="text-center">
                                                 @if($user->is_paid == 1)
                                                     <span class="badge badge-primary" style="min-width: 50px">Paid</span>

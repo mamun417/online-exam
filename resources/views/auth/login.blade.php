@@ -6,6 +6,13 @@
         <div class="ibox-content">
             <h2 class="font-bold" style="text-align: center">Login</h2>
 
+            @if($message = Session::get('error'))
+                <div class="alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <strong>Oops!</strong> {{ $message }}
+                </div>
+            @endif()
+
             <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
                 @csrf
 
