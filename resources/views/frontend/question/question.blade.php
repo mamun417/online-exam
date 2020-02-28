@@ -19,7 +19,13 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
 
-                    @php($question_paper_type = substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), ".")))
+                    @php
+                        $question_paper_info = Session::get('question_paper_info');
+                        $question_paper_type = substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), "."));
+                        $total_question = count($question_paper_info['generated_question_ids'])+$question_paper_info['question_quantity'];
+                        $generated_question_count = count($question_paper_info['generated_question_ids']);
+                        $progress = ($generated_question_count/$total_question)*100;
+                    @endphp
 
                     <div class="ibox-title">
                         <h5>Select Your Answer</h5>
@@ -41,10 +47,19 @@
 
                                 <input name="question_id" value="{{ $question->id }}" type="hidden">
                                 <div class="col-lg-12">
+
+                                    @if($question_paper_info['question_paper_type'] == 'examination')
+                                        <div class="progress progress-striped active">
+                                            <div style="width: {{ $progress }}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{ $progress }}" role="progressbar" class="progress-bar progress-bar">
+                                                <span class="">{{ $progress }}% Complete</span>
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     <div class="form-group">
 
                                         <label class="m-b-sm" style="font-size: 14px">
-                                            <b>{{ count(Session::get('question_paper_info')['generated_question_ids']) }}.</b>
+                                            <b>{{ $generated_question_count }}.</b>
                                             {{ $question->question }}
                                         </label>
                                         @foreach($question_options as $option)
@@ -78,7 +93,7 @@
                                             <strong>Next</strong>
                                         </button>
 
-                                        @if(Session::get('question_paper_info')['question_paper_type'] == 'practice' || Session::get('question_paper_info')['question_paper_type'] == 'examination')
+                                        @if($question_paper_info['question_paper_type'] == 'practice' || $question_paper_info['question_paper_type'] == 'examination')
                                             <a href="" class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" style="width: 80px">
                                                 <strong>Skip</strong>
                                             </a>
