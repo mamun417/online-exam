@@ -37,6 +37,15 @@
                 </div>
 
                 <div class="form-group">
+                    <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  placeholder="Phone">
+                    @error('phone')
+                    <span class="help-block m-b-none text-danger">
+                       <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password" placeholder="Password">
                     @error('password')
                     <span class="help-block m-b-none text-danger">

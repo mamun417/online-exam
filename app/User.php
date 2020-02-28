@@ -23,13 +23,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'role_id', 'account_type_id', 'name', 'last_name', 'email', 'provider', 'provider_id', 'password', 'expire_date', 'is_paid'
+        'role_id', 'account_type_id', 'name', 'last_name', 'email', 'phone', 'provider', 'provider_id', 'password', 'expire_date', 'is_paid'
     ];
 
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var arraym
      */
     protected $hidden = [
         'password', 'remember_token',
@@ -45,6 +45,6 @@ class User extends Authenticatable
     ];
 
     public function scopePaid($query){
-        return $query->where('account_type_id', 1);
+        return $query->where('account_type_id', 1)->where('is_paid', 1);
     }
 }

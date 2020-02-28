@@ -87,17 +87,18 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'namespace' =
 
 	//Notifications
     Route::resource('notifications', 'NotificationController');
+
+    //Payments
+    Route::get('payments', 'PaymentController@index')->name('payments.index');
 });
 
 
 // SSLCOMMERZ Start
 Route::group(['middleware' => 'auth'], function(){
 
-    Route::get('/example1', 'SslCommerzPaymentController@exampleEasyCheckout');
     Route::get('/payment', 'SslCommerzPaymentController@exampleHostedCheckout')->name('payment');
 
     Route::post('/pay', 'SslCommerzPaymentController@index');
-    Route::post('/pay-via-ajax', 'SslCommerzPaymentController@payViaAjax');
 
     Route::post('/success', 'SslCommerzPaymentController@success');
     Route::post('/fail', 'SslCommerzPaymentController@fail');

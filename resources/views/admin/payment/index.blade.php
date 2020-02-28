@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
-     <div class="row wrapper border-bottom white-bg page-heading">
-       <div class="col-lg-10">
-            <h2>Students</h2>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Payments</h2>
         </div>
     </div>
 
@@ -16,7 +16,7 @@
                         <div class="row" style="margin-bottom: 10px">
 
                             <div class="col-sm-12">
-                                <form action="{{ route('admin.users.index') }}" method="get" class="form-inline" role="form">
+                                <form action="{{ route('admin.payments.index') }}" method="get" class="form-inline" role="form">
 
                                     <div class="form-group">
                                         <div>Records Per Page</div>
@@ -36,7 +36,7 @@
                                                 <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
                                             </span>
                                         </div>
-                                         <a href="{{ route('admin.users.index') }}" class="btn btn-default btn-sm">Reset</a>
+                                         <a href="{{ route('admin.payments.index') }}" class="btn btn-default btn-sm">Reset</a>
                                     </div>
                                 </form>
                             </div>
@@ -49,45 +49,42 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Account Type</th>
-                                        <th>Expire Date</th>
-                                        <th class="text-center">Payment Status</th>
-                                        <th class="text-center">Actions</th>
+                                        <th>Amount</th>
+                                        <th>Transaction ID</th>
+                                        <th>Status</th>
+                                        <th>Created At</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach($users as $user)
+                                    @foreach($payments as $payment)
                                         <tr>
-                                            <td>{{ ucfirst($user->name).' '.$user->last_name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->phone }}</td>
-                                            <td>{{ $user->account_type_id == 1 ? 'Paid':'Free' }}</td>
-                                            <td>{{ $user->expire_date->format('d-m-Y') }}</td>
+                                            <td>{{ ucfirst($payment->user->name) .' '.$payment->user->last_name }}</td>
+                                            <td>{{ $payment->user->email }}</td>
+                                            <td>{{ $payment->user->phone }}</td>
+                                            <td>{{ $payment->amount }}</td>
+                                            <td>{{ $payment->transaction_id }}</td>
+
                                             <td class="text-center">
-                                                @if($user->is_paid == 1)
-                                                    <span class="badge badge-primary" style="min-width: 50px">Paid</span>
+                                                @if($payment->status == 'Complete')
+                                                    <span class="badge badge-primary" style="min-width: 50px">Complete</span>
                                                 @else
-                                                    <span class="badge badge-danger">Unpaid</span>
+                                                    <span class="badge badge-warning">Pending</span>
                                                 @endif
                                             </td>
-                                            <td style="text-align: center">
-                                                <a href="{{ route('admin.user.edit', $user->id) }}" title="Edit" class="btn btn-info cus_btn">
-                                                    <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
-                                                </a>
-                                            </td>
+
+                                            <td>{{ $payment->created_at->format('d-m-Y') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
 
                             </table>
-                        </div>
-
-                        <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                            <div class="m-r-lg">
-                                Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} entries
+                            <div class="dataTables_info table-pagination" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                <div class="m-r-lg">
+                                    Showing {{ $payments->firstItem() }} to {{ $payments->lastItem() }} of {{ $payments->total() }} entries
+                                </div>
+                                {{ $payments->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
                             </div>
-                            {{ $users->appends(['perPage' => request('perPage'), 'keyword' => request('keyword')])->links() }}
                         </div>
 
                     </div>

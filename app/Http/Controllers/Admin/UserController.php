@@ -19,7 +19,8 @@ class UserController extends Controller
     		$keyword = '%'.$keyword.'%';
             $users = $users->where('name', 'like', $keyword)
                 ->orWhere('last_name', 'like', $keyword)
-                ->orWhere('email', 'like', $keyword);
+                ->orWhere('email', 'like', $keyword)
+                ->orWhere('phone', 'like', $keyword);
         }
 
     	$users = $users->latest()->paginate($perPage);

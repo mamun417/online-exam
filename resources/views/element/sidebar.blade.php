@@ -62,6 +62,10 @@
                  <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
                     <a href="{{ route('admin.subjects.index') }}"><i style="font-size: 14px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
                  </li>
+
+                <li class="{{ Request::is('payments*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.payments.index') }}"><i style="font-size: 14px" class="fa fa-money"></i><span class="nav-label">Payments</span></a>
+                </li>
             @else
                 <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
                     <a href="{{ url('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></a>
