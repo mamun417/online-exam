@@ -90,8 +90,8 @@
                     </li>
                 @endif
 
-                <li class="{{ Request::is('examination/result*') ? 'active' : '' }}">
-                    <a href="{{ route('examination.result') }}"><i style="font-size: 18px" class="fa fa-bookmark" aria-hidden="true"></i><span class="nav-label">Top Scorer</span></a>
+                <li class="{{ Request::is('examination/top-scorer*') ? 'active' : '' }}">
+                    <a href="{{ route('examination.topScorer') }}"><i style="font-size: 18px" class="fa fa-bookmark" aria-hidden="true"></i><span class="nav-label">Top Scorer</span></a>
                 </li>
             @endif
         </ul>

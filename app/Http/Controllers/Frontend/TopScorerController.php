@@ -7,7 +7,7 @@ use App\Model\Examination;
 use App\Model\ExamNotification;
 use Illuminate\Http\Request;
 
-class ResultController extends Controller
+class TopScorerController extends Controller
 {
     public function index(){
 

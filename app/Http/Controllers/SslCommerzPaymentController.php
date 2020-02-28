@@ -16,8 +16,25 @@ class SslCommerzPaymentController extends Controller
         return view('exampleHosted');
     }
 
+    public function test(){
+        info(Session::get('payment_tran_id'));
+
+        # Custom
+        //store tran_id to session
+        Session::put('payment_tran_id', uniqid());
+        //Session::forget('payment_tran_id');
+
+        info(Session::get('payment_tran_id'));
+    }
+
     public function index(Request $request)
     {
+        $post_data['tran_id'] = Session::get('payment_tran_id') ?? uniqid(); // tran_id must be unique
+
+        $this->test();
+
+        //return redirect(url('http://facebook.com'));
+
         # Here you have to receive all the order data to initate the payment.
         # Let's say, your oder transaction informations are saving in a table called "payments"
         # In "payments" table, order unique identity is "transaction_id". "status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
@@ -70,12 +87,6 @@ class SslCommerzPaymentController extends Controller
                 ]
             );
 
-        # Custom
-        //store tran_id to session
-        Session::put('payment_tran_id', $post_data['tran_id']);
-
-        info(Session::get('payment_tran_id'));
-
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
         $payment_options = $sslc->makePayment($post_data, 'hosted');
@@ -88,6 +99,8 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
+        dd('ok');
+
         $tran_id = $request->input('tran_id');
         $amount = $request->input('amount');
         $currency = $request->input('currency');

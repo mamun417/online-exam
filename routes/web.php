@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth', 'checkUserStatus'], 'namespace' => 'Front
     Route::post('examination/question', 'ExaminationController@submitQuestion')->name('examination.question.submit');
     Route::get('examination/summery', 'PracticeController@summery')->name('examination.summery');
     Route::post('examination/finished', 'PracticeController@finished')->name('examination.question.finished');
-    Route::get('examination/result', 'ResultController@index')->name('examination.result');
+    Route::get('examination/top-scorer', 'TopScorerController@index')->name('examination.topScorer');
 });
 
 

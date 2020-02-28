@@ -15,6 +15,10 @@ class StudyController extends Controller
 {
     public function showSelectSubject()
     {
+        info(Session::get('mamun'));
+        /*Session::put('mamun', 'Abdullah al mamun');
+        info(Session::get('mamun'));*/
+
         Session::forget('limit_cross');
 
         //check is select any subject for study
