@@ -15,17 +15,15 @@ class StudyController extends Controller
 {
     public function showSelectSubject()
     {
-        info(Session::get('mamun'));
-        /*Session::put('mamun', 'Abdullah al mamun');
-        info(Session::get('mamun'));*/
-
         Session::forget('limit_cross');
 
+        Session::put('question_paper_info', []);
+
         //check is select any subject for study
-        $question_paper_info = Session::get('question_paper_info');
+        /*$question_paper_info = Session::get('question_paper_info');
         if ($question_paper_info and $question_paper_info['question_paper_type'] == 'study'){
             return redirect()->route('study.question');
-        }
+        }*/
 
         $subjects = Subject::all();
         return view('frontend.study.select-subject', compact('subjects'));

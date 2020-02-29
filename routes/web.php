@@ -13,16 +13,16 @@
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Auth::routes();
 
 //User routes............
 Route::group(['middleware' => ['auth', 'checkUserStatus'], 'namespace' => 'Frontend'], function(){
 
-    Route::get('home', function () {
+    /*Route::get('home', function () {
         return view('home');
-    });
+    });*/
 
     //Profile
     Route::get('profile', 'UserController@profile')->name('profile');

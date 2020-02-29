@@ -5,7 +5,7 @@
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('practice.select-subject') }}">Examination</a>
+                    <a href="{{ route('practice.select-subject') }}">Exam</a>
                 </li>
             </ol>
         </div>
@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Examination</h5>
+                        <h5>Exam</h5>
                     </div>
 
                     <div class="ibox-content">

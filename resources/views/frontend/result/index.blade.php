@@ -3,7 +3,7 @@
 @section('content')
      <div class="row wrapper border-bottom white-bg page-heading">
        <div class="col-lg-10">
-            <h2>Result</h2>
+            <h2>Top Scorer</h2>
         </div>
     </div>
 
@@ -45,7 +45,7 @@
 
                             @else
                                 <div class="alert alert-warning no-margins">
-                                    No result found
+                                    No score found
                                 </div>
                             @endif
                         </div>

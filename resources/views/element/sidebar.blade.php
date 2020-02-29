@@ -14,6 +14,7 @@
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="{{ route('profile') }}">Profile</a></li>
+                        <li><a href="">Renew Subscription</a></li>
                         <li><a href="{{ route('password.change') }}">Change Password</a></li>
                         <li class="divider"></li>
                         <li>
@@ -35,7 +36,7 @@
 
             @if(Auth::check() && Auth::user()->role_id == 1)
 
-                 <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+                 <li class="{{ Request::is('home*') ? 'active' : '' }}">
                     <a href="{{ url('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                  </li>
 
@@ -67,8 +68,8 @@
                     <a href="{{ route('admin.payments.index') }}"><i style="font-size: 14px" class="fa fa-money"></i><span class="nav-label">Payments</span></a>
                 </li>
             @else
-                <li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
-                    <a href="{{ url('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></a>
+                <li class="{{ Request::is('/') ? 'active' : '' }}">
+                    <a href="{{ route('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></a>
                 </li>
 
                 <li class="{{ Request::is('study*') ? 'active' : '' }}">

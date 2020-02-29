@@ -17,10 +17,12 @@ class PracticeController extends Controller
     {
         Session::forget('limit_cross');
 
-        $question_paper_info = Session::get('question_paper_info');
+        Session::put('question_paper_info', []);
+
+        /*$question_paper_info = Session::get('question_paper_info');
         if ($question_paper_info and $question_paper_info['question_paper_type'] == 'practice'){
             return redirect()->route('practice.question');
-        }
+        }*/
 
         $subjects = Subject::all();
         return view('frontend.practice.select-subject', compact('subjects'));
@@ -183,7 +185,12 @@ class PracticeController extends Controller
         Session::put('question_paper_info', $question_paper_info);
 
         $question_paper_type = $question_paper_info['question_paper_type'];
-        return redirect()->route($question_paper_type.'.summery');
+        if ($question_paper_type == 'practice'){
+            return redirect()->route('practice.select-subject');
+        }elseif ($question_paper_type = 'examination'){
+            return redirect()->route('examination.prepare');
+        }
+        //return redirect()->route($question_paper_type.'.summery');
     }
 
     public function restart()

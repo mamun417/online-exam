@@ -24,7 +24,7 @@ class UserController extends Controller
         ]);
 
         $user->update($request->except('email'));
-        return redirect(route('profile'))->with('successTMsg', 'Examination has been updated successfully');
+        return redirect(route('profile'))->with('successTMsg', 'Profile has been updated successfully');
     }
 
     public function changePassword(){

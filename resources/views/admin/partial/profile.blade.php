@@ -53,7 +53,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Account Type<span class="required-star"> *</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" name="account_type_id">
+                                        <select class="form-control" name="account_type_id" disabled>
                                             <option {{ $user->account_type_id == 0 ? 'selected':'' }} value="0">Free</option>
                                             <option {{ $user->account_type_id == 1 ? 'selected':'' }} value="1">Paid</option>
                                         </select>

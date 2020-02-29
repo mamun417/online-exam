@@ -24,13 +24,13 @@
                         $question_paper_type = substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), "."));
                         $total_question = count($question_paper_info['generated_question_ids'])+$question_paper_info['question_quantity'];
                         $generated_question_count = count($question_paper_info['generated_question_ids']);
-                        $progress = ($generated_question_count/$total_question)*100;
+                        $progress = (($generated_question_count-1)/$total_question)*100;
                     @endphp
 
                     <div class="ibox-title">
                         <h5>Select Your Answer</h5>
                         <a onclick="finishedStudy()" href="javascript:void(0)" class="btn btn-sm btn-danger pull-right m-t-n-xs" type="button">
-                            <strong>Finished</strong>
+                            <strong>Cancel</strong>
                         </a>
                         <form id="finished-form" method="POST" action="{{ route($question_paper_type.'.question.finished') }}" style="display: none" >
                             @csrf()
@@ -130,12 +130,13 @@
         function finishedStudy() {
             swal({
                 title: "Are you sure?",
-                text: "You want to finished yor "+'{{ $question_paper_type }}'+" for today!",
+                //text: "You want to cancel!",
                 type: "warning",
                 showCancelButton: true,
+                cancelButtonText: "No",
                 allowOutsideClick: true,
                 confirmButtonColor: "#1ab394",
-                confirmButtonText: "Yes, finished study!",
+                confirmButtonText: "Yes",
                 closeOnConfirm: true
             }, function () {
                 document.getElementById('finished-form').submit();
