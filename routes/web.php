@@ -108,6 +108,6 @@ Route::group(['middleware' => 'auth'], function(){
 });
 //SSLCOMMERZ END
 
-
+//Socialite
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

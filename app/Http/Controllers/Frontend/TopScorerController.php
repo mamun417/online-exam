@@ -16,7 +16,7 @@ class TopScorerController extends Controller
 
         $results = Examination::with('user')->where('subject_id', $subject_id)
             ->where('is_exam', true)
-            ->orderByRaw('result DESC')->paginate(15);
+            ->orderBy('result', 'DESC')->paginate(15);
 
         return view('frontend.result.index', compact('results'));
     }
