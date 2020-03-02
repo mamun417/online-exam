@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth', 'checkUserStatus'], 'namespace' => 'Front
     //Profile
     Route::get('profile', 'UserController@profile')->name('profile');
     Route::put('profile/{user}', 'UserController@updateProfile')->name('profile.update');
+    Route::get('renew', 'UserController@renew')->name('user.renew');
 
     //Password
     Route::get('password-change', 'UserController@changePassword')->name('password.change');

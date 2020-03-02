@@ -13,14 +13,14 @@
                         </span> <span class="text-muted text-xs block">{{ Auth::user()->role_id == 1 ? 'Administrator' : 'Student'}}<b class="caret"></b></span> </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="{{ route('profile') }}">Profile</a></li>
-                        <li><a href="">Renew Subscription</a></li>
-                        <li><a href="{{ route('password.change') }}">Change Password</a></li>
+                        <li><a href="{{ route('profile') }}"><i class="fa fa-user-circle"></i> Profile</a></li>
+                        <li><a href="{{ route('user.renew') }}"><i class="fa fa-refresh"></i> Renew Subscription</a></li>
+                        <li><a href="{{ route('password.change') }}"><i class="fa fa-key"></i> Change Password</a></li>
                         <li class="divider"></li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Log out
+                                <i class="fa fa-sign-out"></i> Log out
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

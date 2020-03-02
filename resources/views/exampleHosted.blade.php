@@ -36,11 +36,11 @@
 
     <div class="row">
 
-        <div class="col-md-2">
+        <div class="col-md-3">
 
         </div>
 
-        <div class="col-md-8 order-md-1">
+        <div class="col-md-6 order-md-1">
             <h4 class="mb-3">Billing address</h4>
             {{ Session::get('payment_tran_id') }}
             <form action="{{ url('/pay') }}" method="POST" class="needs-validation">
@@ -69,7 +69,7 @@
 
                 <div class="mb-3">
                     <label for="address">Address</label>
-                    <input name="customer_address" type="text" class="form-control" id="address" placeholder="Full Address" value="">
+                    <input name="customer_address" type="text" class="form-control" id="address" placeholder="Full Address" value="{{ auth()->user()->address ?? '' }}">
                 </div>
 
                 <div class="row">

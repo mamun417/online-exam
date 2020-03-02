@@ -51,4 +51,9 @@ class UserController extends Controller
 
        return back()->with('successTMsg', 'Password Change Successfully');
     }
+
+    public function renew()
+    {
+        return view('exampleHosted');
+    }
 }
