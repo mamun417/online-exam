@@ -25,7 +25,8 @@ class StudyController extends Controller
             return redirect()->route('study.question');
         }*/
 
-        $subjects = Subject::all();
+        $subjects = Subject::has('questions')->get();
+
         return view('frontend.study.select-subject', compact('subjects'));
     }
 

@@ -24,7 +24,7 @@ class PracticeController extends Controller
             return redirect()->route('practice.question');
         }*/
 
-        $subjects = Subject::all();
+        $subjects = Subject::has('questions')->get();
         return view('frontend.practice.select-subject', compact('subjects'));
     }
 
