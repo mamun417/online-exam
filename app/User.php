@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function scopePaid($query){
         return $query->where('account_type_id', 1)->where('is_paid', 1);
     }
+
+    public function scopeNotAdmin($query){
+        return $query->where('role_id', '!=', 1);
+    }
 }

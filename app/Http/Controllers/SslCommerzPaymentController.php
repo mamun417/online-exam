@@ -127,7 +127,7 @@ class SslCommerzPaymentController extends Controller
                     ->update(['status' => 'Complete']);
 
                 # Custom
-                DB::table('users')->where('id', Auth::id())->update(['is_paid' => 1]);
+                DB::table('users')->where('id', Auth::id())->update(['account_type_id' => 1, 'is_paid' => 1]);
                 Session::forget('payment_tran_id');
                 Session::put('payment_success', 'Your payment has been successful');
 

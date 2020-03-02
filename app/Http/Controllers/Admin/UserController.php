@@ -23,7 +23,7 @@ class UserController extends Controller
                 ->orWhere('phone', 'like', $keyword);
         }
 
-    	$users = $users->latest()->paginate($perPage);
+    	$users = $users->notAdmin()->latest()->paginate($perPage);
 
     	return view('admin.user.index', compact('users'));
     }

@@ -14,7 +14,9 @@
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="{{ route('profile') }}"><i class="fa fa-user-circle"></i> Profile</a></li>
-                        <li><a href="{{ route('user.renew') }}"><i class="fa fa-refresh"></i> Renew Subscription</a></li>
+                        @if(auth()->user()->role_id != 1)
+                            <li><a href="{{ route('user.renew') }}"><i class="fa fa-refresh"></i> Renew Subscription</a></li>
+                        @endif
                         <li><a href="{{ route('password.change') }}"><i class="fa fa-key"></i> Change Password</a></li>
                         <li class="divider"></li>
                         <li>
