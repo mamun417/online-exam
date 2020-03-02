@@ -35,16 +35,14 @@ class StudyController extends Controller
             'subject_id' => 'required'
         ]);
 
-        $question_template = QuestionTemplate::withCount(['questions' => function ($query) {
-            $query->where('question_type_id', '!=', 3);
-        }])->where('subject_id', $request->subject_id)->first();
+        $subject = Subject::withCount('questions')->where('id', $request->subject_id)->first();
 
         $question_paper_info = [
             'question_paper_type' => 'study',
             'student_id' => Auth::id(),
             'subject_id' => $request->subject_id,
             'generated_question_ids' => [],
-            'question_quantity' => $question_template->questions_count > 200 ? 200 : $question_template->questions_count
+            'question_quantity' => $subject->questions_count > 200 ? 200 : $subject->questions_count
         ];
 
         Session::put('question_paper_info', []);
@@ -71,7 +69,7 @@ class StudyController extends Controller
         //generate question
         $question = Question::where('subject_id', $subject_id)
             ->whereNotIn('id', $generated_question_ids)
-            ->where('question_type_id', '!=', 3)->active()->inRandomOrder()->take(1)->first();
+            ->active()->inRandomOrder()->take(1)->first();
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);

@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth', 'checkUserStatus'], 'namespace' => 'Front
 
     //Password
     Route::get('password-change', 'UserController@changePassword')->name('password.change');
-    Route::post('password-update', 'UserController@updatePassword')->name('password.update');
+    Route::post('password-uspdate', 'UserController@updatePassword')->name('password.update');
 
     //Study
     Route::get('study', 'StudyController@showSelectSubject')->name('study.select-subject');

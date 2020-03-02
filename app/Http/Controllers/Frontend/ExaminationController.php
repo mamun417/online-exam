@@ -47,10 +47,7 @@ class ExaminationController extends Controller
         $exam_notification = ExamNotification::latest()->first();
         $subject_id = $exam_notification->template->subject_id;
 
-        //$question_template = QuestionTemplate::withCount('questions')->where('subject_id', $subject_id)->first();
-        $question_template = QuestionTemplate::withCount(['questions' => function ($query) {
-            $query->where('question_type_id', '=', 3);
-        }])->where('subject_id', $subject_id)->first();
+        $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $subject_id)->first();
 
         $examination = Examination::create([
             'user_id' => Auth::id(),
@@ -89,7 +86,7 @@ class ExaminationController extends Controller
         //generate question
         $question = Question::WhereHas('template', function ($query) use ($subject_id) {
             $query->where('subject_id', $subject_id);
-        })->whereNotIn('id', $generated_question_ids)->where('question_type_id', '=', 3)->active()->inRandomOrder()->take(1)->first();
+        })->whereNotIn('id', $generated_question_ids)->active()->inRandomOrder()->take(1)->first();
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);

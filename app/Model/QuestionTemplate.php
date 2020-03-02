@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $all)
- * @method static withCount(array $array)
+ * @method static withCount(string $string)
  */
 class QuestionTemplate extends Model
 {

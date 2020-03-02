@@ -37,7 +37,7 @@ class QuestionController extends Controller
 
     public function create()
     {
-        $options        = [];
+        $options = [];
         $question_options = ['id' => ''];
 
         $questionTemplates = QuestionTemplate::all();

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static whereDoesntHave(string $string, \Closure $param)
  * @method static find($subject_id)
  * @method static has(string $string)
+ * @method static withCount(string $string)
  */
 class Subject extends Model
 {
@@ -18,6 +19,10 @@ class Subject extends Model
 
     public function questionTemplates(){
         return $this->hasMany(QuestionTemplate::class);
+    }
+
+    public function questions(){
+        return $this->hasMany(Question::class);
     }
 }
 

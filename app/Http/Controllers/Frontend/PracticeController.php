@@ -35,9 +35,7 @@ class PracticeController extends Controller
             'question_quantity' => 'required'
         ]);
 
-        $question_template = QuestionTemplate::withCount(['questions' => function ($query) {
-            $query->where('question_type_id', '!=', 3);
-        }])->where('subject_id', $request->subject_id)->first();
+        $subject = Subject::withCount('questions')->where('id', $request->subject_id)->first();
 
         $examination = Examination::create([
             'user_id' => Auth::id(),
@@ -52,7 +50,7 @@ class PracticeController extends Controller
             'student_id' => Auth::id(),
             'subject_id' => $request->subject_id,
             'generated_question_ids' => [],
-            'question_quantity' => $question_template->questions_count > $request_quantity ? $request_quantity : $question_template->questions_count
+            'question_quantity' => $subject->questions_count > $request_quantity ? $request_quantity : $subject->questions_count
         ];
 
         Session::put('question_paper_info', []);
@@ -76,9 +74,8 @@ class PracticeController extends Controller
         $generated_question_ids = $question_paper_info['generated_question_ids'];
 
         //generate question
-        $question = Question::WhereHas('template', function ($query) use ($subject_id) {
-            $query->where('subject_id', $subject_id);
-        })->whereNotIn('id', $generated_question_ids)->where('question_type_id', '!=', 3)->active()->inRandomOrder()->take(1)->first();
+        $question = Question::where('subject_id', $subject_id)
+            ->whereNotIn('id', $generated_question_ids)->active()->inRandomOrder()->take(1)->first();
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);
