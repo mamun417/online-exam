@@ -1,7 +1,7 @@
- @extends('layouts.master')
+@extends('layouts.master')
 
 @section('content')
-     <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>Questions</h2>
         </div>
@@ -50,41 +50,43 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
-                                    <tr>
-                                        <th>Template Name</th>
-                                        <th>Question Type</th>
-                                        <th>Question</th>
-                                        <th>Create At</th>
-                                        <th class="text-center">Actions</th>
-                                    </tr>
+                                <tr>
+                                    <th>Exam</th>
+                                    <th>Subject</th>
+                                    <th>Question Type</th>
+                                    <th>Question</th>
+                                    <th>Create At</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach($questions as $question)
-                                        <tr>
-                                            <td>{{ ucfirst($question->template->name) }}</td>
-                                            <td>{{ ucfirst($question->questionType->name) }}</td>
-                                            <td>{{ ucfirst(Str::limit($question->question, 40)) }}</td>
-                                            <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
-                                            <td class="text-center">
+                                @foreach($questions as $question)
+                                    <tr>
+                                        <td>{{ ucfirst($question->template->name ?? '')  }}</td>
+                                        <td>{{ ucfirst($question->subject->name ?? '') }}</td>
+                                        <td>{{ ucfirst($question->questionType->name) }}</td>
+                                        <td>{{ ucfirst(Str::limit($question->question, 40)) }}</td>
+                                        <td>{{ date_format($question->created_at, 'd-m-Y') }}</td>
+                                        <td class="text-center">
 
-                                                <a href="{{ route('admin.questions.edit', $question->id) }}" title="Edit" class="btn btn-info cus_btn">
-                                                    <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
+                                            <a href="{{ route('admin.questions.edit', $question->id) }}" title="Edit" class="btn btn-info cus_btn">
+                                                <i class="fa fa-pencil-square-o"></i> <strong>Edit</strong>
+                                            </a>
+
+                                            @if(config('app.env') === 'local')
+                                                <a onclick="deleteRow({{ $question->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
+                                                    <i class="fa fa-trash"></i> <strong>Delete</strong>
                                                 </a>
 
-                                                @if(config('app.env') === 'local')
-                                                    <a onclick="deleteRow({{ $question->id }})" href="JavaScript:void(0)" title="Delete" class="btn btn-danger cus_btn">
-                                                        <i class="fa fa-trash"></i> <strong>Delete</strong>
-                                                    </a>
-
-                                                    <form id="row-delete-form{{ $question->id }}" method="POST" action="{{ route('admin.questions.destroy', $question->id) }}" style="display: none" >
-                                                        @method('DELETE')
-                                                        @csrf()
-                                                    </form>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                <form id="row-delete-form{{ $question->id }}" method="POST" action="{{ route('admin.questions.destroy', $question->id) }}" style="display: none" >
+                                                    @method('DELETE')
+                                                    @csrf()
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
 
                             </table>

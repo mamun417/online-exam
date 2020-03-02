@@ -20,7 +20,7 @@ class QuestionController extends Controller
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
 
-        $questions = Question::with('template', 'questionType');
+        $questions = Question::with('template', 'questionType', 'subject');
 
         if($keyword){
 
@@ -42,15 +42,15 @@ class QuestionController extends Controller
 
         $questionTemplates = QuestionTemplate::all();
         $questionTypes = QuestionType::all();
+        $subjects = Subject::all();
 
-        return view('admin.question.create', compact('options', 'question_options', 'questionTemplates', 'questionTypes'));
+        return view('admin.question.create', compact('options', 'question_options', 'questionTemplates', 'questionTypes', 'subjects'));
     }
 
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'question' => 'required',
-            'question_template_id' => 'required',
             'question_type_id' => 'required'
         ]);
 
@@ -100,6 +100,7 @@ class QuestionController extends Controller
 
 
         $request['slug'] = Str::slug($request->question);
+
         $question = Question::create($request->all());
 
         $question->options()->attach($attach_able_options);
@@ -123,8 +124,10 @@ class QuestionController extends Controller
         $question_options = $options->count() > 0 ? $options : ['id' => ''];
         $questionTemplates = QuestionTemplate::all();
         $questionTypes = QuestionType::all();
+        $subjects = Subject::all();
 
-        return view('admin.question.edit', compact('question', 'options', 'question_options', 'questionTemplates', 'questionTypes'));
+
+        return view('admin.question.edit', compact('question', 'options', 'question_options', 'subjects', 'questionTemplates', 'questionTypes'));
     }
 
     public function update(Request $request, Question $question)

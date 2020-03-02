@@ -2,10 +2,10 @@
     <div class="col-sm-6">
 
         <div class="form-group">
-            <label>Question Template Name<span class="required-star"> *</span></label>
+            <label>Exam</label>
             <select class="form-control" name="question_template_id">
 
-                <option value="">Select Template</option>
+                <option value="">Select Exam</option>
                 @foreach($questionTemplates as $template)
                     <option @if( isset($question) and $question->question_template_id == $template->id) selected @endif value="{{ $template->id }}">{{ $template->name}}</option>
                 @endforeach
@@ -13,6 +13,21 @@
             </select>
             @error('question_template_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
         </div>
+
+        <div class="form-group">
+            <label>Subject</label>
+            <select class="form-control" name="subject_id">
+
+                <option value="">Select Subject</option>
+                @foreach($subjects as $subject)
+                    <option @if( isset($question) and $question->subject_id == $subject->id) selected @endif value="{{ $subject->id }}">{{ $subject->name }}</option>
+                @endforeach
+
+            </select>
+            @error('subject_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+        </div>
+
+
 
         <div class="form-group">
             <label>Question Type<span class="required-star"> *</span></label>
@@ -66,32 +81,32 @@
                 @foreach($question_options as $key => $question_option)
 
                     <?php
-                        $single_option = '<div class="single-option">';
-                        $single_option .= '<div class="col-sm-6">';
-                        $single_option .= '<div class="form-group" id="tokenize-select">';
-                        $single_option .= '<label>Option</label>';
-                        $single_option .= '<select class="form-control options" name="options[]" multiple>';
-                        foreach($options as $option){
-                            $selected = (isset($question_option->id) && $question_option->id == $option->id)?'selected':'';
-                            $single_option .= '<option '.$selected.' value='.$option->id.'>'.$option->option.'</option>';
-                        }
-                        $single_option .= '</select>';
-                        $single_option .= '</div>';
-                        $single_option .= '</div>';
+                    $single_option = '<div class="single-option">';
+                    $single_option .= '<div class="col-sm-6">';
+                    $single_option .= '<div class="form-group" id="tokenize-select">';
+                    $single_option .= '<label>Option</label>';
+                    $single_option .= '<select class="form-control options" name="options[]" multiple>';
+                    foreach($options as $option){
+                        $selected = (isset($question_option->id) && $question_option->id == $option->id)?'selected':'';
+                        $single_option .= '<option '.$selected.' value='.$option->id.'>'.$option->option.'</option>';
+                    }
+                    $single_option .= '</select>';
+                    $single_option .= '</div>';
+                    $single_option .= '</div>';
 
-                        $single_option .= '<div class="col-sm-6">';
-                        $single_option .= '<div class="form-group">';
-                        $single_option .= '<label>Answer</label>';
-                        $single_option .= '<div class="correct_ans">';
-                        $true_check = isset($question_option->id) ? ($question_option->pivot->correct_answer === '1' ? 'checked' : '') : '';
-                        $false_check = isset($question_option->id) ? ($question_option->pivot->correct_answer === '0' ? 'checked' : '') : '';
-                        $single_option .= '<label class="checkbox-inline i-checks"> <input '.$true_check.' name="correct_ans['.$key.']" type="radio" value="1"> True </label>';
-                        $single_option .= '<label class="checkbox-inline i-checks"> <input '.$false_check.' name="correct_ans['.$key.']" type="radio" value="0"> False </label>';
-                        $single_option .= '<button onclick="removeOption(this)" type="button" class="btn btn-danger btn-circle" style="margin-left: 20px;"><i class="fa fa-times"></i></button>';
-                        $single_option .= '</div>';
-                        $single_option .= '</div>';
-                        $single_option .= '</div>';
-                        $single_option .= '</div>';
+                    $single_option .= '<div class="col-sm-6">';
+                    $single_option .= '<div class="form-group">';
+                    $single_option .= '<label>Answer</label>';
+                    $single_option .= '<div class="correct_ans">';
+                    $true_check = isset($question_option->id) ? ($question_option->pivot->correct_answer === '1' ? 'checked' : '') : '';
+                    $false_check = isset($question_option->id) ? ($question_option->pivot->correct_answer === '0' ? 'checked' : '') : '';
+                    $single_option .= '<label class="checkbox-inline i-checks"> <input '.$true_check.' name="correct_ans['.$key.']" type="radio" value="1"> True </label>';
+                    $single_option .= '<label class="checkbox-inline i-checks"> <input '.$false_check.' name="correct_ans['.$key.']" type="radio" value="0"> False </label>';
+                    $single_option .= '<button onclick="removeOption(this)" type="button" class="btn btn-danger btn-circle" style="margin-left: 20px;"><i class="fa fa-times"></i></button>';
+                    $single_option .= '</div>';
+                    $single_option .= '</div>';
+                    $single_option .= '</div>';
+                    $single_option .= '</div>';
                     ?>
 
                     @if(Route::currentRouteName() === 'admin.questions.edit' && isset($question_option->id))
@@ -110,22 +125,22 @@
     <script>
 
         @if(Route::currentRouteName() === 'admin.questions.edit' && isset($question_option->id))
-            $(function(){
-                $('.options').tokenize2({
+        $(function(){
+            $('.options').tokenize2({
 
-                    dataSource: function(term, object){
-                        $.get('{{ route('admin.get-option-list') }}', {term:term}, function (option_list) {
-                            object.trigger('tokenize:dropdown:fill', [option_list]);
-                        });
-                    },
+                dataSource: function(term, object){
+                    $.get('{{ route('admin.get-option-list') }}', {term:term}, function (option_list) {
+                        object.trigger('tokenize:dropdown:fill', [option_list]);
+                    });
+                },
 
-                    placeholder: "Type here...",
-                    //displayNoResultsMessage: true,
-                    tokensAllowCustom: true,
-                    sortable: true,
-                    tokensMaxItems: 1,
-                });
+                placeholder: "Type here...",
+                //displayNoResultsMessage: true,
+                tokensAllowCustom: true,
+                sortable: true,
+                tokensMaxItems: 1,
             });
+        });
         @endif
 
         $('#addMoreOption').click(function () {

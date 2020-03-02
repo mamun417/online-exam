@@ -69,9 +69,9 @@ class StudyController extends Controller
         $generated_question_ids = $question_paper_info['generated_question_ids'];
 
         //generate question
-        $question = Question::WhereHas('template', function ($query) use ($subject_id) {
-            $query->where('subject_id', $subject_id);
-        })->whereNotIn('id', $generated_question_ids)->where('question_type_id', '!=', 3)->active()->inRandomOrder()->take(1)->first();
+        $question = Question::where('subject_id', $subject_id)
+            ->whereNotIn('id', $generated_question_ids)
+            ->where('question_type_id', '!=', 3)->active()->inRandomOrder()->take(1)->first();
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);
