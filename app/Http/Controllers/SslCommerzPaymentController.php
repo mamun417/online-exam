@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
+use Route;
 use Session;
 
 class SslCommerzPaymentController extends Controller
@@ -127,8 +128,18 @@ class SslCommerzPaymentController extends Controller
                     ->update(['status' => 'Complete']);
 
                 # Custom
-                DB::table('users')->where('id', Auth::id())->update(['account_type_id' => 1, 'is_paid' => 1]);
-                Session::forget('payment_tran_id');
+                if (Session::get('renew')){
+                    $user_info = DB::table('users')->where('id', Auth::id())->first();
+                    DB::table('users')->where('id', Auth::id())->update([
+                        'account_type_id' => 1,
+                        'is_paid' => 1,
+                        'expire_date' => Carbon::createFromFormat('Y-m-d', $user_info->expire_date)->addMonths(12)->format('Y-m-d')
+                    ]);
+                }else{
+                    DB::table('users')->where('id', Auth::id())->update(['account_type_id' => 1, 'is_paid' => 1]);
+                }
+
+                Session::forget(['payment_tran_id', 'renew']);
                 Session::put('payment_success', 'Your payment has been successful');
 
                 //echo "<br >Transaction is successfully Completed";

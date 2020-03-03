@@ -7,6 +7,7 @@ use Hash;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use Session;
 use Validator;
 
 class UserController extends Controller
@@ -54,6 +55,7 @@ class UserController extends Controller
 
     public function renew()
     {
+        Session::put('renew', true);
         return view('exampleHosted');
     }
 }
