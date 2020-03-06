@@ -8,12 +8,14 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\HtmlString;
 
-class ExaminationNotification extends Notification
+class ExaminationNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public $notice;
     public $mail_subject;
+
+    public $tries = 3;
 
     /**
      * Create a new notification instance.
