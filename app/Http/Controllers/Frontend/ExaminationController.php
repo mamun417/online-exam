@@ -15,7 +15,8 @@ class ExaminationController extends Controller
 {
     public function prepareExam()
     {
-        $exam_notification = ExamNotification::latest()->first();
+        $current_date = date('Y-m-d H:i:00');
+        $exam_notification = ExamNotification::where('start_date', '>', $current_date)->OrderBy('start_date', 'ASC')->first();
 
         //no examination found in database
         if (!$exam_notification){

@@ -20,6 +20,21 @@
 
                                     <div class="form-group">
                                         <br>
+                                        <label>Exam<span class="required-star"> *</span></label>
+
+                                        <select onchange="submit()" class="input-sm form-control" name="question_template_id">
+                                            <option value="">Select Exam</option>
+
+                                                <option value=" ">1</option>
+                                                <option value=" ">2</option>
+                                                <option value=" ">3</option>
+
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <br>
                                         <div class="input-group">
                                             <input name="keyword" type="text" value="{{ request('keyword') }}" class="input-sm form-control" placeholder="Search Here">
                                             <span class="input-group-btn">
