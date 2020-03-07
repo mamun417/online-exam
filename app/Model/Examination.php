@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Examination extends Model
 {
-    protected $fillable = ['user_id', 'department_id', 'subject_id'];
+    protected $fillable = ['user_id', 'department_id', 'subject_id', 'exam_notification_id'];
 
     public function answers(){
         return $this->hasMany(Answer::class);

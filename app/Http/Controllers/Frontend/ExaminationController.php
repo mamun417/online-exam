@@ -47,12 +47,14 @@ class ExaminationController extends Controller
     {
         $exam_notification = ExamNotification::latest()->first();
         $subject_id = $exam_notification->template->subject_id;
+        $exam_notification_id = $exam_notification->id;
 
         $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $subject_id)->first();
 
         $examination = Examination::create([
             'user_id' => Auth::id(),
             'subject_id' => $subject_id,
+            '$exam_notification_id' => $$exam_notification_id,
         ]);
 
         $question_paper_info = [
