@@ -20,7 +20,7 @@ class CreateQuestionsTable extends Migration
             $table->bigInteger('question_type_id')->unsigned();
             $table->string('question');
             $table->string('slug');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('is_active')->nullable()->default(1);
             $table->tinyInteger('is_deleted')->nullable()->default(0);

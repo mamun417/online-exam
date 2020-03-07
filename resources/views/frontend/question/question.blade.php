@@ -75,7 +75,7 @@
 
                                     @if($question->description)
                                         <label>
-                                            <u>Explanation:</u> {{  $question->description  }}
+                                            <u>Explanation:</u>  <?php echo $question->description ?>
                                         </label><br><br>
                                     @endif
 

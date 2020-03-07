@@ -134,7 +134,7 @@ class QuestionController extends Controller
     {
         $request->validate([
             'question'      => 'required',
-            'question_template_id' => 'required',
+            //'question_template_id' => 'required',
             'question_type_id' => 'required'
         ]);
 

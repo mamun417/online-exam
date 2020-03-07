@@ -3,9 +3,9 @@
     <div class="form-group">
         <label>Exam<span class="required-star"> *</span></label>
         <select class="form-control" name="question_template_id">
-            <option value="">Select Subject</option>
+            <option value="">Select Exam</option>
             @foreach($question_templates as $question_template)
-                <option value="{{ $question_template->id }}">{{ $question_template->subject->name }}</option>
+                <option value="{{ $question_template->id }}">{{ $question_template->subject->name }}-{{ $question_template->name }}</option>
             @endforeach
         </select>
         @error('subject_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
