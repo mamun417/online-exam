@@ -15,8 +15,6 @@
     <link href="{{ asset('admin/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
 
-    {{--<link href="{{asset('admin/css/animate.css')}}" rel="stylesheet">--}}
-
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
 
     <!-- Toastr style -->
@@ -30,6 +28,11 @@
 
     {{--Datetime picker--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    {{--Editor --}}
+    <link href="{{asset('admin/css/animate.css')}}" rel="stylesheet">
+    <link href="{{ asset('admin/css/plugins/summernote/summernote.css' )}}" rel="stylesheet">
+    <link href="{{ asset('admin/css/plugins/summernote/summernote-bs3.css' )}}" rel="stylesheet">
 
     {{--custom style--}}
     <link href="{{ asset('admin/css/custom_style.css') }}" rel="stylesheet">
@@ -90,6 +93,15 @@
 
 <script type="text/javascript" src="{{ asset('admin/js/plugins/time-circles/TimeCircles.js') }}"></script>
 
+{{--Editor--}}
+<script src="{{ asset('admin/js/plugins/summernote/summernote.min.js')}}"></script>
+<script>
+    $(document).ready(function(){
+
+        $('.summernote').summernote();
+
+    });
+</script>
 <script>
 
     $(document).ready(function () {

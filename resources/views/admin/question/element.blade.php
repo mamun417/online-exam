@@ -50,8 +50,10 @@
 
         <div class="form-group">
             <label>Explanation </label>
-            <textarea name="description" id="textarea2" class="form-control" rows="2">{{ isset($question->description) ? $question->description : old('description')}} </textarea>
-            @error('description') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+            <div class="ibox-content no-padding">
+                <textarea name="description" id="textarea2" class="form-control summernote" rows="2">{{ isset($question->description) ? $question->description : old('description')}} </textarea>
+                @error('description') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+            </div>
         </div>
 
         <div class="form-group">
