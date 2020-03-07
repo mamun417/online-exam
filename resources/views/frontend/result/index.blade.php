@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
-     <div class="row wrapper border-bottom white-bg page-heading">
-       <div class="col-lg-10">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
             <h2>Top Scorer</h2>
         </div>
     </div>
@@ -12,26 +12,43 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
+
+                        <div class="row" style="margin-bottom: 10px">
+
+                            <div class="col-sm-12">
+                                <form action="{{ route('examination.topScorer') }}" method="get" class="form-inline" role="form">
+
+                                    <div class="form-group">
+                                        <br>
+                                        <div class="input-group">
+                                            <input name="keyword" type="text" value="{{ request('keyword') }}" class="input-sm form-control" placeholder="Search Here">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-sm btn-primary"> Go!</button>
+                                            </span>
+                                        </div>
+                                        <a href="{{ route('examination.topScorer') }}" class="btn btn-default btn-sm">Reset</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
 
                             @if($results->count() > 0)
                                 <table class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Obtain marks</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Obtain marks</th>
+                                    </tr>
                                     </thead>
-
                                     <tbody>
-                                        @foreach($results as $result)
-                                            <tr>
-                                                <td>{{ ucfirst($result->user->name).' '.$result->user->last_name }}</td>
-                                                <td>{{ $result->user->email }}</td>
-                                                <td>{{ $result->result }}</td>
-                                            </tr>
-                                        @endforeach
+                                    @foreach($results as $result)
+                                        <tr>
+                                            <td>{{ ucfirst($result->user->name).' '.$result->user->last_name }}</td>
+                                            <td>{{ $result->result }}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
 
                                 </table>
