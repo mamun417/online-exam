@@ -16,8 +16,19 @@ class ExaminationController extends Controller
     public function prepareExam()
     {
         $current_date = date('Y-m-d H:i:00');
+        //check any exam already started
+        $already_started_exam = ExamNotification::where('start_date', '<=', $current_date)
+            ->where('end_date', '>=', $current_date)->first();
+
+        if ($already_started_exam){
+            $exam_notification = $already_started_exam;
+            $start_exam = true;
+            return view('frontend.examination.prepare', compact('start_exam','exam_notification'));
+        }
+
         $exam_notification = ExamNotification::where('start_date', '>', $current_date)->OrderBy('start_date', 'ASC')->first();
 
+        //$exam_notification = ExamNotification::latest()->first();
         //no examination found in database
         if (!$exam_notification){
             Session::flash('limit_cross', 'Now you have no examination.');
@@ -45,7 +56,8 @@ class ExaminationController extends Controller
 
     public function startExam()
     {
-        $exam_notification = ExamNotification::latest()->first();
+        $current_date = date('Y-m-d H:i:00');
+        $exam_notification = ExamNotification::where('start_date', '>', $current_date)->OrderBy('start_date', 'ASC')->first();
         $subject_id = $exam_notification->template->subject_id;
         $exam_notification_id = $exam_notification->id;
 
