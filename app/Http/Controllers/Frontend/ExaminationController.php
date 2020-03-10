@@ -15,19 +15,26 @@ class ExaminationController extends Controller
 {
     public function prepareExam()
     {
-        $current_date = date('Y-m-d H:i:00');
         //check any exam already started
-        $already_started_exam = ExamNotification::where('start_date', '<=', $current_date)
-            ->where('end_date', '>=', $current_date)->first();
+        $current_date = date('Y-m-d H:i:00');
+        $student_info = Session::get('question_paper_info');
+        $already_exam_participate = NULL;
 
-        if ($already_started_exam){
+        $already_started_exam = ExamNotification::where('start_date', '<=', $current_date)
+            ->where('end_date', '>=', $current_date)->orderBy('start_date', 'ASC')->first();
+
+        if($student_info){
+            $already_exam_participate = Examination::where('user_id', $student_info['student_id'])
+                ->where('exam_notification_id', $student_info['exam_notification_id'])->first();
+        }
+
+        if ($already_started_exam and $already_exam_participate == NULL){
             $exam_notification = $already_started_exam;
             $start_exam = true;
             return view('frontend.examination.prepare', compact('start_exam','exam_notification'));
         }
 
         $exam_notification = ExamNotification::where('start_date', '>', $current_date)->OrderBy('start_date', 'ASC')->first();
-
         //$exam_notification = ExamNotification::latest()->first();
         //no examination found in database
         if (!$exam_notification){
@@ -38,6 +45,7 @@ class ExaminationController extends Controller
         $start_date = $exam_notification->start_date->format('Y-m-d H:i:s');
         $end_date = $exam_notification->end_date->format('Y-m-d H:i:s');
         $current_date = date('Y-m-d H:i:00');
+
 
         //exam already finished
         if (strtotime($current_date) > strtotime($end_date)){
@@ -54,19 +62,25 @@ class ExaminationController extends Controller
         return view('frontend.examination.prepare', compact('exam_notification'));
     }
 
-    public function startExam()
+    public function startExam($exam_notification_id)
     {
         $current_date = date('Y-m-d H:i:00');
-        $exam_notification = ExamNotification::where('start_date', '>', $current_date)->OrderBy('start_date', 'ASC')->first();
+        dd($exam_notification_id);
+        if($exam_notification_id){
+            $exam_notification = ExamNotification::where('id', $exam_notification_id)->first();
+        }else{
+            $exam_notification = ExamNotification::where('start_date', '<=', $current_date)
+                ->where('end_date', '>=', $current_date)->OrderBy('start_date', 'ASC')->first();
+            $exam_notification_id = $exam_notification->id;
+        }
         $subject_id = $exam_notification->template->subject_id;
-        $exam_notification_id = $exam_notification->id;
 
         $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $subject_id)->first();
 
         $examination = Examination::create([
             'user_id' => Auth::id(),
             'subject_id' => $subject_id,
-            '$exam_notification_id' => $$exam_notification_id,
+            'exam_notification_id' => $exam_notification_id,
         ]);
 
         $question_paper_info = [
@@ -74,6 +88,7 @@ class ExaminationController extends Controller
             'examination_id' => $examination->id,
             'student_id' => Auth::id(),
             'subject_id' => $subject_id,
+            'exam_notification_id' => $exam_notification_id,
             'generated_question_ids' => [],
             'question_quantity' => $question_template->questions_count > $question_template->total_questions ? $question_template->total_questions : $question_template->questions_count
         ];
@@ -88,7 +103,7 @@ class ExaminationController extends Controller
         $question_paper_info = Session::get('question_paper_info');
 
         //check has selected any subject for question
-        if ($question_paper_info == []){ return redirect()->route('examination.start'); }
+        if ($question_paper_info == []){  return redirect()->route('examination.start'); }
 
         //check limit cross
         if ($question_paper_info['question_quantity'] == 0){

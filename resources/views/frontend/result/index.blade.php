@@ -22,12 +22,11 @@
                                         <br>
                                         <label>Exam<span class="required-star"> *</span></label>
 
-                                        <select onchange="submit()" class="input-sm form-control" name="question_template_id">
+                                        <select id="select" onchange="submit()" class="input-sm form-control"  name="exam_notification_id">
                                             <option value="">Select Exam</option>
-
-                                                <option value=" ">1</option>
-                                                <option value=" ">2</option>
-                                                <option value=" ">3</option>
+                                            @foreach($exams as $exam)
+                                                <option id="selectBox" value="{{ $exam->id }}">{{ $exam->template->subject->name.'-'.$exam->template->name.'-'.$exam->start_date }}</option>
+                                            @endforeach
 
                                         </select>
 
@@ -88,3 +87,5 @@
         </div>
     </div>
 @endsection
+
+

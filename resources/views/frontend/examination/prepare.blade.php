@@ -47,7 +47,7 @@
                                                 Duration
                                             </li>
                                         </ul>
-                                        <a href="{{ route('examination.start') }}" class="btn btn-sm btn-primary m-t-n-xs" style="width: 100%">
+                                        <a href="{{ route('examination.start', $exam_notification->id) }}" class="btn btn-sm btn-primary m-t-n-xs" style="width: 100%">
                                             <strong>Start Exam</strong>
                                         </a>
                                     </div>

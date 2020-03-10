@@ -11,9 +11,18 @@ use Illuminate\Http\Request;
 class TopScorerController extends Controller
 {
     public function index(){
-
+        $current_date = date('Y-m-d H:i:00');
+        $exam_notification_id = request()->exam_notification_id;
         $keyword = request()->keyword;
+
+        $exams = ExamNotification::with('template.subject')
+            ->where('start_date', '<', $current_date)->orderBy('start_date', 'DESC')->get();
+
+
         $results = Examination::with('user');
+        if($exam_notification_id){
+            $results = Examination::with('user')->where('exam_notification_id', $exam_notification_id);
+        }
 
         if($keyword){
 
@@ -24,10 +33,9 @@ class TopScorerController extends Controller
                     ->orWhere('last_name', 'like', $keyword);
             });
         }
-
         $results = $results->where('is_exam', true)
             ->orderBy('result', 'DESC')->paginate(15);
 
-        return view('frontend.result.index', compact('results'));
+        return view('frontend.result.index', compact('results', 'exams'));
     }
 }

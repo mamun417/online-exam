@@ -17,4 +17,6 @@ class ExamNotification extends Model
     public function template(){
         return $this->belongsTo(QuestionTemplate::class, 'question_template_id');
     }
+
+
 }
