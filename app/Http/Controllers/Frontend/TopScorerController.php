@@ -18,13 +18,14 @@ class TopScorerController extends Controller
         $exams = ExamNotification::with('template.subject')
             ->where('start_date', '<', $current_date)->orderBy('id', 'DESC')->get();
 
-        // latest examination top result
+        // latest examination top scorer
         $latest_examination_id = Examination::latest()->first();
-
+        // for latest exam selected in blade file
         $id = $latest_examination_id->exam_notification_id;
 
         $results = Examination::with('user')->where('id', $latest_examination_id->id);
         if($exam_notification_id){
+            $id = $exam_notification_id;
             $results = Examination::with('user')->where('exam_notification_id', $exam_notification_id);
         }
 
