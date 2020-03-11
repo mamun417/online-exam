@@ -16,10 +16,14 @@ class TopScorerController extends Controller
         $keyword = request()->keyword;
 
         $exams = ExamNotification::with('template.subject')
-            ->where('start_date', '<', $current_date)->orderBy('start_date', 'DESC')->get();
+            ->where('start_date', '<', $current_date)->orderBy('id', 'DESC')->get();
 
+        // latest examination top result
+        $latest_examination_id = Examination::latest()->first();
 
-        $results = Examination::with('user');
+        $id = $latest_examination_id->exam_notification_id;
+
+        $results = Examination::with('user')->where('id', $latest_examination_id->id);
         if($exam_notification_id){
             $results = Examination::with('user')->where('exam_notification_id', $exam_notification_id);
         }
@@ -36,6 +40,6 @@ class TopScorerController extends Controller
         $results = $results->where('is_exam', true)
             ->orderBy('result', 'DESC')->paginate(15);
 
-        return view('frontend.result.index', compact('results', 'exams'));
+        return view('frontend.result.index', compact('results', 'exams', 'id'));
     }
 }

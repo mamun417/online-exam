@@ -25,9 +25,8 @@
                                         <select id="select" onchange="submit()" class="input-sm form-control"  name="exam_notification_id">
                                             <option value="">Select Exam</option>
                                             @foreach($exams as $exam)
-                                                <option id="selectBox" value="{{ $exam->id }}">{{ $exam->template->subject->name.'-'.$exam->template->name.'-'.$exam->start_date }}</option>
+                                                <option @if($exam->id == $id) Selected @endif value="{{ $exam->id }}">{{ $exam->template->subject->name.'-'.$exam->template->name.'-'.$exam->start_date }}</option>
                                             @endforeach
-
                                         </select>
 
                                     </div>

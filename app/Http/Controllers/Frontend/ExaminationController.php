@@ -65,7 +65,6 @@ class ExaminationController extends Controller
     public function startExam($exam_notification_id)
     {
         $current_date = date('Y-m-d H:i:00');
-        dd($exam_notification_id);
         if($exam_notification_id){
             $exam_notification = ExamNotification::where('id', $exam_notification_id)->first();
         }else{
