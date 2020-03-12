@@ -1,6 +1,6 @@
 <div class="col-lg-7">
     <div class="form-group">
-        <label>Name<span class="required-star"> *</span></label>
+        <label>Exam Name<span class="required-star"> *</span></label>
         <input type="text" value="{{ isset($questionTemplate->name) ? $questionTemplate->name : old('name')}}" name="name" class="form-control">
         @error('name') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
     </div>
@@ -8,7 +8,7 @@
 
 <div class="col-lg-7">
     <div class="form-group">
-        <label>Department<span class="required-star"> *</span></label>
+        <label>Department</label>
         <select class="form-control" name="department_id">
             <option value="">Select Department</option>
             @foreach($departments as $department )
@@ -17,7 +17,6 @@
                 </option>
             @endforeach
         </select>
-        @error('department_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
     </div>
 </div>
 

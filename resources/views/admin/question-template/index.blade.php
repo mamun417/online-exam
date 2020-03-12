@@ -56,9 +56,9 @@
                                         <th>Subject</th>
                                         <th>Student Type</th>
                                         <th>Total Question</th>
+                                        <th>Question Assigned</th>
                                         <th>Total Marks</th>
                                         <th>Negative Marks</th>
-                                        <th>Create At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -71,9 +71,9 @@
                                             <td>{{ ucfirst($questionTemplate->subject->name) }}</td>
                                             <td>{{ ucfirst($questionTemplate->studentType->name) }}</td>
                                             <td>{{ ucfirst($questionTemplate->total_questions) }}</td>
+                                            <td>{{ ucfirst($questionTemplate->questions_count) }}</td>
                                             <td>{{ ucfirst($questionTemplate->total_marks) }}</td>
                                             <td>{{ ucfirst($questionTemplate->negative_marks) }}</td>
-                                             <td>{{ date_format($questionTemplate->created_at, 'd-m-Y') }}</td>
                                             <td class="text-center">
 
                                                 <a href="{{ route('admin.question-templates.edit', $questionTemplate->id) }}" title="Edit" class="btn btn-info cus_btn">

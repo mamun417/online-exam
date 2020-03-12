@@ -5,7 +5,7 @@
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('admin.question-templates.index') }}">Question Template</a>
+                    <a href="{{ route('admin.question-templates.index') }}">Exams</a>
                 </li>
                 <li class="active">
                     <strong>Create</strong>
@@ -20,7 +20,7 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
-                        <h5>Create Question</h5>
+                        <h5>Create Exam</h5>
                     </div>
 
                     <div class="ibox-content">

@@ -36,7 +36,7 @@ class QuestionTemplateController extends Controller
                 });
         }
 
-        $questionTemplates = $questionTemplates->latest()->paginate($perPage);
+        $questionTemplates = $questionTemplates->withCount('questions')->latest()->paginate($perPage);
 
         return view('admin.question-template.index', compact('questionTemplates'));
     }
@@ -54,7 +54,7 @@ class QuestionTemplateController extends Controller
     {
         $request->validate([
             'name'             => 'required',
-            'department_id'    => 'required',
+            //'department_id'    => 'required',
             'subject_id'       => 'required|unique:question_templates',
             'student_type_id'  => 'required',
             'total_questions'  => 'required',
@@ -85,7 +85,7 @@ class QuestionTemplateController extends Controller
     {
          $request->validate([
             'name'             => 'required',
-            'department_id'    => 'required',
+            //'department_id'    => 'required',
             'subject_id'       => 'required|unique:question_templates,subject_id,'.$questionTemplate->id,
             'student_type_id'  => 'required',
             'total_questions'  => 'required',

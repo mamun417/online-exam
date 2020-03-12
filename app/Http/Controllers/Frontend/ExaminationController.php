@@ -15,11 +15,11 @@ class ExaminationController extends Controller
 {
     public function prepareExam()
     {
-        //check any exam already started
         $current_date = date('Y-m-d H:i:00');
         $student_info = Session::get('question_paper_info');
         $already_exam_participate = NULL;
 
+        //check any exam already started
         $already_started_exam = ExamNotification::where('start_date', '<=', $current_date)
             ->where('end_date', '>=', $current_date)->orderBy('start_date', 'ASC')->first();
 
@@ -35,7 +35,7 @@ class ExaminationController extends Controller
         }
 
         $exam_notification = ExamNotification::where('start_date', '>', $current_date)->OrderBy('start_date', 'ASC')->first();
-        //$exam_notification = ExamNotification::latest()->first();
+
         //no examination found in database
         if (!$exam_notification){
             Session::flash('limit_cross', 'Now you have no examination.');
@@ -64,14 +64,9 @@ class ExaminationController extends Controller
 
     public function startExam($exam_notification_id)
     {
-        $current_date = date('Y-m-d H:i:00');
-        if($exam_notification_id){
-            $exam_notification = ExamNotification::where('id', $exam_notification_id)->first();
-        }else{
-            $exam_notification = ExamNotification::where('start_date', '<=', $current_date)
-                ->where('end_date', '>=', $current_date)->OrderBy('start_date', 'ASC')->first();
-            $exam_notification_id = $exam_notification->id;
-        }
+
+        $exam_notification = ExamNotification::where('id', $exam_notification_id)->first();
+
         $subject_id = $exam_notification->template->subject_id;
 
         $question_template = QuestionTemplate::withCount('questions')->where('subject_id', $subject_id)->first();
