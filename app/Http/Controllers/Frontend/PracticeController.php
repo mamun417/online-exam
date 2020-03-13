@@ -159,7 +159,6 @@ class PracticeController extends Controller
             $question['is_correct_answer'] = $student_answer == $correct_answers;
         }
 
-
         $question_template = QuestionTemplate::where('subject_id', $question_paper_info['subject_id'])->get()->first();
         $per_question_mark = $question_template->total_marks/$question_template->total_questions;
 

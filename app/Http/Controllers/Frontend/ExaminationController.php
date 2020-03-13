@@ -15,20 +15,23 @@ class ExaminationController extends Controller
 {
     public function prepareExam()
     {
+        $user_id = Auth::user()->id;
         $current_date = date('Y-m-d H:i:00');
-        $student_info = Session::get('question_paper_info');
-        $already_exam_participate = NULL;
 
         //check any exam already started
         $already_started_exam = ExamNotification::where('start_date', '<=', $current_date)
-            ->where('end_date', '>=', $current_date)->orderBy('start_date', 'ASC')->first();
+            ->where('end_date', '>=', $current_date)->where('start_date', 'ASC')->first();
 
-        if($student_info){
-            $already_exam_participate = Examination::where('user_id', $student_info['student_id'])
-                ->where('exam_notification_id', $student_info['exam_notification_id'])->first();
+        // check for examination already participate
+        if($already_started_exam){
+            $exam_notification_id = $already_started_exam->id;
+            $already_exam_participate = Examination::where('user_id', $user_id)
+                ->where('exam_notification_id', $exam_notification_id)->latest()->first();
+            if($already_exam_participate){ return redirect()->route('examination.summery');
+            }
         }
 
-        if ($already_started_exam and $already_exam_participate == NULL){
+        if ($already_started_exam){
             $exam_notification = $already_started_exam;
             $start_exam = true;
             return view('frontend.examination.prepare', compact('start_exam','exam_notification'));
