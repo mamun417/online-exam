@@ -20,6 +20,7 @@
 
                     <div class="ibox-title">
                         <h5>Create Question</h5>
+                        @include('flash-messages.flash-messages')
                     </div>
 
                     <div class="ibox-content">

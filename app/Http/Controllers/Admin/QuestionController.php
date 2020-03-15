@@ -54,6 +54,20 @@ class QuestionController extends Controller
             'question_type_id' => 'required'
         ]);
 
+        //check question quantity of question template/exam
+        if ($question_template_id = $request->question_template_id) {
+            $question_template = QuestionTemplate::where('id', $question_template_id)->first();
+
+            $total_questions = Question::with('questions')->where('question_template_id', $question_template_id)->count();
+
+
+            if($question_template->total_questions <= $total_questions ){
+
+                return back()->with('warning', 'Total number of question exceeded.');
+            }
+        }
+
+
         if($request->img){
             $image = fileHandlerComponent::imageUpload($request->file('img'), 'img');
             $request['image'] = $image;
