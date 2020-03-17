@@ -9,10 +9,13 @@
 
     <title>Medical-Spark</title>
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!--fontowsome-->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+   <!-- <link href="{{ asset('admin/font-awesome/css/font-awesome.css') }}" rel="stylesheet">-->
     <link href="{{ asset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
 
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
@@ -35,9 +38,8 @@
     {{--custom style--}}
     <link href="{{ asset('admin/css/custom_style.css') }}" rel="stylesheet">
 
+    <!--time circle-->
     <link href="{{ asset('admin/js/plugins/time-circles/TimeCircles.css') }}" rel="stylesheet">
-
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!--summernote editor-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
@@ -68,8 +70,6 @@
 <script src="{{ asset('admin/js/inspinia.js') }}"></script>
 <script src="{{ asset('admin/js/plugins/pace/pace.min.js')}}"></script>
 
-<!-- Data picker -->
-{{--<script src="{{ asset('admin/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>--}}
 
 <!-- iCheck -->
 <script src="{{ asset('admin/js/plugins/iCheck/icheck.min.js') }}"></script>
