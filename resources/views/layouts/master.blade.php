@@ -31,8 +31,6 @@
 
     {{--Editor --}}
     <link href="{{asset('admin/css/animate.css')}}" rel="stylesheet">
-    <link href="{{ asset('admin/css/plugins/summernote/summernote.css' )}}" rel="stylesheet">
-    <link href="{{ asset('admin/css/plugins/summernote/summernote-bs3.css' )}}" rel="stylesheet">
 
     {{--custom style--}}
     <link href="{{ asset('admin/css/custom_style.css') }}" rel="stylesheet">
@@ -40,6 +38,9 @@
     <link href="{{ asset('admin/js/plugins/time-circles/TimeCircles.css') }}" rel="stylesheet">
 
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!--summernote editor-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 
 </head>
 <body>
@@ -95,14 +96,13 @@
 
 {{--Editor--}}
 <script src="{{ asset('admin/js/plugins/summernote/summernote.min.js')}}"></script>
+
 <script>
+
+    /*summernote*/
     $(document).ready(function(){
-
         $('.summernote').summernote();
-
     });
-</script>
-<script>
 
     $(document).ready(function () {
         $('.i-checks').iCheck({
