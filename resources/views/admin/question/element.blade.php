@@ -141,6 +141,7 @@
                 tokensAllowCustom: true,
                 sortable: true,
                 tokensMaxItems: 1,
+                delimiter: false
             });
         });
         @endif
@@ -163,7 +164,8 @@
                 //displayNoResultsMessage: true,
                 tokensAllowCustom: true,
                 sortable: true,
-                tokensMaxItems: 1
+                tokensMaxItems: 1,
+                delimiter: false
             });
 
             // correct_ans naming
