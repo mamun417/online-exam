@@ -36,6 +36,7 @@
                 @endauth
             </li>
 
+
             @if(Auth::check() && Auth::user()->role_id == 1)
 
                  <li class="{{ Request::is('home*') ? 'active' : '' }}">
