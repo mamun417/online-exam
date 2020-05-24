@@ -4,7 +4,12 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
         <div class="ibox-content">
-            <h2 class="font-bold" style="text-align: center">{{ __('Reset Password') }}</h2>
+            <div style="text-align: center">
+                <img alt="image" src="{{ asset('admin/img/logo.png') }}" width="166" />
+            </div>
+
+            <h3 class="font-bold">Reset Password</h3>
+
             <div class="card-body">
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -23,8 +28,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit"
-                            class="btn btn-primary block full-width m-b">{{ __('Send Password Reset Link') }}</button>
+                    <button type="submit" class="btn btn-primary block full-width"><strong>Reset Password</strong></button>
                 </form>
             </div>
         </div>

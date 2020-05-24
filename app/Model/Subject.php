@@ -22,7 +22,20 @@ class Subject extends Model
     }
 
     public function questions(){
-        return $this->hasMany(Question::class);
+        $user = auth()->user();
+        $questions = $this->hasMany(Question::class);
+        if($user->account_type_id !=1) {
+            $questions->where('student_type_id','!=',3);
+        }
+        return $questions;
+    }
+
+    public function departments(){
+        return $this->belongsToMany(Department::class);
+    }
+
+    public function videos(){
+        return $this->hasMany(Video::class);
     }
 }
 

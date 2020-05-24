@@ -16,7 +16,7 @@ class CreateQuestionTemplatesTable extends Migration
         Schema::create('question_templates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->bigInteger('department_id')->unsigned();
+            $table->bigInteger('department_id')->unsigned()->nullable();
             $table->bigInteger('subject_id')->unsigned();
             $table->bigInteger('student_type_id')->unsigned();
             $table->Integer('total_questions');

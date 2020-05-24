@@ -24,8 +24,12 @@
 
                             @include('flash-messages.flash-messages')
 
-                            <div class="table-responsive">
-                                <h2>Welcome to Medi Spark</h2>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-12">
+                                        <h2>Welcome to Med Mission</h2>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

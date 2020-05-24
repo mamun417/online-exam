@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model
 {
-    protected $fillable = ['question', 'slug', 'question_template_id', 'question_type_id', 'subject_id', 'is_active', 'is_deleted', 'description', 'image'];
+    protected $fillable = ['question', 'slug', 'question_template_id', 'student_type_id', 'question_type_id', 'subject_id', 'is_active', 'is_deleted', 'description', 'image'];
 
     public function template(){
         return $this->belongsTo(QuestionTemplate::class, 'question_template_id');
@@ -24,6 +24,10 @@ class Question extends Model
 	public function subject(){
         return $this->belongsTo(Subject::class);
 	}
+
+    public function studentType(){
+        return $this->belongsTo(StudentType::class);
+    }
 /*
 	public function department(){
         return $this->belongsTo(Department::class);
@@ -37,8 +41,12 @@ class Question extends Model
         return $query->where('is_active', true);
     }
 
-    public function correctAnswers(){
+    public function trueCorrectAnswers(){
         return $this->belongsToMany(Option::class)->wherePivot('correct_answer',1);
+    }
+
+    public function falseCorrectAnswers(){
+        return $this->belongsToMany(Option::class)->wherePivot('correct_answer','0');
     }
 
 }

@@ -5,7 +5,7 @@
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('subjects.index') }}">Subject</a>
+                    <a href="{{ route('admin.subjects.index') }}">Subject</a>
                 </li>
                 <li class="active">
                     <strong>Edit</strong>
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="ibox-content">
-                        <form class="form-horizontal" method="POST" action="{{ route('subjects.update', $subject->id) }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('admin.subjects.update', $subject->id) }}">
                             @csrf
                             @method('PUT')
 

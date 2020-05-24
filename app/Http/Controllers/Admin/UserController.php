@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Package;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -13,7 +14,7 @@ class UserController extends Controller
     	$perPage = request()->perPage ?: 10;
         $keyword = request()->keyword;
 
-    	$users = new User();
+    	$users = User::with('department', 'package');
 
     	if ($keyword){
     		$keyword = '%'.$keyword.'%';
@@ -30,7 +31,8 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-    	return view('admin.user.edit', compact('user'));
+        $packages = Package::latest()->get();
+    	return view('admin.user.edit', compact('user', 'packages'));
     }
 
     public function update(Request $request, User $user)
@@ -40,6 +42,7 @@ class UserController extends Controller
         ]);
 
     	$request['expire_date'] = date('Y-m-d', strtotime($request->expire_date));
+    	$request['is_paid'] = $request->is_paid == 1 ?? 0;
     	$request['status'] = $request->status == 1 ?? 0;
 
         $user->update($request->all());

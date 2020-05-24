@@ -49,7 +49,9 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Faculty</th>
                                         <th>Account Type</th>
+                                        <th>Package</th>
                                         <th>Expire Date</th>
                                         <th class="text-center">Account Status</th>
                                         <th class="text-center">Payment Status</th>
@@ -63,7 +65,9 @@
                                             <td>{{ ucfirst($user->name).' '.$user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->phone }}</td>
+                                            <td>{{ $user->department->name??'' }}</td>
                                             <td>{{ $user->account_type_id == 1 ? 'Paid':'Free' }}</td>
+                                            <td>{{ $user->package->name ?? '' }}</td>
                                             <td>{{ $user->expire_date->format('d-m-Y') }}</td>
                                             <td class="text-center">
                                                 @if($user->status == 1)

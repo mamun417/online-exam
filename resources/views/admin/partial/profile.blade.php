@@ -1,5 +1,13 @@
 @extends('layouts.master')
 
+@push('extra-links')
+    <style>
+        .warning_message .col-lg-6 {
+            width: 100%!important;
+        }
+    </style>
+@endpush
+
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -25,6 +33,13 @@
                             @csrf
                             @method('PUT')
 
+                            <div class="form-group no-margins">
+                                <label class="col-lg-2 control-label"></label>
+                                <div class="col-lg-6 no-padding warning_message">
+                                    @include('flash-messages.flash-messages')
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">First Name<span class="required-star"> *</span></label>
                                 <div class="col-lg-6">
@@ -49,7 +64,26 @@
                                 </div>
                             </div>
 
-                            @if(Auth::user()->role_id != 1)
+                            @if(Auth::user()->role_id != 1) {{--1 = admin--}}
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">
+                                        Faculty<span class="required-star"> *</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" name="department_id">
+                                            <option value="">Select Faculty</option>
+                                            @foreach($departments as $department )
+                                                <option value="{{ $department->id }}" {{ $user->department_id == $department->id ? 'selected' : '' }}>
+                                                    {{ $department->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('department_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Account Type<span class="required-star"> *</span></label>
                                     <div class="col-lg-6">
@@ -57,10 +91,11 @@
                                             <option {{ $user->account_type_id == 0 ? 'selected':'' }} value="0">Free</option>
                                             <option {{ $user->account_type_id == 1 ? 'selected':'' }} value="1">Paid</option>
                                         </select>
-                                    </div>
 
-                                    @error('account_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+                                        @error('account_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+                                    </div>
                                 </div>
+
                             @endif
 
                             <div class="form-group">

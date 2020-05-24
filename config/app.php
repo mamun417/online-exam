@@ -30,6 +30,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Mode
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "environment" your application is currently
+    | running mode. When test mode on ssl commerce paid 10 tk otherwise as package price.
+    | Set this in your ".env" file.
+    |
+    */
+
+    'mode' => env('APP_MODE', 'test'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

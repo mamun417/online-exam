@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Model\Department;
 use Hash;
 use Illuminate\Http\Request;
 use App\User;
@@ -13,18 +14,24 @@ use Validator;
 class UserController extends Controller
 {
     public function profile(){
-        $user = User::find(Auth::user()->id);
-        return view('admin.partial.profile', compact('user'));
+        $user =Auth::user();
+        $departments = Department::latest()->get();
+
+        return view('admin.partial.profile', compact('user', 'departments'));
     }
 
     public function updateProfile(Request $request, User $user){
         $request->validate([
             'name'      => 'required|max:200|string',
             'last_name' => 'required|max:200|string',
+            'department_id' => 'required',
             //'email'     => 'required'
+        ],[
+            'department_id.*' => 'The faculty field is required.'
         ]);
 
-        $user->update($request->except('email'));
+        $user->update($request->except(['email', 'account_type_id']));
+
         return redirect(route('profile'))->with('successTMsg', 'Profile has been updated successfully');
     }
 
@@ -56,6 +63,6 @@ class UserController extends Controller
     public function renew()
     {
         Session::put('renew', true);
-        return view('exampleHosted');
+        return view('payment');
     }
 }

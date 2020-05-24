@@ -4,7 +4,7 @@
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('admin.departments.index') }}"> Department </a>
+                    <a href="{{ route('admin.departments.index') }}"> Faculty </a>
                 </li>
                 <li class="active">
                     <strong>Create</strong>
@@ -21,7 +21,7 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
-                        <h5>Create Department</h5>
+                        <h5>Create Faculty</h5>
                     </div>
 
                     <div class="ibox-content">

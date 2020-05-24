@@ -27,7 +27,18 @@
             @error('subject_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
         </div>
 
+        <div class="form-group">
+            <label>Student Type<span class="required-star"> *</span></label>
+            <select class="form-control" name="student_type_id">
 
+                <option value="">Select Student Type</option>
+                @foreach($studentTypes as $studentType)
+                    <option @if( isset($question) and $question->student_type_id == $studentType->id) selected @endif value="{{ $studentType->id }}">{{ $studentType->name }}</option>
+                @endforeach
+
+            </select>
+            @error('student_type_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+        </div>
 
         <div class="form-group">
             <label>Question Type<span class="required-star"> *</span></label>
@@ -90,7 +101,7 @@
                     $single_option .= '<select class="form-control options" name="options[]" multiple>';
                     foreach($options as $option){
                         $selected = (isset($question_option->id) && $question_option->id == $option->id)?'selected':'';
-                        $single_option .= '<option '.$selected.' value='.$option->id.'>'.$option->option.'</option>';
+                        $single_option .= "<option $selected value=\"$option->id\">".htmlspecialchars($option->option, ENT_QUOTES)."</option>";
                     }
                     $single_option .= '</select>';
                     $single_option .= '</div>';

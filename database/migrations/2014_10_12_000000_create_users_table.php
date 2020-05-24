@@ -15,10 +15,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('department_id')->default(0)->nullable();
+            $table->bigInteger('package_id')->default(0)->nullable()->comment('1=basic, 2=model, 3=complete');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->bigInteger('role_id')->default(2)->comment('1=admin, 2=student');
-            $table->Integer('account_type_id')->comment('0=free, 1=paid');
+            $table->Integer('account_type_id')->default(0)->comment('0=free, 1=paid');
             $table->string('name')->nullable();
             $table->string('last_name');
             $table->string('email')->nullable();

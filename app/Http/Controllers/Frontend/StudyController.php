@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Model\Department;
 use App\Model\Question;
 use App\Model\QuestionTemplate;
 use App\Model\Subject;
@@ -15,6 +16,7 @@ class StudyController extends Controller
 {
     public function showSelectSubject()
     {
+        // handle warning message
         Session::forget('limit_cross');
 
         Session::put('question_paper_info', []);
@@ -25,7 +27,11 @@ class StudyController extends Controller
             return redirect()->route('study.question');
         }*/
 
-        $subjects = Subject::has('questions')->get();
+        $department = Department::find(Auth::user()->department_id);
+
+        $subjects = $department->subjects()->has('questions')->get();
+
+        //$subjects = Subject::has('questions')->get();
 
         return view('frontend.study.select-subject', compact('subjects'));
     }
@@ -48,6 +54,7 @@ class StudyController extends Controller
 
         Session::put('question_paper_info', []);
         Session::put('question_paper_info', $question_paper_info);
+
         return redirect()->route('study.question');
     }
 
@@ -60,7 +67,7 @@ class StudyController extends Controller
 
         //check limit cross
         if ($question_paper_info['question_quantity'] == 0){
-            Session::flash('limit_cross', 'Dear '.Auth::user()->name.' '.Auth::user()->last_name.', it\'s time to finished your study.');
+            Session::flash('limit_cross', 'Congratulations '.Auth::user()->name.' '.Auth::user()->last_name.', your study is finished. You can restart again.');
             return view('frontend.question.question');
         }
 
@@ -68,9 +75,17 @@ class StudyController extends Controller
         $generated_question_ids = $question_paper_info['generated_question_ids'];
 
         //generate question
-        $question = Question::where('subject_id', $subject_id)
-            ->whereNotIn('id', $generated_question_ids)
-            ->active()->inRandomOrder()->take(1)->first();
+        $user = auth()->user();
+        if($user->account_type_id==1) {
+            $question = Question::where('subject_id', $subject_id)
+                ->whereNotIn('id', $generated_question_ids)
+                ->active()->inRandomOrder()->take(1)->first();
+        }else{
+            $question = Question::where('subject_id', $subject_id)
+                ->whereNotIn('id', $generated_question_ids)
+                ->where('student_type_id', '!=',3)
+                ->active()->inRandomOrder()->take(1)->first();
+        }
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);
@@ -78,38 +93,77 @@ class StudyController extends Controller
         Session::put('question_paper_info', $question_paper_info);
 
         $question_options = $question->options;
-        $correct_answers = $student_answer = [];
+        $student_answer = $true_student_answer = $false_student_answer =  $true_correct_answers = $false_correct_answers = [];
 
         //dd('ok');
 
-        return view('frontend.question.question', compact('question', 'question_options', 'correct_answers', 'student_answer'));
+        return view('frontend.question.question', compact('question', 'question_options', 'student_answer', 'true_student_answer', 'false_student_answer', 'true_correct_answers','false_correct_answers'));
     }
 
     public function submitQuestion(Request $request){
 
-        $request->validate([
-            'question_id' => 'required',
-            'options' => 'required'
-        ]);
+        if(isset($request->options)){
+            $request->validate([
+                'question_id' => 'required',
+                'options' => 'required'
+            ]);
+        }
 
-        $student_answer = array_map('intval', $request->options);
+        $student_answer = $true_student_answer = $false_student_answer = [];
+
+        if(isset($request->options)) {
+            $student_answer = array_map('intval', $request->options);
+
+        }else{
+            $true_student_answer = $false_student_answer = [];
+
+            if(isset($request->options_true)) {
+                $true_student_answer = array_map('intval', $request->options_true);
+            }
+
+            if(isset($request->options_false)) {
+                $false_student_answer = array_map('intval', $request->options_false);
+            }
+        }
 
         //get question correct answer
         $question = Question::find($request->question_id);
-        $question_correct_answers = $question->correctAnswers;
 
-        $correct_answers = [];
-        foreach ($question_correct_answers as $answer){
-            $correct_answers[] = $answer->id;
+
+        $question_true_correct_answers = $question->trueCorrectAnswers;
+        $true_correct_answers = [];
+        foreach ($question_true_correct_answers as $answer){
+            $true_correct_answers[] = $answer->id;
+        }
+
+        $question_false_correct_answers = $question->falseCorrectAnswers;
+        $false_correct_answers = [];
+        foreach ($question_false_correct_answers as $answer){
+            $false_correct_answers[] = $answer->id;
         }
 
         //check two array contain same element or not to know student given answer right or wrong
         sort($student_answer);
-        sort($correct_answers);
 
-        $answer = $student_answer == $correct_answers ? true : false;
+        sort($true_correct_answers);
+        sort($false_correct_answers);
 
-        if ($answer){
+        $answer = false;
+        if(isset($request->options)) {
+            $answer = $student_answer == $true_correct_answers ? true : false;
+        }else{
+            sort($true_student_answer);
+            sort($false_student_answer);
+
+            $true_answer = $true_student_answer == $true_correct_answers ? true : false;
+            $false_answer = $false_student_answer == $false_correct_answers ? true : false;
+
+            if ($true_answer && $false_answer) {
+                $answer = true;
+            }
+        }
+
+        if ($answer) {
             Session::flash('success', 'Your given answer is correct.');
             return back();
         }
@@ -119,7 +173,7 @@ class StudyController extends Controller
 
         Session::flash('error', 'Incorrect answer.');
         return view('frontend.question.question',
-            compact('question','question_options', 'student_answer', 'correct_answers')
+            compact('question','question_options', 'student_answer', 'true_student_answer', 'false_student_answer', 'true_correct_answers','false_correct_answers')
         );
     }
 

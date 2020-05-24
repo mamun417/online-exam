@@ -54,7 +54,7 @@
                                 </div>
                             @else
                                 <div class="example" data-date="{{ $exam_notification->start_date }}" style="width: 500px; height: 150px;"></div>
-                                <p>Your exam english will be held on {{ $exam_notification->start_date->format('d-m-Y h:i A') }}. Please be prepared for your online exam.</p>
+                                <p>{{$exam_notification->notice}}</p>
                             @endisset
                         @endif
                     </div>

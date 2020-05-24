@@ -30,7 +30,7 @@
                     <div class="ibox-title">
                         <h5>Select Your Answer</h5>
                         <a onclick="finishedStudy()" href="javascript:void(0)" class="btn btn-sm btn-danger pull-right m-t-n-xs" type="button">
-                            <strong>Cancel</strong>
+                            <strong>Restart</strong>
                         </a>
                         <form id="finished-form" method="POST" action="{{ route($question_paper_type.'.question.finished') }}" style="display: none" >
                             @csrf()
@@ -57,19 +57,85 @@
                                     @endif
 
                                     <div class="form-group">
+                                        @if($question->question_type_id==1)
+                                            <label class="m-b-sm" style="font-size: 14px">
+                                                <b>{{ $generated_question_count }}.</b>
+                                                {{ $question->question }}
+                                            </label>
+                                            @foreach($question_options as $option)
+                                                <div class=" {{ in_array($option->id, $true_correct_answers) ? 'text-primary' : (in_array($option->id, $student_answer) ? 'text-danger' : '') }}">
+                                                    <label>
+                                                        <input name="options[]" value="{{ $option->id }}" {{  in_array($option->id, $student_answer) ? 'checked' : '' }} type="checkbox">
+                                                        <i></i> {{ $option->option }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        @endif
 
-                                        <label class="m-b-sm" style="font-size: 14px">
-                                            <b>{{ $generated_question_count }}.</b>
-                                            {{ $question->question }}
-                                        </label>
-                                        @foreach($question_options as $option)
-                                            <div class="i-checks {{ in_array($option->id, $correct_answers) ? 'text-primary' : (in_array($option->id, $student_answer) ? 'text-danger' : '') }}">
-                                                <label>
-                                                    <input name="options[]" value="{{ $option->id }}" {{  in_array($option->id, $student_answer) ? 'checked' : '' }} type="checkbox">
-                                                    <i></i> {{ $option->option }}
-                                                </label>
-                                            </div>
-                                        @endforeach
+                                        @if($question->question_type_id==2)
+                                            <label class="m-b-sm" style="font-size: 14px">
+                                                <b>{{ $generated_question_count }}.</b>
+                                                {{ $question->question }}
+                                            </label>
+                                            <?php $i=1; ?>
+                                            @foreach($question_options as $option)
+                                                @if($i==1)
+                                                    <div>True False</div>
+                                                @endif
+                                                <?php
+                                                    $option_class = '';
+                                                    $answer_is = '';
+
+                                                    if($question_paper_info['question_paper_type'] == 'study'){
+
+                                                        if((in_array($option->id, $true_student_answer) && in_array($option->id, $true_correct_answers)) ||
+                                                            (in_array($option->id, $false_student_answer) && in_array($option->id, $false_correct_answers)))
+                                                        {
+                                                            $option_class = 'text-primary';
+                                                        }elseif(in_array($option->id, $true_student_answer) || in_array($option->id, $false_student_answer)){
+                                                            $option_class = 'text-danger';
+                                                        }
+
+
+                                                        if($option_class!='text-primary'){
+                                                            if(in_array($option->id, $true_correct_answers)){
+                                                                $answer_is = '<span style="color:#a94442"> Ans:true</span>';
+                                                            }elseif(in_array($option->id, $false_correct_answers)){
+                                                                $answer_is = '<span style="color:#a94442"> Ans:false</span>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
+                                                    <div class="row {{ $option_class }}" style="margin-top: 5px">
+
+                                                        <div class="col-xs-4 col-md-1" style="padding-right: 0">
+
+                                                            <input class="i-checks" name="options_true[]"
+                                                               value="{{ $option->id }}"
+                                                               {{  isset($true_student_answer) && in_array($option->id, $true_student_answer) ? 'checked' : '' }}
+                                                               type="checkbox"
+                                                            > &nbsp;&nbsp;
+
+                                                            <input class="i-checks" name="options_false[]"
+                                                               value="{{ $option->id }}"
+                                                               {{ isset($false_student_answer) && in_array($option->id, $false_student_answer) ? 'checked' : '' }}
+                                                               type="checkbox"
+                                                            > &nbsp;&nbsp;
+
+                                                        </div>
+
+                                                        <div class="col-xs-8 col-md-11" style="padding-left: 0">
+                                                            <label>
+                                                                <i></i> {{ $option->option }} <?php echo $answer_is ?>
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
+
+                                                <?php $i++; ?>
+                                            @endforeach
+                                        @endif
+
                                         @error('options') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
                                     </div>
 
@@ -119,14 +185,15 @@
 
         function submitQuestionForm(e){
             event.preventDefault();
-            if($('input[name="options[]"]:checked').length === 0){
+            if($('input[name="options[]"]:checked').length === 0 &&
+                $('input[name="options_true[]"]:checked').length === 0 &&
+                $('input[name="options_false[]"]:checked').length === 0){
                 alert('You have to select at least one option.');
                 return false;
             }
             e.submit();
         }
 
-        //show confirm message when delete table row
         function finishedStudy() {
             swal({
                 title: "Are you sure?",
@@ -142,6 +209,16 @@
                 document.getElementById('finished-form').submit();
             });
         }
+        $(function(){
+            $("input[type='checkbox']").on('click',function() {
+                if ($(this).prop('checked') == true) {
+                    $(this).closest("div").find("input[type='checkbox']").each(function () {
+                        $(this).prop('checked', false);
+                    });
+                    $(this).prop('checked', true);
+                }
+            });
+        });
     </script>
 @endsection
 

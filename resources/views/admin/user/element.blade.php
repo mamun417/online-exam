@@ -9,6 +9,36 @@
     </div>
 
     <div class="form-group">
+        <label>Packages</label>
+        <select class="form-control" name="package_id">
+            <option value="">Select Package</option>
+            @foreach($packages as $package)
+                <option value="{{ $package->id }}" {{ $user->package_id == $package->id ? 'selected' : ''}}>
+                    {{ $package->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('package_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-2 no-padding">
+            <label>Is Paid</label>
+        </div>
+        <div class="col-sm-10 no-padding">
+            <div class="input-group">
+                <div class="i-checks">
+                    <label>
+                        <input name="is_paid" value="1" type="checkbox" {{ $user->is_paid == 1 ? 'checked' : '' }}>
+                        <i></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        @error('is_paid') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-2 no-padding">
             <label>Status</label>
         </div>
@@ -22,7 +52,7 @@
                 </div>
             </div>
         </div>
-        @error('Status') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+        @error('status') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
     </div>
 
 </div>

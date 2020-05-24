@@ -1,10 +1,15 @@
 @extends('auth.layouts.app')
 
 @section('content')
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <div class="ibox-content">
-            <h2 class="font-bold" style="text-align: center">Login</h2>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="ibox-content shadow">
+
+            <div style="text-align: center">
+                <img alt="image" src="{{ asset('admin/img/logo.png') }}" width="166" />
+            </div>
+
+            <h3 class="font-bold">Login</h3>
 
             @if($message = Session::get('error'))
                 <div class="alert alert-danger alert-dismissable">
@@ -30,21 +35,24 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-                <a href="{{ route('password.request') }}"><small>Forgot password?</small></a>
+                <button type="submit" class="btn btn-primary block full-width m-b"><strong>Login</strong></button>
 
-                <p class="text-muted text-center">
-                    <small>Do not have an account?</small>
-                </p>
-                <a class="btn btn-sm btn-white btn-block" href="{{ route('register') }}">Create an account</a>
-                <a href="login/facebook" class="btn btn-block btn-social btn-facebook" style="margin-top: 10px">
+                <a href="login/facebook" class="btn btn-block btn-social btn-facebook m-b" style="margin-top: 10px">
                     <span class="fa fa-facebook"></span> Sign in with Facebook
                 </a>
-                <a href="login/google" class="btn btn-block btn-social btn-google">
+                <a href="login/google" class="btn btn-block btn-social btn-google m-b">
                     <span class="fa fa-google"></span> Sign in with Google
                 </a>
+
+                <a href="{{ route('password.request') }}"><small>Forgot password?</small></a>
+
+                <p class="text-center">
+                    <span>Do not have an account?</span>
+                </p>
+                <a class="btn btn-sm btn-white btn-block" href="{{ route('register') }}">Create an account</a>
+
             </form>
         </div>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-sm-2"></div>
 @endsection

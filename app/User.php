@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Model\Department;
+use App\Model\Package;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static find($id)
  * @method where(string $string, string $string1, string $keyword)
  * @method static paid()
+ * @method static create(array $array)
  */
 class User extends Authenticatable
 {
@@ -23,7 +26,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'role_id', 'account_type_id', 'name', 'last_name', 'email', 'phone', 'provider', 'provider_id', 'password', 'expire_date', 'is_paid', 'status'
+        'department_id', 'role_id', 'account_type_id', 'package_id',
+        'name', 'last_name', 'email', 'phone', 'provider',
+        'provider_id', 'password', 'expire_date', 'is_paid', 'status'
     ];
 
     /**
@@ -50,5 +55,13 @@ class User extends Authenticatable
 
     public function scopeNotAdmin($query){
         return $query->where('role_id', '!=', 1);
+    }
+
+    public function department(){
+        return $this->belongsTo(Department::class);
+    }
+
+    public function package(){
+        return $this->belongsTo(Package::class);
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Departments</h2>
+            <h2>Faculties</h2>
         </div>
         <div class="col-lg-2">
             <div class="ibox-tools">
@@ -52,7 +52,7 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Department Name</th>
+                                        <th>Faculty Name</th>
                                         <th>Created At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>

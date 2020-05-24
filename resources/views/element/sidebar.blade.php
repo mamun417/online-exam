@@ -2,40 +2,43 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu nav-list" id="side-menu">
 
-            <li class="nav-header">
-                @auth
+            <li class="nav-header-custom">
                 <div class="dropdown profile-element">
-                    <span>
-                        <img alt="image" class="img-circle" src="{{ asset('admin/img/admin.png') }}" />
-                    </span>
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ ucfirst(Auth::user()->name) .' '. Auth::user()->last_name }}</strong>
-                        </span> <span class="text-muted text-xs block">{{ Auth::user()->role_id == 1 ? 'Administrator' : 'Student'}}<b class="caret"></b></span> </span>
-                    </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="{{ route('profile') }}"><i class="fa fa-user-circle"></i> Profile</a></li>
-                        @if(auth()->user()->role_id != 1)
-                            <li><a href="{{ route('user.renew') }}"><i class="fa fa-refresh"></i> Renew Subscription</a></li>
-                        @endif
-                        <li><a href="{{ route('password.change') }}"><i class="fa fa-key"></i> Change Password</a></li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fa fa-sign-out"></i> Log out
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
+                    <div style="margin-bottom: 30px;">
+                        <img alt="image" src="{{ asset('admin/img/logo.png') }}" width="166" />
+                    </div>
+
+                    @auth
+                        <span>
+                            <img alt="image" class="img-circle avater_logo" src="{{ asset('admin/img/admin.png') }}" />
+                        </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ ucfirst(Auth::user()->name) .' '. Auth::user()->last_name }}</strong>
+                            </span> <span class="text-muted text-xs block">{{ Auth::user()->role_id == 1 ? 'Administrator' : 'Student'}}<b class="caret"></b></span> </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="{{ route('profile') }}"><i class="fa fa-user-circle"></i> Profile</a></li>
+                            @if(auth()->user()->role_id != 1)
+                                <li><a href="{{ route('user.renew') }}"><i class="fa fa-refresh"></i> Renew Subscription</a></li>
+                            @endif
+                            <li><a href="{{ route('password.change') }}"><i class="fa fa-key"></i> Change Password</a></li>
+                            <li class="divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-sign-out"></i> Log out
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    @endauth
                 </div>
                 <div class="logo-element">
-                    IN+
+                    <img alt="image" src="{{ asset('admin/img/favicon.png') }}" width="28px" />
                 </div>
-                @endauth
             </li>
-
 
             @if(Auth::check() && Auth::user()->role_id == 1)
 
@@ -60,12 +63,16 @@
                  </li>
 
                  <li class="{{ Request::is('departments*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.departments.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Departments</span></a>
+                    <a href="{{ route('admin.departments.index') }}"><i style="font-size: 14px" class="fa fa-users"></i><span class="nav-label">Faculties</span></a>
                  </li>
 
                  <li class="{{ Request::is('subjects*') ? 'active' : '' }}">
                     <a href="{{ route('admin.subjects.index') }}"><i style="font-size: 14px" class="fa fa-book"></i><span class="nav-label">Subjects</span></a>
                  </li>
+
+                <li class="{{ Request::is('videos*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.videos.index') }}"><i style="font-size: 14px" class="fa fa-file-video-o"></i><span class="nav-label">Videos</span></a>
+                </li>
 
                 <li class="{{ Request::is('payments*') ? 'active' : '' }}">
                     <a href="{{ route('admin.payments.index') }}"><i style="font-size: 14px" class="fa fa-money"></i><span class="nav-label">Payments</span></a>
@@ -90,12 +97,24 @@
 
                 @if(Auth::check() and Auth::user()->account_type_id == 1)
                     <li class="{{ $current_controller == 'ExaminationController' ? 'active' : '' }}">
-                        <a href="{{ route('examination.prepare') }}"><i style="font-size: 18px" class="fa fa-thermometer-empty" aria-hidden="true"></i><span class="nav-label">Exam</span></a>
+                        <a href="{{ route('examination.prepare') }}"><i style="font-size: 18px" class="fa fa-user-md" aria-hidden="true"></i><span class="nav-label">Exam</span></a>
                     </li>
                 @endif
 
                 <li class="{{ Request::is('examination/top-scorer*') ? 'active' : '' }}">
                     <a href="{{ route('examination.topScorer') }}"><i style="font-size: 18px" class="fa fa-bookmark" aria-hidden="true"></i><span class="nav-label">Top Scorer</span></a>
+                </li>
+
+                <li class="{{ Request::is('libraries') ? 'active' : '' }}">
+                    <a href="{{ route('libraries.index') }}"><i style="font-size: 18px" class="fa fa-book" aria-hidden="true"></i><span class="nav-label">Library</span></a>
+                </li>
+
+                <li class="{{ Request::is('video*') ? 'active' : '' }}">
+                    <a href="{{ route('video.index') }}"><i style="font-size: 18px" class="fa fa-file-video-o" aria-hidden="true"></i><span class="nav-label">Videos</span></a>
+                </li>
+
+                <li class="{{ Request::is('routines') ? 'active' : '' }}">
+                    <a href="{{ route('routines.index') }}"><i style="font-size: 18px" class="fa fa-calendar" aria-hidden="true"></i><span class="nav-label">Routine</span></a>
                 </li>
             @endif
         </ul>

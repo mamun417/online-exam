@@ -51,6 +51,7 @@
                                     <tr>
                                         <th>Subject Name</th>
                                         <th>Subject Code</th>
+                                        <th>Faculty</th>
                                         <th>Created At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -60,6 +61,11 @@
                                         <tr>
                                             <td>{{ ucfirst($subject->name) }}</td>
                                             <td>{{ $subject->subject_code }}</td>
+                                            <td>
+                                                @foreach($subject->departments as $departmet)
+                                                    {{ $departmet->name }}{{ $loop->last ? '' : ',' }}
+                                                @endforeach
+                                            </td>
                                             <td>{{ date_format($subject->created_at, 'd-m-Y') }}</td>
                                             <td class="text-center">
 

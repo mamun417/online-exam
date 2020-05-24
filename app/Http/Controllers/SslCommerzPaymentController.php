@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Package;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -14,10 +15,10 @@ class SslCommerzPaymentController extends Controller
 {
     public function exampleHostedCheckout()
     {
-        return view('exampleHosted');
+        return view('payment');
     }
 
-    public function test(){
+    public function storePaymentTranId(){
         info(Session::get('payment_tran_id'));
 
         # Custom
@@ -32,7 +33,7 @@ class SslCommerzPaymentController extends Controller
     {
         $post_data['tran_id'] = Session::get('payment_tran_id') ?? uniqid(); // tran_id must be unique
 
-        $this->test();
+        $this->storePaymentTranId();
 
         //return redirect(url('http://facebook.com'));
 
@@ -40,8 +41,11 @@ class SslCommerzPaymentController extends Controller
         # Let's say, your oder transaction informations are saving in a table called "payments"
         # In "payments" table, order unique identity is "transaction_id". "status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
 
+        $package_price = Package::find(auth()->user()->package_id)->select('price')->first();
+
         $post_data = array();
-        $post_data['total_amount'] = '1000'; # You cant not pay less than 10
+        $price = config('app.mode') === 'test' ? 10 : $package_price['price'];
+        $post_data['total_amount'] = $price; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = Session::get('payment_tran_id') ?? uniqid(); // tran_id must be unique
 
@@ -70,7 +74,7 @@ class SslCommerzPaymentController extends Controller
         $post_data['ship_country'] = "Bangladesh";
 
         $post_data['shipping_method'] = "NO";
-        $post_data['product_name'] = "Medi Spark";
+        $post_data['product_name'] = "Med Mission";
         $post_data['product_category'] = "Payment";
         $post_data['product_profile'] = "payment";
 

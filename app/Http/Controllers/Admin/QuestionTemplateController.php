@@ -18,7 +18,7 @@ class QuestionTemplateController extends Controller
         $perPage = $request->perPage ?: 10;
         $keyword = $request->keyword;
 
-        $questionTemplates =  QuestionTemplate::with('department', 'subject', 'studentType');
+        $questionTemplates =  QuestionTemplate::with('department', 'subject');
 
         if($keyword){
 
@@ -29,9 +29,6 @@ class QuestionTemplateController extends Controller
                     $query->where('name', 'like', $keyword);
                 })
                 ->orWhereHas('subject', function ($query) use ($keyword) {
-                    $query->where('name', 'like', $keyword);
-                })
-                ->orWhereHas('studentType', function ($query) use ($keyword) {
                     $query->where('name', 'like', $keyword);
                 });
         }
@@ -45,9 +42,9 @@ class QuestionTemplateController extends Controller
     {
         $departments = Department::latest()->get();
         $subjects  = Subject::doesntHave('questionTemplates')->latest()->get();
-        $studentTypes = StudentType::latest()->get();
 
-        return view('admin.question-template.create', compact('departments', 'subjects', 'studentTypes'));
+
+        return view('admin.question-template.create', compact('departments', 'subjects'));
     }
 
     public function store(Request $request)
@@ -55,13 +52,13 @@ class QuestionTemplateController extends Controller
         $request->validate([
             'name'             => 'required',
             //'department_id'    => 'required',
-            'subject_id'       => 'required|unique:question_templates',
-            'student_type_id'  => 'required',
+            //'subject_id'       => 'required|unique:question_templates',
+            'subject_id'       => 'required',
             'total_questions'  => 'required',
             'total_marks'      => 'required'
-        ],[
-            'subject_id.unique' => 'This subject already has template.'
-        ]);
+        ]
+        //,['subject_id.unique' => 'This subject already has template.']
+        );
 
         QuestionTemplate::create($request->all());
 
@@ -70,24 +67,27 @@ class QuestionTemplateController extends Controller
 
     public function edit(QuestionTemplate $questionTemplate)
     {
-        $template_subject_id = $questionTemplate->subject->id;
+
+        //$template_subject_id = $questionTemplate->subject->id;
         $departments = Department::latest()->get();
         $studentTypes = StudentType::latest()->get();
+        $subjects = Subject::latest()->get();
 
-        $subjects = Subject::whereDoesntHave('questionTemplates', function ($q) use ($template_subject_id){
+        /*$subjects = Subject::whereDoesntHave('questionTemplates', function ($q) use ($template_subject_id){
             $q->where('subject_id', '!=', $template_subject_id);
-        })->latest()->get();
+        })->latest()->get();*/
 
         return view('admin.question-template.edit', compact('questionTemplate', 'departments', 'subjects', 'studentTypes'));
     }
 
     public function update(Request $request, QuestionTemplate $questionTemplate)
     {
-         $request->validate([
+        $request->validate([
             'name'             => 'required',
             //'department_id'    => 'required',
-            'subject_id'       => 'required|unique:question_templates,subject_id,'.$questionTemplate->id,
-            'student_type_id'  => 'required',
+            //'subject_id'       => 'required|unique:question_templates,subject_id,'.$questionTemplate->id,
+            'subject_id'       => 'required',
+            //'student_type_id'  => 'required',
             'total_questions'  => 'required',
             'total_marks'      => 'required'
         ]);

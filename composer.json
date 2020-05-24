@@ -13,7 +13,8 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+      "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",

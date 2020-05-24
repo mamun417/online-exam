@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="SSLCommerz">
-    <title>Payment - Medi Spark | SSLCommerz</title>
+    <title>Payment - Med Mission | SSLCommerz</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -31,7 +31,7 @@
 <body class="bg-light">
 <div class="container">
     <div class="text-center" style="margin-top: 5px">
-        <h2>Medi Spark</h2>
+        <h2>Med Mission</h2>
     </div>
 
     <div class="row">

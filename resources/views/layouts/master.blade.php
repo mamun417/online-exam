@@ -5,9 +5,10 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('admin/img/favicon.png') }}" sizes="192x192" />
+    <link rel="apple-touch-icon" href="{{ asset('admin/img/favicon.png') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>Medical-Spark</title>
+    <title>MedMission - First Medical Online Course Preparation Portal</title>
 
     <!--fontowsome-->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -15,7 +16,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
-   <!-- <link href="{{ asset('admin/font-awesome/css/font-awesome.css') }}" rel="stylesheet">-->
+    <link href="{{ asset('admin/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
 
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
@@ -43,6 +44,8 @@
 
     <!--summernote editor-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+
+    @stack('extra-links')
 
 </head>
 <body>

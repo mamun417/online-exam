@@ -1,5 +1,5 @@
 html, body{
-    background-color: #233646!important;
+    background-color: #002072!important;
     color: #000!important;
 }
 
@@ -110,10 +110,14 @@ div.dataTables_wrapper div.dataTables_paginate {
 .submit_btn_section{
     margin-top: 30px;
 }
-.profile-element img{
+.avater_logo{
     height: 48px;
     width: 48px;
 }
+/*.profile-element img{
+    height: 48px;
+    width: 48px;
+}*/
 .go_to_site {
     text-align: center;
     font-size: 13px;
@@ -248,4 +252,23 @@ th.trash-table.sorting_desc::after {
     background-color: #f5eeee;
     padding: 8px 8px;
     border-radius: 4px;
+}
+
+.nav-header-custom {
+    padding: 33px 25px;
+    /*background-color: #2f4050;
+    background-image: url("patterns/header-profile.png");*/
+}
+.nav-header-custom a {
+    color: #DFE4ED;
+}
+.nav > li > a, .text-muted {
+    color: white;
+}
+.navbar-default .nav > li > a:hover, .navbar-default .nav > li > a:focus {
+    background-color: #02174f!important;
+}
+.nav > li.active {
+    border-left: 4px solid #0048ff;
+    background: #02174f;
 }

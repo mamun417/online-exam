@@ -8,7 +8,7 @@
                 <option value="{{ $question_template->id }}">{{ $question_template->subject->name }}-{{ $question_template->name }}</option>
             @endforeach
         </select>
-        @error('subject_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
+        @error('question_template_id') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
     </div>
 
     <div class="form-group">
@@ -36,8 +36,8 @@
     </div>
 
     <div class="form-group">
-        <label>Notice</label>
-        <textarea name="notice" id="textarea2" class="form-control" rows="3">Your exam [[SUBJECT]] will be held on [[DATE-TIME]]. Please be prepared for your online exam.</textarea>
+        <label>Notice <span class="required-star"> *</span></label>
+        <textarea name="notice" id="textarea2" class="form-control" rows="3" placeholder="Your exam [[SUBJECT]] will be held on [[DATE-TIME]]. Please be prepared for your online exam."></textarea>
         @error('notice') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
     </div>
 

@@ -18,9 +18,11 @@ class ExaminationController extends Controller
         $user_id = Auth::user()->id;
         $current_date = date('Y-m-d H:i:00');
 
+        //dd($current_date);
+
         //check any exam already started
         $already_started_exam = ExamNotification::where('start_date', '<=', $current_date)
-            ->where('end_date', '>=', $current_date)->where('start_date', 'ASC')->first();
+            ->where('end_date', '>=', $current_date)->first();
 
         // check for examination already participate
         if($already_started_exam){
@@ -111,9 +113,19 @@ class ExaminationController extends Controller
         $generated_question_ids = $question_paper_info['generated_question_ids'];
 
         //generate question
-        $question = Question::WhereHas('template', function ($query) use ($subject_id) {
-            $query->where('subject_id', $subject_id);
-        })->whereNotIn('id', $generated_question_ids)->active()->inRandomOrder()->take(1)->first();
+        $user = auth()->user();
+        if($user->account_type_id==1) {
+            $question = Question::WhereHas('template', function ($query) use ($subject_id) {
+                $query->where('subject_id', $subject_id);
+            })->whereNotIn('id', $generated_question_ids)
+                ->active()->inRandomOrder()->take(1)->first();
+        }else{
+            $question = Question::WhereHas('template', function ($query) use ($subject_id) {
+                $query->where('subject_id', $subject_id);
+            })->whereNotIn('id', $generated_question_ids)
+                ->where('student_type_id','!=',3)
+                ->active()->inRandomOrder()->take(1)->first();
+        }
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);
@@ -121,29 +133,59 @@ class ExaminationController extends Controller
         Session::put('question_paper_info', $question_paper_info);
 
         $question_options = $question->options;
-        $correct_answers = $student_answer = [];
+        $true_correct_answers = $student_answer = [];
 
-        return view('frontend.question.question', compact('question', 'question_options', 'correct_answers', 'student_answer'));
+        return view('frontend.question.question', compact('question', 'question_options', 'true_correct_answers', 'student_answer'));
     }
 
     public function submitQuestion(Request $request)
     {
-        $request->validate([
-            'question_id' => 'required',
-            'options' => 'required'
-        ]);
+        if(isset($request->options)){
+            $request->validate([
+                'question_id' => 'required',
+                'options' => 'required'
+            ]);
+        }
 
         $question_paper_info = Session::get('question_paper_info');
         $examination = Examination::find($question_paper_info['examination_id']);
-        $student_answers = array_map('intval', $request->options);
 
         $answers = [];
-        foreach ($student_answers as $student_answer){
-            $answers[] = [
-                'question_id' => $request->question_id,
-                'option_id' => $student_answer,
-                'answer' => 1
-            ];
+
+        //Question type: multiple chose
+        if(isset($request->options)) {
+            $student_answers = array_map('intval', $request->options);
+
+            foreach ($student_answers as $student_answer) {
+                $answers[] = [
+                    'question_id' => $request->question_id,
+                    'option_id' => $student_answer,
+                    'answer' => 1
+                ];
+            }
+        }else{ //Question type: multiple chose boolean
+
+            if(isset($request->options_true)){
+                $student_answers_true = array_map('intval', $request->options_true);
+
+                foreach ($student_answers_true as $student_answer) {
+                    $answers[] = [
+                        'question_id' => $request->question_id,
+                        'option_id' => $student_answer,
+                        'answer' => 1
+                    ];
+                }
+            }
+            if(isset($request->options_false)) {
+                $student_answers_false = array_map('intval', $request->options_false);
+                foreach ($student_answers_false as $student_answer) {
+                    $answers[] = [
+                        'question_id' => $request->question_id,
+                        'option_id' => $student_answer,
+                        'answer' => 0
+                    ];
+                }
+            }
         }
 
         $examination->answers()->createMany($answers);

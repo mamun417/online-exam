@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Model\Department;
 use App\Model\Examination;
 use App\Model\Question;
 use App\Model\QuestionTemplate;
@@ -24,7 +25,10 @@ class PracticeController extends Controller
             return redirect()->route('practice.question');
         }*/
 
-        $subjects = Subject::has('questions')->get();
+        $department = Department::find(Auth::user()->department_id);
+
+        $subjects = $department->subjects()->has('questions')->get();
+
         return view('frontend.practice.select-subject', compact('subjects'));
     }
 
@@ -74,8 +78,17 @@ class PracticeController extends Controller
         $generated_question_ids = $question_paper_info['generated_question_ids'];
 
         //generate question
-        $question = Question::where('subject_id', $subject_id)
-            ->whereNotIn('id', $generated_question_ids)->active()->inRandomOrder()->take(1)->first();
+        $user = auth()->user();
+        if($user->account_type_id==1) {
+            $question = Question::where('subject_id', $subject_id)
+                ->whereNotIn('id', $generated_question_ids)
+                ->active()->inRandomOrder()->take(1)->first();
+        }else{
+            $question = Question::where('subject_id', $subject_id)
+                ->whereNotIn('id', $generated_question_ids)
+                ->where('student_type_id', '!=',3)
+                ->active()->inRandomOrder()->take(1)->first();
+        }
 
         //store question id to prevent generate same question
         array_push($question_paper_info['generated_question_ids'], $question->id);
@@ -83,29 +96,62 @@ class PracticeController extends Controller
         Session::put('question_paper_info', $question_paper_info);
 
         $question_options = $question->options;
-        $correct_answers = $student_answer = [];
+        $true_correct_answers = $student_answer = [];
 
-        return view('frontend.question.question', compact('question', 'question_options', 'correct_answers', 'student_answer'));
+        return view('frontend.question.question', compact('question', 'question_options', 'true_correct_answers', 'student_answer'));
     }
 
     public function submitQuestion(Request $request)
     {
-        $request->validate([
-            'question_id' => 'required',
-            'options' => 'required'
-        ]);
+        if(isset($request->options)){
+            $request->validate([
+                'question_id' => 'required',
+                'options' => 'required'
+            ]);
+        }
 
         $question_paper_info = Session::get('question_paper_info');
         $examination = Examination::find($question_paper_info['examination_id']);
-        $student_answers = array_map('intval', $request->options);
 
         $answers = [];
-        foreach ($student_answers as $student_answer){
-            $answers[] = [
-                'question_id' => $request->question_id,
-                'option_id' => $student_answer,
-                'answer' => 1
-            ];
+
+        //Question type: multiple chose
+        if(isset($request->options)) {
+            if(isset($request->options)) {
+                $student_answers = array_map('intval', $request->options);
+
+                foreach ($student_answers as $student_answer) {
+                    $answers[] = [
+                        'question_id' => $request->question_id,
+                        'option_id' => $student_answer,
+                        'answer' => 1
+                    ];
+                }
+            }
+        }else{ //Question type: multiple chose boolean
+
+            if(isset($request->options_true)) {
+                $student_answers_true = array_map('intval', $request->options_true);
+
+                foreach ($student_answers_true as $student_answer) {
+                    $answers[] = [
+                        'question_id' => $request->question_id,
+                        'option_id' => $student_answer,
+                        'answer' => 1
+                    ];
+                }
+            }
+
+            if(isset($request->options_false)) {
+                $student_answers_false = array_map('intval', $request->options_false);
+                foreach ($student_answers_false as $student_answer) {
+                    $answers[] = [
+                        'question_id' => $request->question_id,
+                        'option_id' => $student_answer,
+                        'answer' => 0
+                    ];
+                }
+            }
         }
 
         $examination->answers()->createMany($answers);
@@ -136,27 +182,68 @@ class PracticeController extends Controller
         foreach ($total_questions as $question){
 
             //get student answer
-            $student_answer = Examination::find($question_paper_info['examination_id'])
-                ->answers()->where('question_id', $question->id)
+            $true_student_answer = Examination::find($question_paper_info['examination_id'])
+                ->answers()->where('question_id', $question->id)->where('answer', 1)
                 ->pluck('option_id')->toArray();
 
+            $false_student_answer = Examination::find($question_paper_info['examination_id'])
+                ->answers()->where('question_id', $question->id)->where('answer', 0)
+                ->pluck('option_id')->toArray();
 
-            $question['student_answer'] = $student_answer;
+            $question['true_student_answer'] = $true_student_answer;
+            $question['false_student_answer'] = $false_student_answer;
+
+            \Log::debug('true_student_answer');
+            \Log::debug($true_student_answer);
+
+            \Log::debug('false_student_answer');
+            \Log::debug($false_student_answer);
+
 
             //get question correct answer
-            $correct_answers = [];
-            foreach ($question->correctAnswers as $answer){
-                $correct_answers[] = $answer->id;
+            $true_correct_answers = [];
+            $false_correct_answers = [];
+
+            foreach ($question->trueCorrectAnswers as $answer) {
+                $true_correct_answers[] = $answer->id;
             }
 
-            $question['original_answer'] = $correct_answers;
+            if($question->question_type_id == 2) {
+                foreach ($question->falseCorrectAnswers as $answer) {
+                    $false_correct_answers[] = $answer->id;
+                }
+            }
+
+            $question['true_correct_answers'] = $true_correct_answers;
+            $question['false_correct_answers'] = $false_correct_answers;
+
 
             //check two array contain same element or not to know student given answer right or wrong
-            sort($student_answer);
-            sort($correct_answers);
+            sort($true_student_answer);
+            sort($false_student_answer);
 
-            $student_answer == $correct_answers ? $right_answer++ : $wrong_answer++;
-            $question['is_correct_answer'] = $student_answer == $correct_answers;
+            sort($true_correct_answers);
+            sort($false_correct_answers);
+
+
+            if($question->question_type_id == 1) {
+                if($true_student_answer == $true_correct_answers ){
+                    $right_answer++;
+                    $question['is_correct_answer'] = true;
+                }else{
+                    $wrong_answer++;
+                    $question['is_correct_answer'] = false;
+                }
+            }else{
+                if($true_student_answer == $true_correct_answers &&
+                    $false_student_answer == $false_correct_answers){
+                    $right_answer++;
+                    $question['is_correct_answer'] = true;
+                }else{
+                    $wrong_answer++;
+                    $question['is_correct_answer'] = false;
+                }
+            }
         }
 
         $question_template = QuestionTemplate::where('subject_id', $question_paper_info['subject_id'])->get()->first();

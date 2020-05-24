@@ -86,14 +86,56 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group {{ $question->is_correct_answer ? '' : 'error_answer' }}">
                                                         <label class="m-b-sm" style="font-size: 14px"><b>{{ $i }}.</b> {{ $question->question }}</label>
-                                                        @foreach($question->options as $option)
-                                                            <div class="i-checks {{ in_array($option->id, $question->original_answer) ? 'text-primary' : (in_array($option->id, $question->student_answer) ? 'text-danger' : '') }}">
-                                                                <label>
-                                                                    <input {{ in_array($option->id, $question->student_answer) ? 'checked' : '' }} type="checkbox">
-                                                                    <i></i> {{ $option->option }}
-                                                                </label>
-                                                            </div>
-                                                        @endforeach
+                                                        @if($question->question_type_id == 1)
+                                                            @foreach($question->options as $option)
+                                                                <div class=" {{ in_array($option->id, $question->true_correct_answers) ? 'text-primary' : (in_array($option->id, $question->true_student_answer) ? 'text-danger' : '') }}">
+                                                                    <label>
+                                                                        <input {{ in_array($option->id, $question->true_student_answer) ? 'checked' : '' }} type="checkbox" disabled="true">
+                                                                        <i></i> {{ $option->option }}
+                                                                    </label>
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+
+                                                        @if($question->question_type_id == 2)
+                                                            <?php $i=1; ?>
+                                                            @foreach($question->options as $option)
+                                                                @if($i==1)
+                                                                    <div>True False</div>
+                                                                @endif
+
+                                                                <?php
+                                                                $option_class = '';
+                                                                $answer_is = '';
+
+                                                                if((in_array($option->id, $question->true_student_answer) && in_array($option->id, $question->true_correct_answers)) ||
+                                                                    (in_array($option->id, $question->false_student_answer) && in_array($option->id, $question->false_correct_answers)))
+                                                                {
+                                                                    $option_class = 'text-primary';
+                                                                }elseif(in_array($option->id, $question->true_student_answer) || in_array($option->id, $question->false_student_answer)){
+                                                                    $option_class = 'text-danger';
+                                                                }
+
+
+                                                                if($option_class!='text-primary'){
+                                                                    if(in_array($option->id, $question->true_correct_answers)){
+                                                                        $answer_is = '<span style="color:#a94442"> Ans:true</span>';
+                                                                    }elseif(in_array($option->id, $question->false_correct_answers)){
+                                                                        $answer_is = '<span style="color:#a94442"> Ans:false</span>';
+                                                                    }
+                                                                }
+
+                                                                ?>
+                                                                <div class="{{$option_class}}">
+                                                                    <label>
+                                                                        <input {{ !empty($question->true_student_answer) && in_array($option->id, $question->true_student_answer) ? 'checked' : '' }} type="checkbox" disabled="true"> &nbsp;&nbsp;&nbsp;
+                                                                        <input {{ !empty($question->false_student_answer) && in_array($option->id, $question->false_student_answer) ? 'checked' : '' }} type="checkbox" disabled="true"> &nbsp;&nbsp;&nbsp;
+                                                                        <i></i> {{ $option->option }} <?php echo $answer_is ?>
+                                                                    </label>
+                                                                </div>
+                                                            <?php $i++ ?>
+                                                            @endforeach
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 @php($i++)
