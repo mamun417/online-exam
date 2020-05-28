@@ -46,8 +46,7 @@ return [
     'google' => [
         'client_id' => '257002395849-oo4sv6g9m4idh7euijlemgs9v4jf2c5g.apps.googleusercontent.com',
         'client_secret' => 'hi6oPUNFxaozctFFQ8rVzMBX',
-        //'redirect' => 'http://glossybazar.com/demo/medi_spark/login/google/callback'
-        'redirect' => 'https://app.medmission.com.bd/login/google/callback'
+        'redirect' => config('app.env') === 'local' ? 'http://127.0.0.1:8000/login/google/callback' : 'https://app.medmission.com.bd/login/google/callback'
     ],
 
     /*'facebook' => [

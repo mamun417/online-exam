@@ -5,7 +5,7 @@
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('admin.subjects.index') }}">Notification</a>
+                    <a href="{{ route('admin.subjects.index') }}">Notice</a>
                 </li>
                 <li class="active">
                     <strong>Create</strong>
@@ -20,7 +20,7 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
-                        <h5>Create Notification</h5>
+                        <h5>Create Notice</h5>
                     </div>
 
                     <div class="ibox-content">

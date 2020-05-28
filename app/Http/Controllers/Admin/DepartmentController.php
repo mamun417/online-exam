@@ -87,4 +87,3 @@ class DepartmentController extends Controller
         return response()->json($new_departments);
     }
 }
-

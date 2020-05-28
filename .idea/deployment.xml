@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="demo-medical-spark">
+  <component name="PublishConfigData" serverName="live-med-mission">
     <serverData>
-      <paths name="demo-medical-spark">
+      <paths name="live-med-mission">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />

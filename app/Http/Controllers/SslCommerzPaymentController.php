@@ -140,7 +140,11 @@ class SslCommerzPaymentController extends Controller
                         'expire_date' => Carbon::createFromFormat('Y-m-d', $user_info->expire_date)->addMonths(12)->format('Y-m-d')
                     ]);
                 }else{
-                    DB::table('users')->where('id', Auth::id())->update(['account_type_id' => 1, 'is_paid' => 1]);
+                    DB::table('users')->where('id', Auth::id())
+                        ->update([
+                            'account_type_id' => 1,
+                            'is_paid' => 1
+                        ]);
                 }
 
                 Session::forget(['payment_tran_id', 'renew']);

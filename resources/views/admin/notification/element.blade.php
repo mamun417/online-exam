@@ -37,7 +37,7 @@
 
     <div class="form-group">
         <label>Notice <span class="required-star"> *</span></label>
-        <textarea name="notice" id="textarea2" class="form-control" rows="3" placeholder="Your exam [[SUBJECT]] will be held on [[DATE-TIME]]. Please be prepared for your online exam."></textarea>
+        <textarea name="notice" id="textarea2" class="form-control summernote"></textarea>
         @error('notice') <span class="help-block m-b-none text-danger">{{ $message }}</span> @enderror
     </div>
 
@@ -45,6 +45,10 @@
 
 @section('custom-js')
     <script>
+
+        $('.summernote').summernote({
+            placeholder: 'Your exam [[SUBJECT]] will be held on [[DATE-TIME]]. Please be prepared for your online exam.'
+        });
 
         $(function () {
             $('.expire_date').datetimepicker({

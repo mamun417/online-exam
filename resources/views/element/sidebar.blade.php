@@ -47,7 +47,7 @@
                  </li>
 
                  <li class="{{ Request::is('notifications*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.notifications.index') }}"><i style="font-size: 14px" class="fa fa-bell"></i><span class="nav-label">Notifications</span></a>
+                    <a href="{{ route('admin.notifications.index') }}"><i style="font-size: 14px" class="fa fa-bell"></i><span class="nav-label">Notice</span></a>
                  </li>
 
                  <li class="{{ Request::is('users*', 'user*') ? 'active' : '' }}">

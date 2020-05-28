@@ -2,12 +2,11 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="df492ea2-1fd5-47e9-9e63-e4143200d813" name="demo-medical-spark" url="http://www.glossybazar.com/">
-        <fileTransfer host="glossybazar.com" port="21" rootFolder="/www/demo/medi_spark">
+      <webServer id="9c6fd81f-8dcd-4559-afc8-1381e0c2d352" name="live-med-mission" url="http://app.medmission.com.bd">
+        <fileTransfer rootFolder="/app.medmission.com.bd" host="app.medmission.com.bd" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
-          <option name="port" value="21" />
         </fileTransfer>
       </webServer>
     </option>

@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Model\Department;
 use App\Model\Package;
+use App\Notifications\RegistrationSuccessNotification;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\View\View;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -99,5 +102,17 @@ class RegisterController extends Controller
             'expire_date'       => Carbon::today()->addMonths(12)->format('Y-m-d'),
             'is_paid'           => 0
         ]);
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param Request $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        $user->notify(new RegistrationSuccessNotification($user));
     }
 }

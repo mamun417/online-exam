@@ -93,6 +93,17 @@ Route::group(['middleware' => ['auth', 'checkUserStatus'], 'namespace' => 'Front
 //Admin routes.........
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'namespace' => 'Admin'], function(){
 
+    //Clear cache
+    Route::get('cache', function () {
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        \Illuminate\Support\Facades\Artisan::call('config:clear');
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+        \Illuminate\Support\Facades\Artisan::call('route:clear');
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+
+        echo 'Cache clear successful.';
+    });
+
     Route::get('home', function () {
         return view('home');
     });

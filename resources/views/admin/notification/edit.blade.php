@@ -6,7 +6,7 @@
         <div class="col-lg-8">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('admin.users.index') }}"> User </a>
+                    <a href="{{ route('admin.users.index') }}"> Notice </a>
                 </li>
                 <li class="active">
                     <strong>Edit</strong>
@@ -21,7 +21,7 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
-                        <h5>Update User</h5>
+                        <h5>Update Notice</h5>
                     </div>
 
                     <div class="ibox-content">

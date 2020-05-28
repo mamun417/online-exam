@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\RegistrationSuccessNotification;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -47,8 +50,8 @@ class LoginController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @return RedirectResponse|Redirector
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -69,6 +72,7 @@ class LoginController extends Controller
     /**
      * Redirect the user to the GitHub authentication page.
      *
+     * @param $provider
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function redirectToProvider($provider)
@@ -79,7 +83,8 @@ class LoginController extends Controller
     /**
      * Obtain the user information from GitHub.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @param $provider
+     * @return RedirectResponse
      */
     public function handleProviderCallback($provider)
     {
@@ -99,6 +104,8 @@ class LoginController extends Controller
                 'expire_date' => Carbon::today()->addMonths(12)->format('Y-m-d'),
                 'is_paid' => 0
             ]);
+
+            $user->notify(new RegistrationSuccessNotification($user));
         }
 
         Auth::login($user);
@@ -109,7 +116,12 @@ class LoginController extends Controller
     public function checkExitUser($provider, $email, $provider_id){
 
         if ($email){
-            $user = User::where(['email' => $email])->where('provider', $provider)->first();
+            $user = User::where('email', $email)->first();
+            if ($user) return $user;
+        }
+
+        if ($email){
+            $user = User::where('email', $email)->where('provider', $provider)->first();
             if ($user) return $user;
         }
 
@@ -122,8 +134,8 @@ class LoginController extends Controller
     /**
      * Log the user out of the application.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @return RedirectResponse|Redirector
      */
     public function logout(Request $request)
     {
