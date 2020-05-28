@@ -68,8 +68,9 @@
 @section('custom-js')
     <script>
         $('.modal').on('hidden.bs.modal', function (e) {
-            $('iframe').attr('src', $('iframe').attr('src'));
+            $(this).find('iframe').attr('src', $(this).find('iframe').attr('src'));
         })
     </script>
 @endsection
+
 

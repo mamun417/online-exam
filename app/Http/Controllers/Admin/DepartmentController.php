@@ -84,8 +84,7 @@ class DepartmentController extends Controller
             $new_departments[] = ['value' => $department->id, 'text' => $department->name];
         }
 
-        info($new_departments);
-
         return response()->json($new_departments);
     }
 }
+
