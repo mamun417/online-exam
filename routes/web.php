@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth', 'checkUserStatus'], 'namespace' => 'Front
 
     //Password
     Route::get('password-change', 'UserController@changePassword')->name('password.change');
-    Route::post('password-update', 'UserController@updatePassword')->name('password.update');
+    Route::post('password-update', 'UserController@updatePassword')->name('password.changed');
 
     Route::group(['middleware' => ['checkDepartment']], function() {
 

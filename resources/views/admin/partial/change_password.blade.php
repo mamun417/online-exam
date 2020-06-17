@@ -25,7 +25,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form class="form-horizontal" method="POST" action="{{ route('password.update') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('password.changed') }}">
                             @csrf
                              <div class="form-group">
 							    <label class="col-lg-2 control-label">Old Password<span class="required-star"> *</span></label>
