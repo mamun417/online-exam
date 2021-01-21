@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="live-med-mission">
+  <component name="PublishConfigData" serverName="live-med-mission" uploadOnCheckin="9c6fd81f-8dcd-4559-afc8-1381e0c2d352">
     <serverData>
       <paths name="live-med-mission">
         <serverdata>
@@ -10,5 +10,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="live-med-mission" />
   </component>
 </project>

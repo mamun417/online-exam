@@ -115,18 +115,15 @@ class LoginController extends Controller
 
     public function checkExitUser($provider, $email, $provider_id){
 
-        if ($email){
-            $user = User::where('email', $email)->first();
-            if ($user) return $user;
+        if ($email) {
+            if ($user = User::where('email', $email)->first()) {
+                return $user;
+            }
+        } else {
+            if ($user = User::where('provider_id', $provider_id)->where('provider', $provider)->first()) {
+                return $user;
+            }
         }
-
-        if ($email){
-            $user = User::where('email', $email)->where('provider', $provider)->first();
-            if ($user) return $user;
-        }
-
-        $user = User::where('provider_id', $provider_id)->where('provider', $provider)->first();
-        if ($user) return $user;
 
         return false;
     }
